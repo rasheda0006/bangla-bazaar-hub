@@ -75,8 +75,9 @@ function Index() {
               ))}
             </div>
           ) : categories.length ? (
-            <div className="no-scrollbar flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-6 md:overflow-visible">
-              {categories.map((c) => (
+            <>
+            <div className="grid grid-cols-4 gap-3 md:grid-cols-6 md:gap-4">
+              {categories.map((c, i) => (
                 <Link
                   key={c.id}
                   to="/shop"
