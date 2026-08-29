@@ -86,10 +86,7 @@ export function HeroSlider({
                 ) : null}
               </div>
               <div className="order-1 md:order-2">
-                <div
-                  className="aspect-video w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-soft md:mx-auto md:aspect-square"
-                  style={{ maxHeight: "var(--hero-h)" }}
-                >
+                <div className="mx-auto aspect-video w-full max-w-[calc(var(--hero-h)*16/9)] overflow-hidden rounded-2xl border border-border bg-muted shadow-soft md:ml-auto md:mr-0 md:aspect-square md:max-w-[var(--hero-h-lg)]">
                   <img
                     src={slide.image_url}
                     alt={slide.heading ?? "ব্যানার"}
