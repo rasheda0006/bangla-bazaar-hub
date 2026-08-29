@@ -112,7 +112,7 @@ export function HeroSlider({
                         <li key={p.id} className="flex items-start gap-1.5">
                           <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
                           <span className="text-[12px] leading-tight">
-                            <span className="font-semibold">{p.name}</span>
+                            <span className="font-semibold">{p.title}</span>
                             {p.short_description ? (
                               <span className="text-muted-foreground"> — {p.short_description}</span>
                             ) : null}
