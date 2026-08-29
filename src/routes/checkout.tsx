@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/lib/cart";
-import { db, useSettings } from "@/lib/data";
+import { useSettings } from "@/lib/data";
+import { placeOrder as submitOrder } from "@/lib/orders.functions";
 import { PAYMENT_METHODS, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
