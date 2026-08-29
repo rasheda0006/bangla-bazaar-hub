@@ -19,7 +19,7 @@ import {
 import { useCategories, useProducts } from "@/lib/data";
 import { taka, toBn } from "@/lib/format";
 
-type ShopSearch = { category?: string };
+type ShopSearch = { category?: string | undefined };
 
 export const Route = createFileRoute("/shop")({
   validateSearch: (search: Record<string, unknown>): ShopSearch => ({
