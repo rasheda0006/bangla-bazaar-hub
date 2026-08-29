@@ -36,14 +36,14 @@ export function HeroSlider({
 
   if (loading) {
     return (
-      <section className="container-page py-8 sm:py-12">
-        <div className="grid items-center gap-6 md:grid-cols-2">
-          <div className="space-y-4">
-            <Skeleton className="h-10 w-3/4" />
-            <Skeleton className="h-5 w-full" />
-            <Skeleton className="h-11 w-40 rounded-full" />
+      <section className="container-page py-5 sm:py-8">
+        <div className="grid items-center gap-5 md:grid-cols-2">
+          <div className="space-y-3">
+            <Skeleton className="h-8 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-10 w-36 rounded-full" />
           </div>
-          <Skeleton className="aspect-square w-full rounded-3xl" />
+          <Skeleton className="aspect-video w-full rounded-3xl md:aspect-[4/3]" />
         </div>
       </section>
     );
@@ -52,13 +52,13 @@ export function HeroSlider({
 
   return (
     <section style={heightStyle} className="bg-secondary/30">
-      <div className="container-page relative py-8 sm:py-12">
+      <div className="container-page relative py-5 sm:py-8">
         <div className="relative">
           {slides.map((slide, i) => (
             <div
               key={slide.id}
               className={cn(
-                "grid items-center gap-6 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-10",
+                "grid items-center gap-5 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-8",
                 i === index
                   ? "opacity-100"
                   : "pointer-events-none absolute inset-0 opacity-0",
