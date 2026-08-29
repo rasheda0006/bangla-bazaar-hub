@@ -28,7 +28,17 @@ export function SectionHeading({
           }
         />
       </div>
-      {action ? <div className="shrink-0 justify-self-center md:justify-self-end">{action}</div> : null}
+      {action ? (
+        <div
+          className={
+            align === "center"
+              ? "mt-4 shrink-0"
+              : "shrink-0 justify-self-center md:justify-self-end"
+          }
+        >
+          {action}
+        </div>
+      ) : null}
     </div>
   );
 }
