@@ -2,7 +2,7 @@ const BN_DIGITS = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮"
 
 /** ইংরেজি সংখ্যাকে বাংলা সংখ্যায় রূপান্তর */
 export function toBn(value: string | number): string {
-  return String(value).replace(/[0-9]/g, (d) => BN_DIGITS[Number(d)]);
+  return String(value).replace(/[0-9]/g, (d) => BN_DIGITS[Number(d)] ?? d);
 }
 
 /** টাকার অঙ্ক বাংলায় ফরম্যাট */
