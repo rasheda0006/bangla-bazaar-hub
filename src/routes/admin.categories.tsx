@@ -14,7 +14,7 @@ import { db, useCategories, type Category } from "@/lib/data";
 import { slugify, toBn } from "@/lib/format";
 
 export const Route = createFileRoute("/admin/categories")({
-  component: AdminCategories;
+  component: AdminCategories,
 });
 
 type Form = { id?: string; name: string; image_url: string; sort_order: number };
