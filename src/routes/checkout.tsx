@@ -100,8 +100,8 @@ function CheckoutPage() {
   if (done !== null) {
     return (
       <SiteLayout>
-        <div className="container-page py-20">
-          <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-8 text-center shadow-lift">
+        <div className="container-page py-12 sm:py-20">
+          <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-6 text-center shadow-lift sm:p-8">
             <CheckCircle2 className="mx-auto h-16 w-16 text-success" />
             <h1 className="mt-4 font-display text-2xl font-bold">অর্ডার সফল হয়েছে!</h1>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -122,8 +122,8 @@ function CheckoutPage() {
 
   return (
     <SiteLayout>
-      <div className="container-page py-10">
-        <h1 className="mb-8 text-center font-display text-3xl font-bold sm:text-4xl">চেকআউট</h1>
+      <div className="container-page py-6 sm:py-10">
+        <h1 className="mb-6 text-center font-display text-2xl font-bold sm:mb-8 sm:text-4xl">চেকআউট</h1>
 
         {items.length === 0 ? (
           <div className="mx-auto max-w-md rounded-2xl border border-dashed border-border bg-muted/40 py-16 text-center">
@@ -133,9 +133,9 @@ function CheckoutPage() {
             </Button>
           </div>
         ) : (
-          <form onSubmit={submit} className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
-            <div className="space-y-6">
-              <section className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+          <form onSubmit={submit} className="grid gap-5 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="space-y-5 sm:space-y-6">
+              <section className="rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
                 <h2 className="font-display text-lg font-bold">আপনার তথ্য</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
                   সব প্রোডাক্ট ডিজিটাল — কোনো ঠিকানা লাগবে না, অ্যাক্সেস ইমেইলে পাঠানো হবে।
@@ -170,16 +170,16 @@ function CheckoutPage() {
                 </div>
               </section>
 
-              <section className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+              <section className="rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
                 <h2 className="font-display text-lg font-bold">পেমেন্ট মাধ্যম</h2>
-                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
                   {enabled.map((m) => (
                     <button
                       key={m.value}
                       type="button"
                       onClick={() => setMethod(m.value)}
                       className={cn(
-                        "rounded-xl border-2 px-4 py-3 text-sm font-bold transition-all",
+                        "rounded-xl border-2 px-2 py-3 text-xs font-bold transition-all sm:px-4 sm:text-sm",
                         method === m.value
                           ? "border-primary bg-primary/5 text-primary"
                           : "border-border hover:border-primary/40",
@@ -196,7 +196,7 @@ function CheckoutPage() {
                     করুন
                   </p>
                   <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-                    <span className="min-w-0 truncate font-display text-xl font-extrabold tracking-wide">
+                    <span className="min-w-0 truncate font-display text-lg font-extrabold tracking-wide sm:text-xl">
                       {toBn(payNumber ?? "—")}
                     </span>
                     <Button
@@ -241,7 +241,7 @@ function CheckoutPage() {
             </div>
 
             <aside>
-              <div className="sticky top-24 rounded-2xl border border-border bg-card p-6 shadow-soft">
+              <div className="rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6 lg:sticky lg:top-24">
                 <h2 className="font-display text-lg font-bold">অর্ডার সামারি</h2>
                 <ul className="mt-4 space-y-3">
                   {items.map((i) => (
