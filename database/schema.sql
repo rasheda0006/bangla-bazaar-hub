@@ -353,7 +353,7 @@ insert into public.categories (name, slug, image_url, sort_order) values
 on conflict (slug) do nothing;
 
 insert into public.products (title, slug, short_description, description, price, discount_price, images, category_id, is_best_selling, is_suggested, rating, review_count)
-select p.title, p.slug, p.short_desc, p.descr, p.price, p.discount, p.imgs, c.id, p.best, p.sugg, p.rating, p.rc
+select p.title, p.slug, p.short_desc, p.descr, p.price::numeric, p.discount::numeric, p.imgs::text[], c.id, p.best::boolean, p.sugg::boolean, p.rating::numeric, p.rc::int
 from (values
   ('কম্পিউটারের প্রয়োজনীয় সব সফটওয়্যার', 'কম-প-উট-র-র-প-রয-জন-য-সব-সফটওয-য-র', 'কম্পিউটারের প্রয়োজনীয় সকল প্রয়োজনীয় সফটওয়্যার (Adobe, MS Office, Windows, Video Editing) এবং ৫০GB+ বোনাস গ্রাফিক্স ফাইল একসাথে পান এক প্যাকেই! অর্ডারের সাথে সাথেই ইমেইলে ড্রাইভ লিঙ্ক পাবেন।', 'আপনার কম্পিউটারের জন্য প্রয়োজনীয় সব প্রিমিয়াম সফটওয়্যার এখন পাচ্ছেন একটি সুপার বান্ডেল প্যাকেজে! আলাদা আলাদা সফটওয়্যার খোঁজার ঝামেলা ছাড়া মাত্র এক ক্লিকেই পেয়ে যাবেন ১০০% ওয়ার্কিং ও প্রয়োজনীয় সব টুলস।
 
