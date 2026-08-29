@@ -88,8 +88,8 @@ end $$;
 -- ================================================================= settings
 create table if not exists public.site_settings (
   id int primary key default 1,
-  site_name text not null default 'আমার দোকান',
-  site_tagline text not null default 'বাংলাদেশের সেরা অনলাইন শপ',
+  site_name text not null default 'আমার ডিজিটাল স্টোর',
+  site_tagline text not null default 'কোর্স, টুলস ও সাবস্ক্রিপশন — ইনস্ট্যান্ট ডিজিটাল ডেলিভারি',
   logo_url text,
   favicon_url text,
   phone text default '+8801700000000',
