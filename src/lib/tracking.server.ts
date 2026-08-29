@@ -26,16 +26,21 @@ export async function getCapiConfig(): Promise<CapiConfig> {
 
 const sha256 = (v: string) => createHash("sha256").update(v).digest("hex");
 
-export function hashUserData(input: { email?: string; phone?: string; fbp?: string; fbc?: string }) {
+export function hashUserData(input: {
+  email?: string | undefined;
+  phone?: string | undefined;
+  fbp?: string | undefined;
+  fbc?: string | undefined;
+}) {
   const user: Record<string, unknown> = {};
-  if (input.email) user.em = [sha256(input.email.trim().toLowerCase())];
+  if (input.email) user['em'] = [sha256(input.email.trim().toLowerCase())];
   if (input.phone) {
     const digits = input.phone.replace(/\D/g, "");
     const intl = digits.startsWith("880") ? digits : `88${digits.replace(/^0?/, "0")}`;
-    user.ph = [sha256(intl)];
+    user['ph'] = [sha256(intl)];
   }
-  if (input.fbp) user.fbp = input.fbp;
-  if (input.fbc) user.fbc = input.fbc;
+  if (input.fbp) user['fbp'] = input.fbp;
+  if (input.fbc) user['fbc'] = input.fbc;
   return user;
 }
 
@@ -45,10 +50,10 @@ export async function postCapi(args: {
   event: {
     event_name: string;
     event_id: string;
-    event_source_url?: string;
-    value?: number;
-    currency?: string;
-    contents?: { id: string; quantity: number }[];
+    event_source_url?: string | undefined;
+    value?: number | undefined;
+    currency?: string | undefined;
+    contents?: { id: string; quantity: number }[] | undefined;
   };
   user: Record<string, unknown>;
 }) {
@@ -74,7 +79,7 @@ export async function postCapi(args: {
       },
     ],
   };
-  if (config.testEventCode) body.test_event_code = config.testEventCode;
+  if (config.testEventCode) body['test_event_code'] = config.testEventCode;
 
   const res = await fetch(
     `https://graph.facebook.com/v20.0/${config.pixelId}/events?access_token=${encodeURIComponent(token)}`,
