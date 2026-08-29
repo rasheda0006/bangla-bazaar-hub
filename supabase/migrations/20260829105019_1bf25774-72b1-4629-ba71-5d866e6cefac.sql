@@ -1,0 +1,2 @@
+alter table public.site_settings add column if not exists hero_offer_image_url text not null default 'https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=800&q=80';
+update public.site_settings set hero_offer_image_url = 'https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=800&q=80' where id = 1 and coalesce(hero_offer_image_url,'') = '';

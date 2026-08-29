@@ -252,6 +252,7 @@ export type Database = {
           hero_height_desktop: number
           hero_height_mobile: number
           hero_max_width: number
+          hero_offer_image_url: string
           id: number
           instagram_url: string | null
           logo_url: string | null
@@ -293,6 +294,7 @@ export type Database = {
           hero_height_desktop?: number
           hero_height_mobile?: number
           hero_max_width?: number
+          hero_offer_image_url?: string
           id?: number
           instagram_url?: string | null
           logo_url?: string | null
@@ -334,6 +336,7 @@ export type Database = {
           hero_height_desktop?: number
           hero_height_mobile?: number
           hero_max_width?: number
+          hero_offer_image_url?: string
           id?: number
           instagram_url?: string | null
           logo_url?: string | null

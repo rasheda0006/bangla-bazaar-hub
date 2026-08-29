@@ -18,6 +18,7 @@ export function HeroSlider({
   bgFrom = "#4c1d95",
   bgTo = "#7c3aed",
   maxWidth = 980,
+  offerImageUrl,
 }: {
   slides: HeroSlide[];
   products?: Product[];
@@ -28,7 +29,9 @@ export function HeroSlider({
   bgFrom?: string;
   bgTo?: string;
   maxWidth?: number;
+  offerImageUrl?: string | null;
 }) {
+  const offerSrc = offerImageUrl?.trim() ? offerImageUrl : offerImage;
   const [index, setIndex] = useState(0);
   const total = slides.length;
   const highlights = products.slice(0, 2);
@@ -74,7 +77,7 @@ export function HeroSlider({
       <div className="container-page">
         <div
           style={sectionStyle}
-          className="mx-auto grid w-full max-w-[var(--hero-w)] gap-4 lg:grid-cols-[minmax(0,1fr)_clamp(200px,22%,300px)]"
+          className="grid w-full gap-4 lg:grid-cols-[minmax(0,var(--hero-w))_minmax(0,1fr)]"
         >
         <div
           style={sectionStyle}
@@ -169,7 +172,7 @@ export function HeroSlider({
 
         <aside className="hidden overflow-hidden rounded-xl border border-hero-border shadow-lift lg:block">
           <img
-            src={offerImage}
+            src={offerSrc}
             alt="বিশেষ অফার"
             loading="lazy"
             width={640}

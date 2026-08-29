@@ -125,6 +125,7 @@ create table if not exists public.site_settings (
   hero_bg_from text not null default '#4c1d95',
   hero_bg_to text not null default '#7c3aed',
   hero_max_width integer not null default 1180,
+  hero_offer_image_url text not null default 'https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=800&q=80',
   updated_at timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
 );
