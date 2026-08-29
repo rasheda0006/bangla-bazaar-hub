@@ -45,3 +45,28 @@ export const PAYMENT_METHODS = [
   { value: "nagad", label: "নগদ", color: "#f6921e" },
   { value: "rocket", label: "রকেট", color: "#8c3494" },
 ] as const;
+
+/** ইমেজ CDN অপ্টিমাইজেশন — সাপোর্টেড হোস্টে রিসাইজ/কমপ্রেস প্যারামিটার যোগ করে */
+export function cdnImage(url: string | null | undefined, width = 600): string {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    if (u.hostname.endsWith("unsplash.com")) {
+      u.searchParams.set("auto", "format");
+      u.searchParams.set("fit", "crop");
+      u.searchParams.set("w", String(width));
+      u.searchParams.set("q", "70");
+      return u.toString();
+    }
+    if (u.hostname.endsWith("supabase.co") && u.pathname.includes("/storage/v1/object/public/")) {
+      u.pathname = u.pathname.replace("/object/public/", "/render/image/public/");
+      u.searchParams.set("width", String(width));
+      u.searchParams.set("quality", "70");
+      u.searchParams.set("resize", "cover");
+      return u.toString();
+    }
+    return url;
+  } catch {
+    return url;
+  }
+}
