@@ -52,8 +52,12 @@ function Index() {
         <HeroSlider
           slides={activeSlides}
           loading={slidesLoading}
-          heightMobile={settings?.hero_height_mobile ?? 240}
-          heightDesktop={settings?.hero_height_desktop ?? 380}
+          heightMobile={settings?.hero_height_mobile ?? 200}
+          heightDesktop={settings?.hero_height_desktop ?? 300}
+          bgStyle={settings?.hero_bg_style ?? "gradient"}
+          bgFrom={settings?.hero_bg_from ?? "#e9f7ef"}
+          bgTo={settings?.hero_bg_to ?? "#ffffff"}
+          maxWidth={settings?.hero_max_width ?? 1200}
         />
       ) : null}
 
