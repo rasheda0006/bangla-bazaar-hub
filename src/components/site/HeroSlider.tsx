@@ -18,6 +18,7 @@ export function HeroSlider({
   bgFrom = "#4c1d95",
   bgTo = "#7c3aed",
   maxWidth = 980,
+  offerImageUrl,
 }: {
   slides: HeroSlide[];
   products?: Product[];
@@ -28,7 +29,9 @@ export function HeroSlider({
   bgFrom?: string;
   bgTo?: string;
   maxWidth?: number;
+  offerImageUrl?: string | null;
 }) {
+  const offerSrc = offerImageUrl?.trim() ? offerImageUrl : offerImage;
   const [index, setIndex] = useState(0);
   const total = slides.length;
   const highlights = products.slice(0, 2);
