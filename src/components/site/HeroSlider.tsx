@@ -77,7 +77,7 @@ export function HeroSlider({
       <div className="container-page">
         <div
           style={sectionStyle}
-          className="mx-auto grid w-full max-w-[var(--hero-w)] gap-4 lg:grid-cols-[minmax(0,1fr)_clamp(200px,22%,300px)]"
+          className="grid w-full gap-4 lg:grid-cols-[minmax(0,var(--hero-w))_minmax(0,1fr)]"
         >
         <div
           style={sectionStyle}
