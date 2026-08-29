@@ -330,53 +330,53 @@ create policy "অ্যাডমিন মিডিয়া ডিলিট" o
 insert into public.site_settings (id) values (1) on conflict (id) do nothing;
 
 insert into public.categories (name, slug, image_url, sort_order) values
-  ('ইলেকট্রনিক্স', 'electronics', 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600&q=80', 1),
-  ('ফ্যাশন', 'fashion', 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80', 2),
-  ('হোম ও কিচেন', 'home-kitchen', 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=600&q=80', 3),
-  ('বিউটি', 'beauty', 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80', 4),
-  ('বই', 'books', 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&q=80', 5),
-  ('খেলাধুলা', 'sports', 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80', 6)
+  ('অনলাইন কোর্স', 'courses', 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80', 1),
+  ('সফটওয়্যার ও টুলস', 'tools', 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80', 2),
+  ('সাবস্ক্রিপশন', 'subscriptions', 'https://images.unsplash.com/photo-1611262588024-d12430b98920?w=600&q=80', 3),
+  ('ই-বুক', 'ebooks', 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&q=80', 4),
+  ('ডিজিটাল টেমপ্লেট', 'templates', 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80', 5),
+  ('গ্রাফিক্স অ্যাসেট', 'graphics', 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80', 6)
 on conflict (slug) do nothing;
 
 insert into public.products (title, slug, short_description, description, price, discount_price, images, category_id, is_best_selling, is_suggested, rating, review_count)
 select p.title, p.slug, p.short_desc, p.descr, p.price, p.discount, p.imgs, c.id, p.best, p.sugg, p.rating, p.rc
 from (values
-  ('ওয়্যারলেস ব্লুটুথ হেডফোন', 'wireless-bluetooth-headphone', 'নয়েজ ক্যান্সেলিং সহ প্রিমিয়াম সাউন্ড', 'দীর্ঘ ৩০ ঘণ্টা ব্যাটারি ব্যাকআপ, অ্যাক্টিভ নয়েজ ক্যান্সেলিং এবং আরামদায়ক ইয়ার কুশন সহ প্রিমিয়াম ওয়্যারলেস হেডফোন।', 3500, 2790, array['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80'], 'electronics', true, true, 4.7, 128),
-  ('স্মার্ট ওয়াচ প্রো', 'smart-watch-pro', 'হার্ট রেট ও স্টেপ ট্র্যাকিং', 'AMOLED ডিসপ্লে, হার্ট রেট মনিটর, SpO2, ৭ দিনের ব্যাটারি এবং IP68 ওয়াটার রেজিস্ট্যান্স।', 4500, 3299, array['https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80'], 'electronics', true, false, 4.5, 86),
-  ('কটন পাঞ্জাবি', 'cotton-panjabi', 'আরামদায়ক দেশি কটন', 'খাঁটি কটন কাপড়ে তৈরি, ঈদ ও উৎসবের জন্য পারফেক্ট পাঞ্জাবি। সব সাইজ উপলব্ধ।', 1800, 1350, array['https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80'], 'fashion', true, true, 4.8, 210),
-  ('লেদার ব্যাকপ্যাক', 'leather-backpack', 'ল্যাপটপ কম্পার্টমেন্ট সহ', 'প্রিমিয়াম লেদার ফিনিশ, ১৫.৬ ইঞ্চি ল্যাপটপ কম্পার্টমেন্ট ও ওয়াটার রেজিস্ট্যান্ট।', 2900, null, array['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80'], 'fashion', false, true, 4.4, 54),
-  ('নন-স্টিক ফ্রাই প্যান', 'non-stick-fry-pan', 'তেল কম লাগে', 'উন্নত মানের নন-স্টিক কোটিং, গ্যাস ও ইন্ডাকশন উভয় চুলায় ব্যবহারযোগ্য।', 1200, 899, array['https://images.unsplash.com/photo-1584990347449-a2d4c2c9ec2c?w=800&q=80'], 'home-kitchen', false, false, 4.2, 33),
-  ('ইলেকট্রিক কেটলি', 'electric-kettle', '১.৮ লিটার ফাস্ট বয়েল', 'স্টেইনলেস স্টিল বডি, অটো শাট-অফ ও ওভারহিট প্রোটেকশন সহ ইলেকট্রিক কেটলি।', 1500, 1150, array['https://images.unsplash.com/photo-1594213114663-d94db9b17125?w=800&q=80'], 'home-kitchen', true, true, 4.6, 71),
-  ('ভিটামিন সি ফেস সিরাম', 'vitamin-c-serum', 'উজ্জ্বল ও দাগমুক্ত ত্বক', '২০% ভিটামিন সি, হায়ালুরনিক অ্যাসিড সমৃদ্ধ ফেস সিরাম — সব ধরনের ত্বকের জন্য।', 950, 720, array['https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&q=80'], 'beauty', false, true, 4.3, 96),
-  ('হিমু সমগ্র', 'himu-somogro', 'হুমায়ূন আহমেদ', 'হুমায়ূন আহমেদের জনপ্রিয় হিমু সিরিজের সম্পূর্ণ সংকলন, হার্ডকভার সংস্করণ।', 1100, 850, array['https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&q=80'], 'books', true, true, 4.9, 341),
-  ('যোগা ম্যাট প্রিমিয়াম', 'yoga-mat-premium', 'নন-স্লিপ ৬ মিমি', 'পুরু ৬ মিমি নন-স্লিপ যোগা ম্যাট, ক্যারি স্ট্র্যাপ সহ।', 1400, 1050, array['https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=800&q=80'], 'sports', false, false, 4.1, 27),
-  ('পোর্টেবল পাওয়ার ব্যাংক ২০০০০mAh', 'power-bank-20000', 'ফাস্ট চার্জিং সাপোর্ট', '২০০০০mAh ক্যাপাসিটি, ডুয়াল USB আউটপুট ও Type-C ফাস্ট চার্জিং।', 2200, 1690, array['https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80'], 'electronics', true, true, 4.5, 152),
-  ('ডেনিম জ্যাকেট', 'denim-jacket', 'ক্লাসিক ব্লু ওয়াশ', 'ট্রেন্ডি ক্লাসিক ব্লু ডেনিম জ্যাকেট, সব সিজনের জন্য উপযোগী।', 2600, 1990, array['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80'], 'fashion', false, true, 4.4, 63),
-  ('সিরামিক কফি মগ সেট', 'ceramic-mug-set', '৪ পিসের সেট', 'হাতে আঁকা ডিজাইনের ৪ পিস সিরামিক কফি মগ সেট, মাইক্রোওয়েভ সেফ।', 900, 650, array['https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&q=80'], 'home-kitchen', false, false, 4.0, 19)
+  ('ফুল স্ট্যাক ওয়েব ডেভেলপমেন্ট কোর্স', 'full-stack-course', 'বাংলায় ৮০+ ঘণ্টার ভিডিও কোর্স', 'HTML, CSS, JavaScript, React ও Node.js — শূন্য থেকে প্রফেশনাল লেভেল পর্যন্ত বাংলায় সম্পূর্ণ গাইডলাইন। লাইফটাইম অ্যাক্সেস ও সার্টিফিকেট।', 5500, 3499, array['https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&q=80'], 'courses', true, true, 4.8, 214),
+  ('ডিজিটাল মার্কেটিং মাস্টারক্লাস', 'digital-marketing-course', 'ফেসবুক ও গুগল অ্যাডস প্র্যাকটিক্যাল', 'ফেসবুক অ্যাডস, গুগল অ্যাডস, SEO ও কনটেন্ট মার্কেটিং — রিয়েল ক্যাম্পেইন কেস স্টাডিসহ সম্পূর্ণ কোর্স।', 4000, 2490, array['https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80'], 'courses', true, false, 4.6, 132),
+  ('গ্রাফিক ডিজাইন ফাউন্ডেশন কোর্স', 'graphic-design-course', 'ফটোশপ ও ইলাস্ট্রেটর বেসিক টু প্রো', 'ফটোশপ, ইলাস্ট্রেটর ও ফিগমা দিয়ে প্রফেশনাল ডিজাইন শেখার সম্পূর্ণ বাংলা কোর্স, প্রজেক্ট ফাইলসহ।', 3500, 1990, array['https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80'], 'courses', false, true, 4.5, 88),
+  ('প্রিমিয়াম SEO টুল লাইসেন্স (১ বছর)', 'seo-tool-license', 'কীওয়ার্ড ও র‍্যাংক ট্র্যাকিং', 'আনলিমিটেড কীওয়ার্ড রিসার্চ, ব্যাকলিংক অডিট ও র‍্যাংক ট্র্যাকিং — ১ বছরের অফিসিয়াল লাইসেন্স কী।', 6000, 4500, array['https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80'], 'tools', true, true, 4.4, 61),
+  ('AI কনটেন্ট রাইটিং টুল (লাইফটাইম)', 'ai-writing-tool', 'বাংলা ও ইংরেজি কনটেন্ট জেনারেটর', 'ব্লগ, অ্যাড কপি ও প্রোডাক্ট ডেসক্রিপশন লেখার AI টুল — লাইফটাইম অ্যাক্সেস, ইনস্ট্যান্ট অ্যাক্টিভেশন।', 4500, 2990, array['https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80'], 'tools', true, true, 4.7, 143),
+  ('ভিডিও এডিটিং প্রিসেট প্যাক', 'video-preset-pack', '২০০+ প্রিমিয়াম প্রিসেট', 'Premiere Pro ও CapCut এর জন্য ২০০+ ট্রানজিশন, LUT ও টাইটেল প্রিসেট — ইনস্ট্যান্ট ডাউনলোড।', 2000, 1290, array['https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80'], 'tools', false, false, 4.2, 37),
+  ('প্রিমিয়াম মিউজিক সাবস্ক্রিপশন (১২ মাস)', 'music-subscription-12m', 'অ্যাড-ফ্রি আনলিমিটেড', '১২ মাসের প্রিমিয়াম মিউজিক সাবস্ক্রিপশন — অ্যাড-ফ্রি, অফলাইন ডাউনলোড ও হাই কোয়ালিটি অডিও।', 3600, 2400, array['https://images.unsplash.com/photo-1611339555312-e607c8352fd7?w=800&q=80'], 'subscriptions', true, true, 4.5, 176),
+  ('ক্লাউড স্টোরেজ প্ল্যান ২TB (১ বছর)', 'cloud-storage-2tb', 'সিকিউর অনলাইন ব্যাকআপ', '২TB ক্লাউড স্টোরেজ, অটো ব্যাকআপ ও ফাইল শেয়ারিং — ১ বছরের অ্যাক্টিভেশন কোড ইমেইলে পাঠানো হবে।', 5000, 3600, array['https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80'], 'subscriptions', false, true, 4.3, 52),
+  ('ফ্রিল্যান্সিং গাইড ই-বুক', 'freelancing-ebook', 'আপওয়ার্ক ও ফাইভার স্ট্র্যাটেজি', 'বাংলাদেশ থেকে ফ্রিল্যান্সিং শুরু করার সম্পূর্ণ রোডম্যাপ, প্রপোজাল টেমপ্লেট ও পেমেন্ট গাইডসহ PDF ই-বুক।', 800, 450, array['https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&q=80'], 'ebooks', true, true, 4.9, 298),
+  ('স্টক মার্কেট বেসিক ই-বুক', 'stock-market-ebook', 'বিগিনারদের জন্য বাংলা গাইড', 'শেয়ারবাজারের বেসিক, টেকনিক্যাল অ্যানালাইসিস ও রিস্ক ম্যানেজমেন্ট নিয়ে সহজ বাংলায় লেখা ই-বুক।', 700, 390, array['https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80'], 'ebooks', false, false, 4.1, 44),
+  ('বিজনেস ওয়েবসাইট টেমপ্লেট প্যাক', 'business-template-pack', '১০টি রেসপন্সিভ টেমপ্লেট', 'HTML ও ফিগমা ফরম্যাটে ১০টি রেসপন্সিভ বিজনেস ওয়েবসাইট টেমপ্লেট — সোর্স ফাইলসহ ইনস্ট্যান্ট ডাউনলোড।', 2500, 1690, array['https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80'], 'templates', true, true, 4.6, 97),
+  ('সোশ্যাল মিডিয়া গ্রাফিক্স বান্ডেল', 'social-graphics-bundle', '৫০০+ এডিটেবল ডিজাইন', 'ফেসবুক, ইনস্টাগ্রাম ও ইউটিউবের জন্য ৫০০+ এডিটেবল ক্যানভা ও PSD ডিজাইন টেমপ্লেট বান্ডেল।', 1800, 990, array['https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&q=80'], 'graphics', false, true, 4.4, 73)
 ) as p(title, slug, short_desc, descr, price, discount, imgs, cat_slug, best, sugg, rating, rc)
 join public.categories c on c.slug = p.cat_slug
 on conflict (slug) do nothing;
 
 insert into public.hero_slides (image_url, heading, subheading, cta_text, cta_link, sort_order) values
-  ('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80', 'ঈদ মেগা সেল ২০২৬', 'সব পণ্যে ৫০% পর্যন্ত ছাড় — সীমিত সময়ের অফার', 'এখনই কিনুন', '/shop', 1),
-  ('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80', 'নতুন কালেকশন এসেছে', 'ট্রেন্ডি ফ্যাশন ও ইলেকট্রনিক্স একসাথে', 'কালেকশন দেখুন', '/shop', 2),
-  ('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80', 'সারা দেশে ফ্রি ডেলিভারি', '১০০০ টাকার উপরে অর্ডারে ডেলিভারি চার্জ ফ্রি', 'অর্ডার করুন', '/shop', 3)
+  ('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80', 'ডিজিটাল প্রোডাক্ট মেগা সেল', 'কোর্স, টুলস ও সাবস্ক্রিপশনে ৫০% পর্যন্ত ছাড়', 'এখনই কিনুন', '/shop', 1),
+  ('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80', 'নতুন কোর্স ও টুলস এসেছে', 'বাংলায় প্রিমিয়াম কোর্স আর প্রফেশনাল সফটওয়্যার একসাথে', 'কালেকশন দেখুন', '/shop', 2),
+  ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80', 'ইনস্ট্যান্ট ডিজিটাল ডেলিভারি', 'পেমেন্ট ভেরিফাই হলেই ইমেইলে অ্যাক্সেস পেয়ে যাবেন', 'অর্ডার করুন', '/shop', 3)
 on conflict do nothing;
 
 insert into public.testimonials (name, avatar_url, rating, comment, sort_order) values
-  ('রাফিয়া ইসলাম', 'https://i.pravatar.cc/150?img=47', 5, 'খুব দ্রুত ডেলিভারি পেয়েছি, প্রোডাক্টের কোয়ালিটিও দারুণ। আবারও কিনব ইনশাআল্লাহ।', 1),
-  ('তানভীর হাসান', 'https://i.pravatar.cc/150?img=12', 5, 'দাম অনুযায়ী প্রোডাক্ট অসাধারণ। কাস্টমার সাপোর্ট খুবই আন্তরিক ছিল।', 2),
-  ('নুসরাত জাহান', 'https://i.pravatar.cc/150?img=32', 4, 'অর্ডার করার পরদিনই পেয়ে গেছি। প্যাকেজিং খুব সুন্দর ছিল।', 3)
+  ('রাফিয়া ইসলাম', 'https://i.pravatar.cc/150?img=47', 5, 'পেমেন্টের কিছুক্ষণের মধ্যেই কোর্সের অ্যাক্সেস ইমেইলে পেয়ে গেছি। কনটেন্ট অসাধারণ।', 1),
+  ('তানভীর হাসান', 'https://i.pravatar.cc/150?img=12', 5, 'টুলের লাইসেন্স কী ঠিকঠাক কাজ করছে, দামও অনেক কম পেয়েছি।', 2),
+  ('নুসরাত জাহান', 'https://i.pravatar.cc/150?img=32', 4, 'ই-বুকটা খুব কাজে দিয়েছে, ডাউনলোড লিংক সাথে সাথেই পেয়েছি।', 3)
 on conflict do nothing;
 
 insert into public.reviews (product_id, name, avatar_url, rating, comment)
 select p.id, v.name, v.avatar, v.rating, v.comment
 from public.products p
 cross join (values
-  ('সাকিব আহমেদ', 'https://i.pravatar.cc/150?img=5', 5, 'দারুণ প্রোডাক্ট, রিকমেন্ড করছি।'),
-  ('মিতু আক্তার', 'https://i.pravatar.cc/150?img=25', 4, 'ভালো মানের, তবে ডেলিভারি একটু দেরি হয়েছে।')
+  ('সাকিব আহমেদ', 'https://i.pravatar.cc/150?img=5', 5, 'দারুণ ডিজিটাল প্রোডাক্ট, রিকমেন্ড করছি।'),
+  ('মিতু আক্তার', 'https://i.pravatar.cc/150?img=25', 4, 'কনটেন্ট ভালো, অ্যাক্সেস পেতে অল্প সময় লেগেছে।')
 ) as v(name, avatar, rating, comment)
-where p.slug in ('wireless-bluetooth-headphone', 'cotton-panjabi', 'himu-somogro');
+where p.slug in ('full-stack-course', 'ai-writing-tool', 'freelancing-ebook');
 
 -- ============================================================================
 -- ফাংশন পারমিশন হার্ডেনিং
