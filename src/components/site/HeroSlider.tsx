@@ -172,7 +172,7 @@ export function HeroSlider({
 
         <aside className="hidden overflow-hidden rounded-xl border border-hero-border shadow-lift lg:block">
           <img
-            src={offerImage}
+            src={offerSrc}
             alt="বিশেষ অফার"
             loading="lazy"
             width={640}
