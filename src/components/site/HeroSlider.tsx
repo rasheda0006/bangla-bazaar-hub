@@ -60,7 +60,7 @@ export function HeroSlider({
             <div
               key={slide.id}
               className={cn(
-                "grid items-center gap-6 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-10",
+                "grid items-center gap-5 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-8",
                 i === index
                   ? "opacity-100"
                   : "pointer-events-none absolute inset-0 opacity-0",
