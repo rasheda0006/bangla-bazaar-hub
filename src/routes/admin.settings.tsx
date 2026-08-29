@@ -151,8 +151,8 @@ function AdminSettings() {
                 <Input
                   type="number"
                   min={120}
-                  max={800}
-                  value={form.hero_height_mobile ?? 240}
+                  max={600}
+                  value={form.hero_height_mobile ?? 200}
                   onChange={(e) => set("hero_height_mobile", Number(e.target.value) || 0)}
                 />
               </div>
@@ -161,10 +161,61 @@ function AdminSettings() {
                 <Input
                   type="number"
                   min={160}
-                  max={1000}
-                  value={form.hero_height_desktop ?? 380}
+                  max={700}
+                  value={form.hero_height_desktop ?? 300}
                   onChange={(e) => set("hero_height_desktop", Number(e.target.value) || 0)}
                 />
+              </div>
+              <div className="space-y-1.5">
+                <Label>হিরো সর্বোচ্চ প্রস্থ (px)</Label>
+                <Input
+                  type="number"
+                  min={640}
+                  max={1600}
+                  value={form.hero_max_width ?? 1200}
+                  onChange={(e) => set("hero_max_width", Number(e.target.value) || 0)}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label>হিরো ব্যাকগ্রাউন্ড ধরন</Label>
+                <select
+                  value={form.hero_bg_style ?? "gradient"}
+                  onChange={(e) => set("hero_bg_style", e.target.value)}
+                  className="h-9 w-full rounded-md border border-border bg-background px-3 text-sm"
+                >
+                  <option value="gradient">গ্রেডিয়েন্ট</option>
+                  <option value="solid">সলিড কালার</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <Label>হিরো ব্যাকগ্রাউন্ড কালার ১</Label>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+                  <Input
+                    value={form.hero_bg_from ?? "#e9f7ef"}
+                    onChange={(e) => set("hero_bg_from", e.target.value)}
+                  />
+                  <input
+                    type="color"
+                    value={form.hero_bg_from ?? "#e9f7ef"}
+                    onChange={(e) => set("hero_bg_from", e.target.value)}
+                    className="h-9 w-12 shrink-0 rounded-md border border-border"
+                  />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label>হিরো ব্যাকগ্রাউন্ড কালার ২ (গ্রেডিয়েন্ট)</Label>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+                  <Input
+                    value={form.hero_bg_to ?? "#ffffff"}
+                    onChange={(e) => set("hero_bg_to", e.target.value)}
+                  />
+                  <input
+                    type="color"
+                    value={form.hero_bg_to ?? "#ffffff"}
+                    onChange={(e) => set("hero_bg_to", e.target.value)}
+                    className="h-9 w-12 shrink-0 rounded-md border border-border"
+                  />
+                </div>
               </div>
             </div>
           </AdminCard>
