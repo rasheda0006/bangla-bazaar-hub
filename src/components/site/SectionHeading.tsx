@@ -13,7 +13,7 @@ export function SectionHeading({
     <div
       className={
         align === "center"
-          ? "mx-auto mb-6 max-w-2xl text-center"
+          ? "mx-auto mb-6 flex max-w-2xl flex-col items-center text-center"
           : "mb-6 grid gap-3 text-center md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:gap-4 md:text-left"
       }
     >
