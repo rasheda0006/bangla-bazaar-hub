@@ -10,9 +10,9 @@ export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
       { title: "আপনার কার্ট | আমার দোকান" },
-      { name: "description", content: "কার্টে থাকা পণ্যগুলো দেখুন, পরিমাণ বদলান ও চেকআউট করুন।" },
+      { name: "description", content: "কার্টে থাকা ডিজিটাল প্রোডাক্ট দেখুন, পরিমাণ বদলান ও চেকআউট করুন।" },
       { property: "og:title", content: "আপনার কার্ট | আমার দোকান" },
-      { property: "og:description", content: "কার্টের পণ্য দেখে চেকআউট সম্পন্ন করুন।" },
+      { property: "og:description", content: "কার্টের ডিজিটাল প্রোডাক্ট দেখে চেকআউট সম্পন্ন করুন।" },
     ],
   }),
   component: CartPage,
@@ -35,7 +35,7 @@ function CartPage() {
             </span>
             <h2 className="mt-5 font-display text-xl font-bold">আপনার কার্ট খালি</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              পছন্দের পণ্য যোগ করে কেনাকাটা শুরু করুন
+              পছন্দের ডিজিটাল প্রোডাক্ট যোগ করে কেনাকাটা শুরু করুন
             </p>
             <Button asChild className="mt-6 rounded-full px-8">
               <Link to="/shop">কেনাকাটা শুরু করুন</Link>
@@ -95,8 +95,8 @@ function CartPage() {
                     <dd className="font-semibold">{taka(subtotal)}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-muted-foreground">ডেলিভারি চার্জ</dt>
-                    <dd className="font-semibold text-success">ফ্রি</dd>
+                    <dt className="text-muted-foreground">ডিজিটাল ডেলিভারি</dt>
+                    <dd className="font-semibold text-success">ইনস্ট্যান্ট • ফ্রি</dd>
                   </div>
                   <div className="flex justify-between border-t border-border pt-3 text-base">
                     <dt className="font-bold">সর্বমোট</dt>

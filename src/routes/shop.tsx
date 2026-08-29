@@ -27,13 +27,13 @@ export const Route = createFileRoute("/shop")({
   }),
   head: () => ({
     meta: [
-      { title: "শপ — সব পণ্য | আমার দোকান" },
+      { title: "শপ — সব ডিজিটাল প্রোডাক্ট | আমার ডিজিটাল স্টোর" },
       {
         name: "description",
-        content: "দাম ও ক্যাটাগরি অনুযায়ী ফিল্টার করে আমাদের সব পণ্য দেখুন এবং অর্ডার করুন।",
+        content: "দাম ও ক্যাটাগরি অনুযায়ী ফিল্টার করে কোর্স, টুলস, সাবস্ক্রিপশন ও ই-বুক দেখুন এবং অর্ডার করুন।",
       },
-      { property: "og:title", content: "শপ — সব পণ্য | আমার দোকান" },
-      { property: "og:description", content: "দাম ও ক্যাটাগরি অনুযায়ী ফিল্টার করে পণ্য কিনুন।" },
+      { property: "og:title", content: "শপ — সব ডিজিটাল প্রোডাক্ট | আমার ডিজিটাল স্টোর" },
+      { property: "og:description", content: "দাম ও ক্যাটাগরি অনুযায়ী ফিল্টার করে ডিজিটাল প্রোডাক্ট কিনুন।" },
     ],
   }),
   component: ShopPage,
@@ -136,9 +136,9 @@ function ShopPage() {
     <SiteLayout>
       <div className="container-page py-10">
         <div className="mx-auto mb-8 max-w-2xl text-center">
-          <h1 className="font-display text-3xl font-bold sm:text-4xl">সব পণ্য</h1>
+          <h1 className="font-display text-3xl font-bold sm:text-4xl">সব ডিজিটাল প্রোডাক্ট</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            আপনার পছন্দ অনুযায়ী ফিল্টার করে সেরা পণ্যটি বেছে নিন
+            আপনার পছন্দ অনুযায়ী ফিল্টার করে সেরা ডিজিটাল প্রোডাক্টটি বেছে নিন
           </p>
         </div>
 
@@ -152,7 +152,7 @@ function ShopPage() {
           <div>
             <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
               <p className="min-w-0 truncate text-sm text-muted-foreground">
-                মোট {toBn(filtered.length)} টি পণ্য
+                মোট {toBn(filtered.length)} টি ডিজিটাল প্রোডাক্ট
               </p>
               <div className="flex shrink-0 items-center gap-2">
                 <Sheet>
