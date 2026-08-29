@@ -81,7 +81,7 @@ export function HeroSlider({
           <div aria-hidden className="hero-dot-pattern pointer-events-none absolute inset-0 opacity-30" />
           <div className="relative grid min-h-[var(--hero-h)] items-center gap-5 px-8 py-8 md:min-h-[var(--hero-h-lg)] md:grid-cols-[1.05fr_0.95fr] md:gap-8 md:px-14 md:py-8 lg:px-20">
             <div key={`content-${activeSlide.id}`} className="hero-content-in order-2 text-center md:order-1 md:text-left">
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-hero-border bg-hero-surface-raised/65 px-3 py-1.5 text-[11px] font-semibold text-hero-highlight">
+              <div className="mb-3 hidden items-center gap-2 rounded-full border border-hero-border bg-hero-surface-raised/65 px-3 py-1.5 text-[11px] font-semibold text-hero-highlight md:inline-flex">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-hero-highlight opacity-70" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-hero-highlight" />
@@ -89,18 +89,18 @@ export function HeroSlider({
                 নতুন ডিজিটাল কালেকশন লাইভ
               </div>
               {activeSlide.heading ? (
-                <h1 className="font-display text-3xl font-extrabold leading-[1.16] text-hero-foreground sm:text-4xl lg:text-5xl">
+                <h1 className="font-display text-2xl font-extrabold leading-[1.16] text-hero-foreground sm:text-4xl lg:text-5xl">
                   {activeSlide.heading}
                 </h1>
               ) : null}
               {activeSlide.subheading ? (
-                <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-hero-muted md:mx-0 md:text-[15px]">
+                <p className="mx-auto mt-3 hidden max-w-xl text-sm leading-6 text-hero-muted md:mx-0 md:block md:text-[15px]">
                   {activeSlide.subheading}
                 </p>
               ) : null}
 
               {highlights.length ? (
-                <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                <ul className="mt-4 hidden gap-2 md:grid sm:grid-cols-2">
                   {highlights.map((product) => (
                     <li key={product.id} className="min-w-0 border-l-2 border-hero-highlight pl-3 text-left">
                       <p className="truncate text-xs font-bold text-hero-foreground">{product.title}</p>
@@ -112,25 +112,26 @@ export function HeroSlider({
                 </ul>
               ) : null}
 
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start">
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-3 md:mt-5 md:justify-start">
                 <Button asChild size="lg" className="h-11 bg-hero-accent px-6 font-bold text-hero-accent-foreground shadow-lift hover:bg-hero-accent/90">
                   <Link to="/shop">
                     {activeSlide.cta_text || "এখনই সংগ্রহ করুন"}
                     <ArrowUpRight />
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="h-11 border-hero-border bg-hero-surface-raised/55 px-6 text-hero-foreground hover:bg-hero-surface-raised hover:text-hero-foreground">
+                <Button asChild size="lg" variant="outline" className="hidden h-11 border-hero-border bg-hero-surface-raised/55 px-6 text-hero-foreground hover:bg-hero-surface-raised hover:text-hero-foreground md:inline-flex">
                   <Link to="/shop">সব প্রোডাক্ট</Link>
                 </Button>
               </div>
 
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] text-hero-muted md:justify-start">
+              <div className="mt-4 hidden flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] text-hero-muted md:flex md:justify-start">
                 <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-hero-highlight" />নিরাপদ পেমেন্ট</span>
                 <span className="flex items-center gap-1">
                   {[0, 1, 2, 3, 4].map((n) => <Star key={n} className="h-3 w-3 fill-current text-hero-accent" />)}
                   <strong className="ml-1 text-hero-foreground">১০,০০০+</strong> গ্রাহক
                 </span>
               </div>
+
             </div>
 
             <div key={`image-${activeSlide.id}`} className="hero-image-in order-1 flex justify-center md:order-2 md:justify-end">
