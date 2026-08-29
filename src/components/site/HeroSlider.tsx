@@ -7,9 +7,23 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import type { HeroSlide } from "@/lib/data";
 
-export function HeroSlider({ slides, loading }: { slides: HeroSlide[]; loading?: boolean }) {
+export function HeroSlider({
+  slides,
+  loading,
+  heightMobile = 240,
+  heightDesktop = 380,
+}: {
+  slides: HeroSlide[];
+  loading?: boolean;
+  heightMobile?: number;
+  heightDesktop?: number;
+}) {
   const [index, setIndex] = useState(0);
   const total = slides.length;
+  const heightStyle = {
+    "--hero-h": `${heightMobile}px`,
+    "--hero-h-lg": `${heightDesktop}px`,
+  } as React.CSSProperties;
 
   const next = useCallback(() => setIndex((i) => (total ? (i + 1) % total : 0)), [total]);
   const prev = useCallback(() => setIndex((i) => (total ? (i - 1 + total) % total : 0)), [total]);
