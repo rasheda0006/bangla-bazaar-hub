@@ -36,14 +36,16 @@ export function HeroSlider({
 
   if (loading) {
     return (
-      <section className="container-page py-8 sm:py-12">
-        <div className="grid items-center gap-6 md:grid-cols-2">
-          <div className="space-y-4">
-            <Skeleton className="h-10 w-3/4" />
-            <Skeleton className="h-5 w-full" />
-            <Skeleton className="h-11 w-40 rounded-full" />
+      <section className="bg-secondary">
+        <div className="container-page py-6 sm:py-8">
+          <div className="grid items-center gap-5 md:grid-cols-2">
+            <div className="space-y-3">
+              <Skeleton className="h-8 w-3/4" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-10 w-36 rounded-full" />
+            </div>
+            <Skeleton className="aspect-video w-full rounded-2xl md:aspect-square" />
           </div>
-          <Skeleton className="aspect-square w-full rounded-3xl" />
         </div>
       </section>
     );
@@ -51,8 +53,8 @@ export function HeroSlider({
   if (!total) return null;
 
   return (
-    <section style={heightStyle} className="bg-secondary/30">
-      <div className="container-page relative py-8 sm:py-12">
+    <section style={heightStyle} className="bg-secondary">
+      <div className="container-page relative py-6 sm:py-8">
         <div className="relative">
           {slides.map((slide, i) => (
             <div
