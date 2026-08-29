@@ -106,7 +106,7 @@ function CheckoutPage() {
             <h1 className="mt-4 font-display text-2xl font-bold">অর্ডার সফল হয়েছে!</h1>
             <p className="mt-2 text-sm text-muted-foreground">
               আপনার অর্ডার নম্বর <span className="font-bold text-primary">#{toBn(done)}</span>। আমরা
-              পেমেন্ট যাচাই করে শীঘ্রই ফোনে যোগাযোগ করবো।
+              পেমেন্ট যাচাই করে আপনার ইমেইলে ডিজিটাল প্রোডাক্টের অ্যাক্সেস/ডাউনলোড লিংক পাঠিয়ে দেবো।
             </p>
             <Button
               className="mt-6 rounded-full px-8"
@@ -127,7 +127,7 @@ function CheckoutPage() {
 
         {items.length === 0 ? (
           <div className="mx-auto max-w-md rounded-2xl border border-dashed border-border bg-muted/40 py-16 text-center">
-            <p className="text-sm text-muted-foreground">চেকআউট করতে কার্টে পণ্য যোগ করুন</p>
+            <p className="text-sm text-muted-foreground">চেকআউট করতে কার্টে ডিজিটাল প্রোডাক্ট যোগ করুন</p>
             <Button asChild className="mt-5 rounded-full px-8">
               <Link to="/shop">শপে যান</Link>
             </Button>
@@ -137,6 +137,9 @@ function CheckoutPage() {
             <div className="space-y-6">
               <section className="rounded-2xl border border-border bg-card p-6 shadow-soft">
                 <h2 className="font-display text-lg font-bold">আপনার তথ্য</h2>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  সব প্রোডাক্ট ডিজিটাল — কোনো ঠিকানা লাগবে না, অ্যাক্সেস ইমেইলে পাঠানো হবে।
+                </p>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <Field label="আপনার নাম" required>
                     <Input

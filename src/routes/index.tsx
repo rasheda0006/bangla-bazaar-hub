@@ -19,16 +19,16 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "আমার দোকান — বাংলাদেশের সেরা অনলাইন শপিং" },
+      { title: "আমার ডিজিটাল স্টোর — কোর্স, টুলস ও সাবস্ক্রিপশন" },
       {
         name: "description",
         content:
-          "সেরা দামে অরিজিনাল পণ্য কিনুন। ইলেকট্রনিক্স, ফ্যাশন, হোম ও কিচেন — সারা বাংলাদেশে দ্রুত ডেলিভারি।",
+          "অনলাইন কোর্স, প্রিমিয়াম সফটওয়্যার টুলস, সাবস্ক্রিপশন, ই-বুক ও টেমপ্লেট — পেমেন্টের পর ইনস্ট্যান্ট ডিজিটাল ডেলিভারি।",
       },
-      { property: "og:title", content: "আমার দোকান — বাংলাদেশের সেরা অনলাইন শপিং" },
+      { property: "og:title", content: "আমার ডিজিটাল স্টোর — কোর্স, টুলস ও সাবস্ক্রিপশন" },
       {
         property: "og:description",
-        content: "সেরা দামে অরিজিনাল পণ্য, সারা বাংলাদেশে দ্রুত ডেলিভারি।",
+        content: "ডিজিটাল প্রোডাক্ট কিনুন — পেমেন্টের পরই ইমেইলে ইনস্ট্যান্ট অ্যাক্সেস।",
       },
     ],
   }),
@@ -102,8 +102,8 @@ function Index() {
       {settings?.show_best_selling !== false ? (
         <section className="container-page py-6 sm:py-10">
           <SectionHeading
-            title="বেস্ট সেলিং পণ্য"
-            subtitle="সবচেয়ে বেশি বিক্রি হওয়া পণ্যগুলো"
+            title="বেস্ট সেলিং ডিজিটাল প্রোডাক্ট"
+            subtitle="সবচেয়ে বেশি বিক্রি হওয়া কোর্স, টুলস ও সাবস্ক্রিপশন"
             align="left"
             action={
               <Button asChild variant="outline" size="sm" className="rounded-full">
@@ -115,7 +115,7 @@ function Index() {
             products={bestSelling.slice(0, 8)}
             categories={categories}
             loading={prodLoading}
-            emptyText="এখনো কোনো বেস্ট সেলিং পণ্য নেই"
+            emptyText="এখনো কোনো বেস্ট সেলিং ডিজিটাল প্রোডাক্ট নেই"
           />
         </section>
       ) : null}
@@ -124,7 +124,7 @@ function Index() {
         <section className="container-page py-6 sm:py-10">
           <SectionHeading
             title="আপনার জন্য সাজেস্টেড"
-            subtitle="আপনার পছন্দ হতে পারে এমন পণ্য"
+            subtitle="আপনার পছন্দ হতে পারে এমন ডিজিটাল প্রোডাক্ট"
             align="left"
           />
           <ProductCarousel products={suggested} categories={categories} loading={prodLoading} />
@@ -134,8 +134,8 @@ function Index() {
       {settings?.show_all_products !== false ? (
         <section className="container-page py-6 sm:py-10">
           <SectionHeading
-            title="সব পণ্য"
-            subtitle="আমাদের সম্পূর্ণ কালেকশন"
+            title="সব ডিজিটাল প্রোডাক্ট"
+            subtitle="কোর্স, টুলস, সাবস্ক্রিপশন, ই-বুক ও টেমপ্লেট"
             align="left"
             action={
               <Button asChild variant="outline" size="sm" className="rounded-full">

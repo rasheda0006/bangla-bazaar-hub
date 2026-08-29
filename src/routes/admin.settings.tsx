@@ -209,7 +209,7 @@ function AdminSettings() {
               {toggle("show_categories", "ক্যাটাগরি সেকশন")}
               {toggle("show_best_selling", "বেস্ট সেলিং সেকশন")}
               {toggle("show_suggested", "সাজেস্টেড সেকশন")}
-              {toggle("show_all_products", "সব পণ্য সেকশন")}
+              {toggle("show_all_products", "সব প্রোডাক্ট সেকশন")}
               {toggle("show_testimonials", "টেস্টিমোনিয়াল সেকশন")}
             </div>
           </AdminCard>

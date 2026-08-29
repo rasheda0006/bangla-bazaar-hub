@@ -33,7 +33,7 @@ export const placeOrder = createServerFn({ method: "POST" })
 
     const items = data.items.map((i) => {
       const p = products?.find((x) => x.id === i.id);
-      if (!p) throw new Error("পণ্য পাওয়া যায়নি");
+      if (!p) throw new Error("প্রোডাক্ট পাওয়া যায়নি");
       const price = Number(p.discount_price ?? p.price);
       return { id: p.id, title: p.title, price, qty: i.qty };
     });

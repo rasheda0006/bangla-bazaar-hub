@@ -25,10 +25,10 @@ export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
       { title: "এডমিন প্যানেল | আমার দোকান" },
-      { name: "description", content: "সাইটের পণ্য, অর্ডার ও সেটিংস পরিচালনা করুন।" },
+      { name: "description", content: "সাইটের ডিজিটাল প্রোডাক্ট, অর্ডার ও সেটিংস পরিচালনা করুন।" },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "এডমিন প্যানেল | আমার দোকান" },
-      { property: "og:description", content: "সাইটের পণ্য, অর্ডার ও সেটিংস পরিচালনা করুন।" },
+      { property: "og:description", content: "সাইটের ডিজিটাল প্রোডাক্ট, অর্ডার ও সেটিংস পরিচালনা করুন।" },
     ],
   }),
   component: AdminLayout,
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/admin")({
 
 const NAV = [
   { to: "/admin", label: "ড্যাশবোর্ড", icon: LayoutDashboard, exact: true },
-  { to: "/admin/products", label: "পণ্য", icon: Package, exact: false },
+  { to: "/admin/products", label: "প্রোডাক্ট", icon: Package, exact: false },
   { to: "/admin/orders", label: "অর্ডার", icon: ShoppingBag, exact: false },
   { to: "/admin/categories", label: "ক্যাটাগরি", icon: FolderTree, exact: false },
   { to: "/admin/content", label: "কনটেন্ট", icon: Images, exact: false },

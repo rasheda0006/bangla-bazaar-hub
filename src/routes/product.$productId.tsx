@@ -19,13 +19,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/product/$productId")({
   head: () => ({
     meta: [
-      { title: "পণ্যের বিস্তারিত | আমার দোকান" },
+      { title: "প্রোডাক্টের বিস্তারিত | আমার ডিজিটাল স্টোর" },
       {
         name: "description",
-        content: "পণ্যের ছবি, দাম, বিবরণ ও কাস্টমার রিভিউ দেখে নিশ্চিন্তে অর্ডার করুন।",
+        content: "ডিজিটাল প্রোডাক্টের দাম, বিবরণ ও কাস্টমার রিভিউ দেখে নিশ্চিন্তে অর্ডার করুন — ইনস্ট্যান্ট অ্যাক্সেস।",
       },
-      { property: "og:title", content: "পণ্যের বিস্তারিত | আমার দোকান" },
-      { property: "og:description", content: "পণ্যের ছবি, দাম, বিবরণ ও রিভিউ দেখুন।" },
+      { property: "og:title", content: "প্রোডাক্টের বিস্তারিত | আমার ডিজিটাল স্টোর" },
+      { property: "og:description", content: "ডিজিটাল প্রোডাক্টের দাম, বিবরণ ও রিভিউ দেখুন।" },
     ],
   }),
   component: ProductPage,
@@ -64,7 +64,7 @@ function ProductPage() {
     return (
       <SiteLayout>
         <div className="container-page py-24 text-center">
-          <h1 className="font-display text-2xl font-bold">পণ্যটি খুঁজে পাওয়া যায়নি</h1>
+          <h1 className="font-display text-2xl font-bold">প্রোডাক্টটি খুঁজে পাওয়া যায়নি</h1>
           <Button asChild className="mt-6 rounded-full px-8">
             <Link to="/shop">শপে ফিরে যান</Link>
           </Button>
@@ -164,12 +164,19 @@ function ProductPage() {
               </p>
             ) : null}
 
-            <p className="text-sm">
-              স্টক:{" "}
-              <span className={product.stock > 0 ? "font-semibold text-success" : "text-destructive"}>
-                {product.stock > 0 ? `${toBn(product.stock)} টি আছে` : "স্টক শেষ"}
-              </span>
-            </p>
+            <div className="space-y-1 rounded-2xl border border-border bg-muted/40 p-4 text-sm">
+              <p>
+                ডেলিভারি:{" "}
+                <span className={product.stock > 0 ? "font-semibold text-success" : "text-destructive"}>
+                  {product.stock > 0
+                    ? "ইনস্ট্যান্ট ডিজিটাল ডেলিভারি — পেমেন্ট ভেরিফাই হলেই ইমেইলে অ্যাক্সেস"
+                    : "আপাতত স্টক শেষ"}
+                </span>
+              </p>
+              <p className="text-muted-foreground">
+                ১০০% ডিজিটাল প্রোডাক্ট — কোনো কুরিয়ার বা হোম ডেলিভারি নেই।
+              </p>
+            </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <Button
@@ -211,7 +218,7 @@ function ProductPage() {
 
           <TabsContent value="description">
             <div className="rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground shadow-soft">
-              {product.description || "এই পণ্যের বিস্তারিত বিবরণ শীঘ্রই যোগ করা হবে।"}
+              {product.description || "এই ডিজিটাল প্রোডাক্টের বিস্তারিত বিবরণ শীঘ্রই যোগ করা হবে।"}
             </div>
           </TabsContent>
 
@@ -276,7 +283,7 @@ function ProductPage() {
 
         {related.length ? (
           <section className="mt-14">
-            <SectionHeading title="সম্পর্কিত পণ্য" align="left" />
+            <SectionHeading title="সম্পর্কিত ডিজিটাল প্রোডাক্ট" align="left" />
             <ProductGrid products={related.slice(0, 4)} categories={categories} />
           </section>
         ) : null}

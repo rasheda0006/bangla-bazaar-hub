@@ -8,13 +8,13 @@ import { toBn } from "@/lib/format";
 export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
-      { title: "ক্যাটাগরি — সব বিভাগ | আমার দোকান" },
+      { title: "ক্যাটাগরি — সব বিভাগ | আমার ডিজিটাল স্টোর" },
       {
         name: "description",
-        content: "ইলেকট্রনিক্স, ফ্যাশন, হোম ও কিচেন সহ সব ক্যাটাগরি ঘুরে দেখুন ও পণ্য কিনুন।",
+        content: "কোর্স, সফটওয়্যার টুলস, সাবস্ক্রিপশন, ই-বুক ও টেমপ্লেট — সব ডিজিটাল ক্যাটাগরি দেখুন।",
       },
-      { property: "og:title", content: "ক্যাটাগরি — সব বিভাগ | আমার দোকান" },
-      { property: "og:description", content: "সব ক্যাটাগরি ঘুরে দেখুন ও পছন্দের পণ্য কিনুন।" },
+      { property: "og:title", content: "ক্যাটাগরি — সব বিভাগ | আমার ডিজিটাল স্টোর" },
+      { property: "og:description", content: "সব ডিজিটাল ক্যাটাগরি ঘুরে দেখুন ও পছন্দের প্রোডাক্ট কিনুন।" },
     ],
   }),
   component: CategoriesPage,
@@ -30,7 +30,7 @@ function CategoriesPage() {
         <div className="mx-auto mb-8 max-w-2xl text-center">
           <h1 className="font-display text-3xl font-bold sm:text-4xl">সব ক্যাটাগরি</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            যে ক্যাটাগরিতে ক্লিক করবেন, সেই অনুযায়ী পণ্য ফিল্টার হয়ে যাবে
+            যে ক্যাটাগরিতে ক্লিক করবেন, সেই অনুযায়ী ডিজিটাল প্রোডাক্ট ফিল্টার হয়ে যাবে
           </p>
         </div>
 
@@ -64,7 +64,7 @@ function CategoriesPage() {
                   </div>
                   <div className="p-4 text-center">
                     <h2 className="truncate font-display text-base font-bold">{c.name}</h2>
-                    <p className="mt-1 text-xs text-muted-foreground">{toBn(count)} টি পণ্য</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{toBn(count)} টি প্রোডাক্ট</p>
                   </div>
                 </Link>
               );

@@ -128,7 +128,7 @@ export function ProductGrid({
   categories,
   loading,
   skeletonCount = 8,
-  emptyText = "কোনো পণ্য পাওয়া যায়নি",
+  emptyText = "কোনো ডিজিটাল প্রোডাক্ট পাওয়া যায়নি",
 }: {
   products: Product[];
   categories: Category[];
