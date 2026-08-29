@@ -6,7 +6,7 @@ import { Stars } from "./Stars";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCart } from "@/lib/cart";
-import { discountPercent, taka, toBn } from "@/lib/format";
+import { cdnImage, discountPercent, taka, toBn } from "@/lib/format";
 import type { Category, Product } from "@/lib/data";
 
 const FALLBACK = "https://placehold.co/600x600/e9f5ef/0f9d58?text=%E0%A6%9B%E0%A6%AC%E0%A6%BF";
