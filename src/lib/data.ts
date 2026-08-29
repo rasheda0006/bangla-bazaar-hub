@@ -112,6 +112,7 @@ export type SiteSettings = {
   hero_bg_from: string;
   hero_bg_to: string;
   hero_max_width: number;
+  hero_offer_image_url: string;
 };
 
 const db = supabase as unknown as {

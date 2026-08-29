@@ -176,6 +176,14 @@ function AdminSettings() {
                   onChange={(e) => set("hero_max_width", Number(e.target.value) || 0)}
                 />
               </div>
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label>হিরো পাশের অফার ইমেজ (URL)</Label>
+                <Input
+                  value={form.hero_offer_image_url ?? ""}
+                  placeholder="https://..."
+                  onChange={(e) => set("hero_offer_image_url", e.target.value)}
+                />
+              </div>
               <div className="space-y-1.5">
                 <Label>হিরো ব্যাকগ্রাউন্ড ধরন</Label>
                 <select

@@ -59,6 +59,7 @@ function Index() {
           bgFrom={settings?.hero_bg_from ?? "#4c1d95"}
           bgTo={settings?.hero_bg_to ?? "#7c3aed"}
           maxWidth={settings?.hero_max_width ?? 1180}
+          offerImageUrl={settings?.hero_offer_image_url}
         />
       ) : null}
 
