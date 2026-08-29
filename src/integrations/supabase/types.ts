@@ -246,6 +246,8 @@ export type Database = {
           font_family: string
           ga_id: string | null
           gtm_id: string | null
+          hero_height_desktop: number
+          hero_height_mobile: number
           id: number
           instagram_url: string | null
           logo_url: string | null
@@ -281,6 +283,8 @@ export type Database = {
           font_family?: string
           ga_id?: string | null
           gtm_id?: string | null
+          hero_height_desktop?: number
+          hero_height_mobile?: number
           id?: number
           instagram_url?: string | null
           logo_url?: string | null
@@ -316,6 +320,8 @@ export type Database = {
           font_family?: string
           ga_id?: string | null
           gtm_id?: string | null
+          hero_height_desktop?: number
+          hero_height_mobile?: number
           id?: number
           instagram_url?: string | null
           logo_url?: string | null
