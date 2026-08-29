@@ -49,7 +49,12 @@ function Index() {
   return (
     <SiteLayout>
       {settings?.show_hero !== false ? (
-        <HeroSlider slides={activeSlides} loading={slidesLoading} />
+        <HeroSlider
+          slides={activeSlides}
+          loading={slidesLoading}
+          heightMobile={settings?.hero_height_mobile ?? 240}
+          heightDesktop={settings?.hero_height_desktop ?? 380}
+        />
       ) : null}
 
       {settings?.show_categories !== false ? (
