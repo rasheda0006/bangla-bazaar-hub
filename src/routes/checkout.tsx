@@ -133,11 +133,14 @@ function CheckoutPage() {
             </Button>
           </div>
         ) : (
-          <form onSubmit={submit} className="grid gap-5 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
-            <div className="space-y-5 sm:space-y-6">
-              <section className="rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
+          <form
+            onSubmit={submit}
+            className="grid min-w-0 grid-cols-1 gap-5 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]"
+          >
+            <div className="min-w-0 space-y-5 sm:space-y-6">
+              <section className="min-w-0 overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
                 <h2 className="font-display text-lg font-bold">আপনার তথ্য</h2>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 break-words text-xs text-muted-foreground">
                   সব প্রোডাক্ট ডিজিটাল — কোনো ঠিকানা লাগবে না, অ্যাক্সেস ইমেইলে পাঠানো হবে।
                 </p>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -170,7 +173,7 @@ function CheckoutPage() {
                 </div>
               </section>
 
-              <section className="rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
+              <section className="min-w-0 overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
                 <h2 className="font-display text-lg font-bold">পেমেন্ট মাধ্যম</h2>
                 <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
                   {enabled.map((m) => (
@@ -190,7 +193,7 @@ function CheckoutPage() {
                   ))}
                 </div>
 
-                <div className="mt-5 rounded-xl bg-secondary/60 p-4 text-sm">
+                <div className="mt-5 min-w-0 rounded-xl bg-secondary/60 p-3 text-sm sm:p-4">
                   <p className="font-semibold">
                     নিচের নম্বরে <span className="text-primary">{taka(subtotal)}</span> সেন্ড মানি
                     করুন
@@ -213,7 +216,7 @@ function CheckoutPage() {
                       কপি
                     </Button>
                   </div>
-                  <p className="mt-2 text-xs text-muted-foreground">
+                  <p className="mt-2 break-words text-xs text-muted-foreground">
                     সেন্ড মানি করার পর ট্রানজেকশন আইডি ও যে নম্বর থেকে পাঠিয়েছেন তা নিচে লিখুন।
                   </p>
                 </div>
@@ -240,8 +243,8 @@ function CheckoutPage() {
               </section>
             </div>
 
-            <aside>
-              <div className="rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6 lg:sticky lg:top-24">
+            <aside className="min-w-0">
+              <div className="min-w-0 overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6 lg:sticky lg:top-24">
                 <h2 className="font-display text-lg font-bold">অর্ডার সামারি</h2>
                 <ul className="mt-4 space-y-3">
                   {items.map((i) => (
@@ -284,7 +287,7 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <div className="space-y-1.5">
+    <div className="min-w-0 space-y-1.5">
       <Label className="text-sm">
         {label} {required ? <span className="text-destructive">*</span> : null}
       </Label>
