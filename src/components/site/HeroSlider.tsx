@@ -36,14 +36,16 @@ export function HeroSlider({
 
   if (loading) {
     return (
-      <section className="container-page py-8 sm:py-12">
-        <div className="grid items-center gap-6 md:grid-cols-2">
-          <div className="space-y-4">
-            <Skeleton className="h-10 w-3/4" />
-            <Skeleton className="h-5 w-full" />
-            <Skeleton className="h-11 w-40 rounded-full" />
+      <section className="bg-secondary">
+        <div className="container-page py-6 sm:py-8">
+          <div className="grid items-center gap-5 md:grid-cols-2">
+            <div className="space-y-3">
+              <Skeleton className="h-8 w-3/4" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-10 w-36 rounded-full" />
+            </div>
+            <Skeleton className="aspect-video w-full rounded-2xl md:aspect-square" />
           </div>
-          <Skeleton className="aspect-square w-full rounded-3xl" />
         </div>
       </section>
     );
@@ -51,14 +53,14 @@ export function HeroSlider({
   if (!total) return null;
 
   return (
-    <section style={heightStyle} className="bg-secondary/30">
-      <div className="container-page relative py-8 sm:py-12">
+    <section style={heightStyle} className="bg-secondary">
+      <div className="container-page relative py-6 sm:py-8">
         <div className="relative">
           {slides.map((slide, i) => (
             <div
               key={slide.id}
               className={cn(
-                "grid items-center gap-6 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-10",
+                "grid items-center gap-5 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-8",
                 i === index
                   ? "opacity-100"
                   : "pointer-events-none absolute inset-0 opacity-0",
@@ -66,17 +68,17 @@ export function HeroSlider({
             >
               <div className="order-2 md:order-1">
                 {slide.heading ? (
-                  <h1 className="font-display text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
+                  <h1 className="font-display text-2xl font-extrabold leading-snug sm:text-3xl lg:text-4xl">
                     {slide.heading}
                   </h1>
                 ) : null}
                 {slide.subheading ? (
-                  <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-base">
+                  <p className="mt-3 line-clamp-3 max-w-md text-sm text-muted-foreground">
                     {slide.subheading}
                   </p>
                 ) : null}
                 {slide.cta_text ? (
-                  <Button asChild size="lg" className="mt-6 rounded-full px-8">
+                  <Button asChild className="mt-4 rounded-full px-6">
                     <Link to={slide.cta_link === "/shop" ? "/shop" : "/shop"}>
                       {slide.cta_text}
                     </Link>
@@ -84,7 +86,7 @@ export function HeroSlider({
                 ) : null}
               </div>
               <div className="order-1 md:order-2">
-                <div className="aspect-square w-full overflow-hidden rounded-3xl border border-border bg-muted shadow-lift">
+                <div className="mx-auto aspect-video w-full max-w-[calc(var(--hero-h)*16/9)] overflow-hidden rounded-2xl border border-border bg-muted shadow-soft md:ml-auto md:mr-0 md:aspect-square md:max-w-[var(--hero-h-lg)]">
                   <img
                     src={slide.image_url}
                     alt={slide.heading ?? "ব্যানার"}
@@ -97,7 +99,7 @@ export function HeroSlider({
         </div>
 
         {total > 1 ? (
-          <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="mt-4 flex items-center justify-center gap-3">
             <button
               onClick={prev}
               aria-label="আগের স্লাইড"
