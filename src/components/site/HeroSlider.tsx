@@ -99,7 +99,7 @@ export function HeroSlider({
         </div>
 
         {total > 1 ? (
-          <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="mt-4 flex items-center justify-center gap-3">
             <button
               onClick={prev}
               aria-label="আগের স্লাইড"
