@@ -24,6 +24,8 @@ export function ProductCard({
   const off = discountPercent(product.price, product.discount_price);
   const image = product.images?.[0] || FALLBACK;
 
+  const productPath = product.slug || product.id;
+
   const payload = {
     id: product.id,
     title: product.title,
@@ -35,7 +37,7 @@ export function ProductCard({
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
       <Link
         to="/product/$productId"
-        params={{ productId: product.id }}
+        params={{ productId: productPath }}
         className="relative block aspect-square overflow-hidden bg-muted"
       >
         <img
@@ -62,7 +64,7 @@ export function ProductCard({
       <div className="flex flex-1 flex-col gap-2 p-3 text-center md:text-left">
         <Link
           to="/product/$productId"
-          params={{ productId: product.id }}
+          params={{ productId: productPath }}
           className="line-clamp-2-safe min-h-[2.6rem] text-sm font-semibold leading-snug transition-colors hover:text-primary"
         >
           {product.title}
