@@ -305,9 +305,8 @@ create trigger trg_orders_updated before update on public.orders
   for each row execute function public.set_updated_at();
 
 -- ================================================================== storage
-insert into storage.buckets (id, name, public)
-values ('media', 'media', true)
-on conflict (id) do nothing;
+-- নোট: 'media' নামে একটি স্টোরেজ বাকেট তৈরি করুন (Storage UI বা API দিয়ে)।
+-- এই টেমপ্লেটে বাকেটটি private, ছবি দেখানোর জন্য দীর্ঘমেয়াদি signed URL ব্যবহার হয়।
 
 drop policy if exists "মিডিয়া পাবলিক রিড" on storage.objects;
 create policy "মিডিয়া পাবলিক রিড" on storage.objects
