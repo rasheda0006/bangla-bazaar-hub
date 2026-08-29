@@ -124,7 +124,7 @@ create table if not exists public.site_settings (
   hero_bg_style text not null default 'gradient',
   hero_bg_from text not null default '#4c1d95',
   hero_bg_to text not null default '#7c3aed',
-  hero_max_width integer not null default 1120,
+  hero_max_width integer not null default 980,
   updated_at timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
 );

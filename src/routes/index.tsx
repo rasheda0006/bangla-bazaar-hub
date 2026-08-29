@@ -58,7 +58,7 @@ function Index() {
           bgStyle={settings?.hero_bg_style ?? "gradient"}
           bgFrom={settings?.hero_bg_from ?? "#4c1d95"}
           bgTo={settings?.hero_bg_to ?? "#7c3aed"}
-          maxWidth={settings?.hero_max_width ?? 1120}
+          maxWidth={settings?.hero_max_width ?? 980}
         />
       ) : null}
 

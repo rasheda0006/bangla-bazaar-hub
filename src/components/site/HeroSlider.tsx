@@ -16,7 +16,7 @@ export function HeroSlider({
   bgStyle = "gradient",
   bgFrom = "#4c1d95",
   bgTo = "#7c3aed",
-  maxWidth = 1120,
+  maxWidth = 980,
 }: {
   slides: HeroSlide[];
   products?: Product[];
@@ -59,7 +59,7 @@ export function HeroSlider({
               <Skeleton className="h-4 w-full bg-white/20" />
               <Skeleton className="h-10 w-40 rounded-full bg-white/20" />
             </div>
-            <Skeleton className="mx-auto aspect-square h-[var(--hero-h)] w-auto rounded-2xl bg-white/20 md:h-[var(--hero-h-lg)]" />
+            <Skeleton className="mx-auto aspect-square h-[var(--hero-h)] w-auto rounded-2xl bg-white/20 md:h-[calc(var(--hero-h-lg)*1.3)]" />
           </div>
         </div>
       </section>
@@ -80,11 +80,11 @@ export function HeroSlider({
               <div
                 key={slide.id}
                 className={cn(
-                  "grid items-center gap-5 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-8",
+                  "grid items-center gap-5 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-6",
                   i === index ? "opacity-100" : "pointer-events-none absolute inset-0 opacity-0",
                 )}
               >
-                <div className="order-2 w-full md:order-1">
+                <div className="order-2 w-full md:order-1 md:max-w-[440px] md:justify-self-end">
                   {slide.heading ? (
                     <h1 className="font-display text-2xl font-extrabold leading-tight text-white sm:text-3xl lg:text-[34px]">
                       {slide.heading}
@@ -155,8 +155,8 @@ export function HeroSlider({
                   </div>
                 </div>
 
-                <div className="order-1 w-full md:order-2">
-                  <div className="mx-auto aspect-square h-[var(--hero-h)] w-auto max-w-full overflow-hidden rounded-2xl border border-white/20 bg-white/10 shadow-lift md:ml-auto md:mr-0 md:h-[var(--hero-h-lg)]">
+                <div className="order-1 w-full md:order-2 md:justify-self-start">
+                  <div className="mx-auto aspect-square h-[calc(var(--hero-h)*1.25)] w-auto max-w-full overflow-hidden rounded-2xl border border-white/20 bg-white/10 shadow-lift md:mx-0 md:h-[calc(var(--hero-h-lg)*1.3)]">
                     <img
                       src={slide.image_url}
                       alt={slide.heading ?? "ব্যানার"}
