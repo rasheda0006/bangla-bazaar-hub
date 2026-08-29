@@ -68,17 +68,17 @@ export function HeroSlider({
             >
               <div className="order-2 md:order-1">
                 {slide.heading ? (
-                  <h1 className="font-display text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
+                  <h1 className="font-display text-2xl font-extrabold leading-snug sm:text-3xl lg:text-4xl">
                     {slide.heading}
                   </h1>
                 ) : null}
                 {slide.subheading ? (
-                  <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-base">
+                  <p className="mt-3 line-clamp-3 max-w-md text-sm text-muted-foreground">
                     {slide.subheading}
                   </p>
                 ) : null}
                 {slide.cta_text ? (
-                  <Button asChild size="lg" className="mt-6 rounded-full px-8">
+                  <Button asChild className="mt-4 rounded-full px-6">
                     <Link to={slide.cta_link === "/shop" ? "/shop" : "/shop"}>
                       {slide.cta_text}
                     </Link>
@@ -86,7 +86,10 @@ export function HeroSlider({
                 ) : null}
               </div>
               <div className="order-1 md:order-2">
-                <div className="aspect-square w-full overflow-hidden rounded-3xl border border-border bg-muted shadow-lift">
+                <div
+                  className="aspect-video w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-soft md:mx-auto md:aspect-square"
+                  style={{ maxHeight: "var(--hero-h)" }}
+                >
                   <img
                     src={slide.image_url}
                     alt={slide.heading ?? "ব্যানার"}
