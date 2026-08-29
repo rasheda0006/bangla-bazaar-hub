@@ -39,9 +39,12 @@ export function ProductCard({
         className="relative block aspect-square overflow-hidden bg-muted"
       >
         <img
-          src={image}
+          src={cdnImage(image, 500)}
           alt={product.title}
           loading="lazy"
+          decoding="async"
+          width={500}
+          height={500}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {category ? (

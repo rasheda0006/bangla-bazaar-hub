@@ -3,6 +3,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, ShieldCheck, Star } from "luci
 import { useCallback, useEffect, useState } from "react";
 
 import offerImage from "@/assets/hero-offer.jpg";
+import { cdnImage } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -77,7 +78,7 @@ export function HeroSlider({
       <div className="container-page">
         <div
           style={sectionStyle}
-          className="grid w-full gap-4 lg:grid-cols-[minmax(0,var(--hero-w))_minmax(0,1fr)]"
+          className="grid w-full gap-4 lg:grid-cols-[minmax(0,1fr)_clamp(220px,26%,340px)]"
         >
         <div
           style={sectionStyle}
@@ -144,7 +145,7 @@ export function HeroSlider({
 
             <div key={`image-${activeSlide.id}`} className="hero-image-in order-1 flex justify-center md:order-2 md:justify-end">
               <div className="relative aspect-square w-[min(72vw,250px)] overflow-hidden rounded-lg border border-hero-border bg-hero-surface-raised shadow-lift md:w-[min(31vw,320px)]">
-                <img src={activeSlide.image_url} alt={activeSlide.heading ?? "ডিজিটাল প্রোডাক্ট অফার"} className="h-full w-full object-cover" />
+                <img src={cdnImage(activeSlide.image_url, 700)} alt={activeSlide.heading ?? "ডিজিটাল প্রোডাক্ট অফার"} width={700} height={700} loading="eager" fetchPriority="high" decoding="async" className="h-full w-full object-cover" />
                 <div className="absolute bottom-3 left-3 hidden rounded-md bg-hero-surface/90 px-3 py-1.5 text-xs font-semibold text-hero-foreground backdrop-blur-sm md:block">
                   ইনস্ট্যান্ট ডেলিভারি
                 </div>
@@ -172,9 +173,10 @@ export function HeroSlider({
 
         <aside className="hidden overflow-hidden rounded-xl border border-hero-border shadow-lift lg:block">
           <img
-            src={offerSrc}
+            src={cdnImage(offerSrc, 700)}
             alt="বিশেষ অফার"
-            loading="lazy"
+            loading="eager"
+            decoding="async"
             width={640}
             height={900}
             className="h-full min-h-[var(--hero-h-lg)] w-full object-cover"
