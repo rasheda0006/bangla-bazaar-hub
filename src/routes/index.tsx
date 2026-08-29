@@ -75,13 +75,14 @@ function Index() {
               ))}
             </div>
           ) : categories.length ? (
-            <div className="no-scrollbar flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-6 md:overflow-visible">
-              {categories.map((c) => (
+            <>
+            <div className="grid grid-cols-4 gap-3 md:grid-cols-6 md:gap-4">
+              {categories.map((c, i) => (
                 <Link
                   key={c.id}
                   to="/shop"
                   search={{ category: c.slug }}
-                  className="group w-28 shrink-0 text-center md:w-auto"
+                  className={`group text-center ${i > 3 ? "hidden md:block" : ""}`}
                 >
                   <div className="aspect-square overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
                     <img
@@ -98,6 +99,12 @@ function Index() {
                 </Link>
               ))}
             </div>
+            <div className="mt-5 flex justify-center md:hidden">
+              <Button asChild variant="outline" className="rounded-full px-8">
+                <Link to="/categories">সব ক্যাটাগরি</Link>
+              </Button>
+            </div>
+            </>
           ) : (
             <p className="text-center text-sm text-muted-foreground">কোনো ক্যাটাগরি নেই</p>
           )}

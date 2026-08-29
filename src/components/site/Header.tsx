@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useCartSheet } from "./CartSheet";
 import { useCart } from "@/lib/cart";
 import { toBn } from "@/lib/format";
 import { useSettings } from "@/lib/data";
@@ -17,6 +18,7 @@ const NAV = [
 export function Header() {
   const { data: settings } = useSettings();
   const { count } = useCart();
+  const { setOpen: setCartOpen } = useCartSheet();
   const [open, setOpen] = useState(false);
 
   return (
@@ -53,26 +55,30 @@ export function Header() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-1">
-          <Button asChild variant="ghost" size="icon" className="hidden sm:inline-flex">
+          <Button asChild variant="ghost" size="icon" className="hidden md:inline-flex">
             <Link to="/shop" aria-label="ডিজিটাল প্রোডাক্ট খুঁজুন">
               <Search className="h-5 w-5" />
             </Link>
           </Button>
 
-          <Button asChild variant="ghost" size="icon" className="relative">
-            <Link to="/cart" aria-label="কার্ট">
-              <ShoppingBag className="h-5 w-5" />
-              {count > 0 ? (
-                <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
-                  {toBn(count)}
-                </span>
-              ) : null}
-            </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            aria-label="কার্ট"
+            onClick={() => setCartOpen(true)}
+          >
+            <ShoppingBag className="h-5 w-5" />
+            {count > 0 ? (
+              <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+                {toBn(count)}
+              </span>
+            ) : null}
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="মেনু">
+              <Button variant="ghost" size="icon" className="hidden" aria-label="মেনু">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
