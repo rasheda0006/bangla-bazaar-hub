@@ -24,6 +24,8 @@ export function ProductCard({
   const off = discountPercent(product.price, product.discount_price);
   const image = product.images?.[0] || FALLBACK;
 
+  const productPath = product.slug || product.id;
+
   const payload = {
     id: product.id,
     title: product.title,
