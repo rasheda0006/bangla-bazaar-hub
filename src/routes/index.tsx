@@ -56,8 +56,8 @@ function Index() {
           heightMobile={settings?.hero_height_mobile ?? 200}
           heightDesktop={settings?.hero_height_desktop ?? 300}
           bgStyle={settings?.hero_bg_style ?? "gradient"}
-          bgFrom={settings?.hero_bg_from ?? "#ede9fe"}
-          bgTo={settings?.hero_bg_to ?? "#faf5ff"}
+          bgFrom={settings?.hero_bg_from ?? "#4c1d95"}
+          bgTo={settings?.hero_bg_to ?? "#7c3aed"}
           maxWidth={settings?.hero_max_width ?? 1120}
         />
       ) : null}
