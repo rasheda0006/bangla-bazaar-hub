@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/lib/cart";
+import { track } from "@/lib/tracking";
 import { useSettings } from "@/lib/data";
 import { placeOrder as submitOrder } from "@/lib/orders.functions";
 import { PAYMENT_METHODS, taka, toBn } from "@/lib/format";
@@ -43,6 +44,16 @@ function CheckoutPage() {
   });
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState<number | null>(null);
+  const checkoutTracked = useRef(false);
+
+  useEffect(() => {
+    if (checkoutTracked.current || items.length === 0) return;
+    checkoutTracked.current = true;
+    track("InitiateCheckout", {
+      value: subtotal,
+      contents: items.map((i) => ({ id: i.id, quantity: i.qty })),
+    });
+  }, [items, subtotal]);
 
   const enabled = PAYMENT_METHODS.filter((m) => {
     if (!settings) return true;
@@ -87,6 +98,13 @@ function CheckoutPage() {
           sender_number: form.sender_number.trim(),
           items: items.map((i) => ({ id: i.id, title: i.title, price: i.price, qty: i.qty })),
         },
+      });
+      track("Purchase", {
+        value: subtotal,
+        contents: items.map((i) => ({ id: i.id, quantity: i.qty })),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        extra: { transaction_id: String(result.order_no) },
       });
       clear();
       setDone(result.order_no);
