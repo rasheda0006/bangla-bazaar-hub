@@ -146,6 +146,26 @@ function AdminSettings() {
                 </div>
               </div>
               {text("font_family", "ফন্ট", "Hind Siliguri")}
+              <div className="space-y-1.5">
+                <Label>হিরো উচ্চতা — মোবাইল (px)</Label>
+                <Input
+                  type="number"
+                  min={120}
+                  max={800}
+                  value={form.hero_height_mobile ?? 240}
+                  onChange={(e) => set("hero_height_mobile", Number(e.target.value) || 0)}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label>হিরো উচ্চতা — ডেস্কটপ (px)</Label>
+                <Input
+                  type="number"
+                  min={160}
+                  max={1000}
+                  value={form.hero_height_desktop ?? 380}
+                  onChange={(e) => set("hero_height_desktop", Number(e.target.value) || 0)}
+                />
+              </div>
             </div>
           </AdminCard>
         </TabsContent>

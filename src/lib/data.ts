@@ -106,6 +106,8 @@ export type SiteSettings = {
   show_all_products: boolean;
   show_suggested: boolean;
   show_testimonials: boolean;
+  hero_height_mobile: number;
+  hero_height_desktop: number;
 };
 
 const db = supabase as unknown as {

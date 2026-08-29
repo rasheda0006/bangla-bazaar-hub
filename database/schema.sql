@@ -119,6 +119,8 @@ create table if not exists public.site_settings (
   show_all_products boolean not null default true,
   show_suggested boolean not null default true,
   show_testimonials boolean not null default true,
+  hero_height_mobile integer not null default 240,
+  hero_height_desktop integer not null default 380,
   updated_at timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
 );
