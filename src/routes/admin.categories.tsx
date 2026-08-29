@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { AdminCard, AdminPage } from "@/components/admin/AdminPage";
 import { ImageField } from "@/components/admin/ImageField";
 import { Button } from "@/components/ui/button";
@@ -115,9 +116,7 @@ function AdminCategories() {
                     <Button variant="ghost" size="icon" onClick={() => edit(c)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={() => void remove(c.id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
+                    <ConfirmDelete itemName={c.name} onConfirm={() => void remove(c.id)} />
                   </td>
                 </tr>
               ))}
