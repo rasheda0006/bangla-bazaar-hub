@@ -11,8 +11,8 @@ export function HeroSlider({
   slides,
   products = [],
   loading,
-  heightMobile = 200,
-  heightDesktop = 300,
+  heightMobile = 170,
+  heightDesktop = 250,
   bgStyle = "gradient",
   bgFrom = "#4c1d95",
   bgTo = "#7c3aed",
@@ -59,7 +59,7 @@ export function HeroSlider({
               <Skeleton className="h-4 w-full bg-white/20" />
               <Skeleton className="h-10 w-40 rounded-full bg-white/20" />
             </div>
-            <Skeleton className="aspect-video w-full rounded-2xl bg-white/20" />
+            <Skeleton className="mx-auto aspect-square h-[var(--hero-h)] w-auto rounded-2xl bg-white/20 md:h-[var(--hero-h-lg)]" />
           </div>
         </div>
       </section>
@@ -73,14 +73,14 @@ export function HeroSlider({
         aria-hidden
         className="pointer-events-none absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-white/10 blur-3xl"
       />
-      <div className="container-page relative py-7 sm:py-9">
+      <div className="container-page relative py-5 sm:py-6">
         <div className="mx-auto w-full max-w-[var(--hero-w)]">
           <div className="relative">
             {slides.map((slide, i) => (
               <div
                 key={slide.id}
                 className={cn(
-                  "grid items-center gap-6 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-8",
+                  "grid items-center gap-5 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-8",
                   i === index ? "opacity-100" : "pointer-events-none absolute inset-0 opacity-0",
                 )}
               >
@@ -156,7 +156,7 @@ export function HeroSlider({
                 </div>
 
                 <div className="order-1 w-full md:order-2">
-                  <div className="aspect-video h-[var(--hero-h)] w-full max-w-full overflow-hidden rounded-2xl border border-white/20 bg-white/10 shadow-lift md:ml-auto md:h-[var(--hero-h-lg)] md:w-auto">
+                  <div className="mx-auto aspect-square h-[var(--hero-h)] w-auto max-w-full overflow-hidden rounded-2xl border border-white/20 bg-white/10 shadow-lift md:ml-auto md:mr-0 md:h-[var(--hero-h-lg)]">
                     <img
                       src={slide.image_url}
                       alt={slide.heading ?? "ব্যানার"}
@@ -169,7 +169,7 @@ export function HeroSlider({
           </div>
 
           {total > 1 ? (
-            <div className="mt-5 flex items-center justify-center gap-3 md:justify-end">
+            <div className="mt-4 flex items-center justify-center gap-3 md:justify-end">
               <button
                 onClick={prev}
                 aria-label="আগের স্লাইড"
