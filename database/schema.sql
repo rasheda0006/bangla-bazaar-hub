@@ -375,3 +375,21 @@ cross join (values
   ('মিতু আক্তার', 'https://i.pravatar.cc/150?img=25', 4, 'ভালো মানের, তবে ডেলিভারি একটু দেরি হয়েছে।')
 ) as v(name, avatar, rating, comment)
 where p.slug in ('wireless-bluetooth-headphone', 'cotton-panjabi', 'himu-somogro');
+
+-- ============================================================================
+-- ফাংশন পারমিশন হার্ডেনিং
+-- ============================================================================
+-- এই ফাংশনগুলো শুধু ট্রিগার/অভ্যন্তরীণ ব্যবহারের জন্য — API থেকে কল করা যাবে না
+revoke all on function public.handle_new_user() from public, anon, authenticated;
+revoke all on function public.set_updated_at() from public, anon, authenticated;
+revoke all on function public.has_role(uuid, public.app_role) from public, anon, authenticated;
+
+-- is_admin() প্রতিটি RLS পলিসিতে ব্যবহৃত হয়, তাই execute অনুমতি রাখতেই হবে।
+-- এটি কোনো ডাটা রিটার্ন করে না, শুধু কলার নিজে অ্যাডমিন কিনা সেই boolean দেয়।
+grant execute on function public.is_admin() to anon, authenticated;
+
+-- ============================================================================
+-- স্টোরেজ (media bucket)
+-- ============================================================================
+-- নতুন প্রজেক্টে Supabase ড্যাশবোর্ড থেকে "media" নামে একটি bucket তৈরি করুন
+-- (private, file size limit 10MB), তারপর নিচের পলিসিগুলো এমনিতেই কাজ করবে।

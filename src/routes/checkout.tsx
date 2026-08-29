@@ -1,0 +1,292 @@
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { CheckCircle2, Copy } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useCart } from "@/lib/cart";
+import { db, useSettings } from "@/lib/data";
+import { PAYMENT_METHODS, taka, toBn } from "@/lib/format";
+import { cn } from "@/lib/utils";
+
+export const Route = createFileRoute("/checkout")({
+  head: () => ({
+    meta: [
+      { title: "চেকআউট — অর্ডার সম্পন্ন করুন | আমার দোকান" },
+      {
+        name: "description",
+        content: "বিকাশ, নগদ বা রকেটে পেমেন্ট করে সহজে অর্ডার সম্পন্ন করুন।",
+      },
+      { property: "og:title", content: "চেকআউট — অর্ডার সম্পন্ন করুন | আমার দোকান" },
+      { property: "og:description", content: "বিকাশ, নগদ বা রকেটে পেমেন্ট করে অর্ডার করুন।" },
+    ],
+  }),
+  component: CheckoutPage,
+});
+
+function CheckoutPage() {
+  const { items, subtotal, clear } = useCart();
+  const { data: settings } = useSettings();
+  const navigate = useNavigate();
+
+  const [method, setMethod] = useState<string>("bkash");
+  const [form, setForm] = useState({
+    customer_name: "",
+    email: "",
+    phone: "",
+    sender_number: "",
+    transaction_id: "",
+  });
+  const [saving, setSaving] = useState(false);
+  const [done, setDone] = useState<number | null>(null);
+
+  const enabled = PAYMENT_METHODS.filter((m) => {
+    if (!settings) return true;
+    if (m.value === "bkash") return settings.bkash_enabled;
+    if (m.value === "nagad") return settings.nagad_enabled;
+    return settings.rocket_enabled;
+  });
+
+  const payNumber =
+    method === "bkash"
+      ? settings?.bkash_number
+      : method === "nagad"
+        ? settings?.nagad_number
+        : settings?.rocket_number;
+
+  const set = (key: keyof typeof form, value: string) =>
+    setForm((prev) => ({ ...prev, [key]: value }));
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!items.length) {
+      toast.error("আপনার কার্ট খালি");
+      return;
+    }
+    if (!/^01[3-9]\d{8}$/.test(form.phone.trim())) {
+      toast.error("সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন");
+      return;
+    }
+    if (form.transaction_id.trim().length < 4) {
+      toast.error("সঠিক ট্রানজেকশন আইডি দিন");
+      return;
+    }
+    setSaving(true);
+    const { data, error } = await db
+      .from("orders")
+      .insert({
+        customer_name: form.customer_name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        payment_method: method,
+        transaction_id: form.transaction_id.trim(),
+        sender_number: form.sender_number.trim(),
+        items: items.map((i) => ({ id: i.id, title: i.title, price: i.price, qty: i.qty })),
+        total: subtotal,
+      })
+      .select("order_no")
+      .single();
+    setSaving(false);
+    if (error) {
+      toast.error("অর্ডার সাবমিট করা যায়নি, আবার চেষ্টা করুন");
+      return;
+    }
+    clear();
+    setDone(Number(data?.order_no ?? 0));
+  };
+
+  if (done !== null) {
+    return (
+      <SiteLayout>
+        <div className="container-page py-20">
+          <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-8 text-center shadow-lift">
+            <CheckCircle2 className="mx-auto h-16 w-16 text-success" />
+            <h1 className="mt-4 font-display text-2xl font-bold">অর্ডার সফল হয়েছে!</h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              আপনার অর্ডার নম্বর <span className="font-bold text-primary">#{toBn(done)}</span>। আমরা
+              পেমেন্ট যাচাই করে শীঘ্রই ফোনে যোগাযোগ করবো।
+            </p>
+            <Button
+              className="mt-6 rounded-full px-8"
+              onClick={() => void navigate({ to: "/shop" })}
+            >
+              আরও কেনাকাটা করুন
+            </Button>
+          </div>
+        </div>
+      </SiteLayout>
+    );
+  }
+
+  return (
+    <SiteLayout>
+      <div className="container-page py-10">
+        <h1 className="mb-8 text-center font-display text-3xl font-bold sm:text-4xl">চেকআউট</h1>
+
+        {items.length === 0 ? (
+          <div className="mx-auto max-w-md rounded-2xl border border-dashed border-border bg-muted/40 py-16 text-center">
+            <p className="text-sm text-muted-foreground">চেকআউট করতে কার্টে পণ্য যোগ করুন</p>
+            <Button asChild className="mt-5 rounded-full px-8">
+              <Link to="/shop">শপে যান</Link>
+            </Button>
+          </div>
+        ) : (
+          <form onSubmit={submit} className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="space-y-6">
+              <section className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+                <h2 className="font-display text-lg font-bold">আপনার তথ্য</h2>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <Field label="আপনার নাম" required>
+                    <Input
+                      required
+                      value={form.customer_name}
+                      onChange={(e) => set("customer_name", e.target.value)}
+                      placeholder="যেমন: রহিম উদ্দিন"
+                    />
+                  </Field>
+                  <Field label="ইমেইল" required>
+                    <Input
+                      required
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => set("email", e.target.value)}
+                      placeholder="you@example.com"
+                    />
+                  </Field>
+                  <Field label="মোবাইল নম্বর" required>
+                    <Input
+                      required
+                      inputMode="numeric"
+                      value={form.phone}
+                      onChange={(e) => set("phone", e.target.value)}
+                      placeholder="01XXXXXXXXX"
+                    />
+                  </Field>
+                </div>
+              </section>
+
+              <section className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+                <h2 className="font-display text-lg font-bold">পেমেন্ট মাধ্যম</h2>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  {enabled.map((m) => (
+                    <button
+                      key={m.value}
+                      type="button"
+                      onClick={() => setMethod(m.value)}
+                      className={cn(
+                        "rounded-xl border-2 px-4 py-3 text-sm font-bold transition-all",
+                        method === m.value
+                          ? "border-primary bg-primary/5 text-primary"
+                          : "border-border hover:border-primary/40",
+                      )}
+                    >
+                      {m.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-5 rounded-xl bg-secondary/60 p-4 text-sm">
+                  <p className="font-semibold">
+                    নিচের নম্বরে <span className="text-primary">{taka(subtotal)}</span> সেন্ড মানি
+                    করুন
+                  </p>
+                  <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+                    <span className="min-w-0 truncate font-display text-xl font-extrabold tracking-wide">
+                      {toBn(payNumber ?? "—")}
+                    </span>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="shrink-0 gap-2 rounded-full"
+                      onClick={() => {
+                        void navigator.clipboard.writeText(payNumber ?? "");
+                        toast.success("নম্বর কপি হয়েছে");
+                      }}
+                    >
+                      <Copy className="h-3.5 w-3.5" />
+                      কপি
+                    </Button>
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    সেন্ড মানি করার পর ট্রানজেকশন আইডি ও যে নম্বর থেকে পাঠিয়েছেন তা নিচে লিখুন।
+                  </p>
+                </div>
+
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <Field label="যে নম্বর থেকে পাঠিয়েছেন" required>
+                    <Input
+                      required
+                      inputMode="numeric"
+                      value={form.sender_number}
+                      onChange={(e) => set("sender_number", e.target.value)}
+                      placeholder="01XXXXXXXXX"
+                    />
+                  </Field>
+                  <Field label="ট্রানজেকশন আইডি" required>
+                    <Input
+                      required
+                      value={form.transaction_id}
+                      onChange={(e) => set("transaction_id", e.target.value)}
+                      placeholder="যেমন: 9F7X2K1A"
+                    />
+                  </Field>
+                </div>
+              </section>
+            </div>
+
+            <aside>
+              <div className="sticky top-24 rounded-2xl border border-border bg-card p-6 shadow-soft">
+                <h2 className="font-display text-lg font-bold">অর্ডার সামারি</h2>
+                <ul className="mt-4 space-y-3">
+                  {items.map((i) => (
+                    <li key={i.id} className="flex gap-3 text-sm">
+                      <span className="min-w-0 flex-1 truncate">
+                        {i.title} × {toBn(i.qty)}
+                      </span>
+                      <span className="shrink-0 font-semibold">{taka(i.price * i.qty)}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 flex justify-between border-t border-border pt-4">
+                  <span className="font-bold">সর্বমোট</span>
+                  <span className="font-display font-extrabold text-primary">{taka(subtotal)}</span>
+                </div>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={saving}
+                  className="mt-6 w-full rounded-full"
+                >
+                  {saving ? "অপেক্ষা করুন..." : "অর্ডার নিশ্চিত করুন"}
+                </Button>
+              </div>
+            </aside>
+          </form>
+        )}
+      </div>
+    </SiteLayout>
+  );
+}
+
+function Field({
+  label,
+  required,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <Label className="text-sm">
+        {label} {required ? <span className="text-destructive">*</span> : null}
+      </Label>
+      {children}
+    </div>
+  );
+}
