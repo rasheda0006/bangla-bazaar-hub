@@ -167,19 +167,23 @@ export function useProducts() {
   });
 }
 
-export function useProduct(id: string) {
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export function useProduct(idOrSlug: string) {
   return useQuery({
-    queryKey: ["product", id],
+    queryKey: ["product", idOrSlug],
     queryFn: async (): Promise<Product | null> => {
+      const key = decodeURIComponent(idOrSlug ?? "");
+      const column = UUID_RE.test(key) ? "id" : "slug";
       const { data, error } = await db
         .from("products")
         .select("*")
-        .or(`id.eq.${id},slug.eq.${id}`)
+        .eq(column, key)
         .maybeSingle();
       if (error) throw error;
       return data as Product | null;
     },
-    enabled: Boolean(id),
+    enabled: Boolean(idOrSlug),
   });
 }
 
