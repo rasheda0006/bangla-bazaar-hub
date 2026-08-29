@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useCartSheet } from "./CartSheet";
 import { useCart } from "@/lib/cart";
 import { toBn } from "@/lib/format";
 import { useSettings } from "@/lib/data";
@@ -17,6 +18,7 @@ const NAV = [
 export function Header() {
   const { data: settings } = useSettings();
   const { count } = useCart();
+  const { setOpen: setCartOpen } = useCartSheet();
   const [open, setOpen] = useState(false);
 
   return (
