@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ChevronLeft, ChevronRight, ShieldCheck, Star } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
+import offerImage from "@/assets/hero-offer.jpg";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -73,8 +74,12 @@ export function HeroSlider({
       <div className="container-page">
         <div
           style={sectionStyle}
+          className="mx-auto grid w-full max-w-[var(--hero-w)] gap-4 lg:grid-cols-[minmax(0,1fr)_clamp(200px,22%,300px)]"
+        >
+        <div
+          style={sectionStyle}
           className={cn(
-            "relative mx-auto min-h-[var(--hero-h)] w-full max-w-[var(--hero-w)] overflow-hidden rounded-xl border border-hero-border shadow-lift md:min-h-[var(--hero-h-lg)]",
+            "relative min-h-[var(--hero-h)] w-full overflow-hidden rounded-xl border border-hero-border shadow-lift md:min-h-[var(--hero-h-lg)]",
             bgStyle === "solid" ? "hero-solid-bg" : "hero-premium-bg",
           )}
         >
@@ -160,6 +165,18 @@ export function HeroSlider({
 
             </>
           ) : null}
+        </div>
+
+        <aside className="hidden overflow-hidden rounded-xl border border-hero-border shadow-lift lg:block">
+          <img
+            src={offerImage}
+            alt="বিশেষ অফার"
+            loading="lazy"
+            width={640}
+            height={900}
+            className="h-full min-h-[var(--hero-h-lg)] w-full object-cover"
+          />
+        </aside>
         </div>
       </div>
     </section>
