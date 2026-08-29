@@ -56,7 +56,7 @@ export function ProductCard({
         ) : null}
       </Link>
 
-      <div className="flex flex-1 flex-col gap-2 p-3">
+      <div className="flex flex-1 flex-col gap-2 p-3 text-center md:text-left">
         <Link
           to="/product/$productId"
           params={{ productId: product.id }}
@@ -65,7 +65,7 @@ export function ProductCard({
           {product.title}
         </Link>
 
-        <div className="flex flex-wrap items-baseline gap-2">
+        <div className="flex flex-wrap items-baseline justify-center gap-2 md:justify-start">
           <span className="font-display text-lg font-bold text-primary">{taka(price)}</span>
           {product.discount_price ? (
             <span className="text-xs text-muted-foreground line-through">
@@ -74,7 +74,9 @@ export function ProductCard({
           ) : null}
         </div>
 
-        <Stars rating={Number(product.rating)} count={product.review_count} />
+        <div className="flex justify-center md:justify-start">
+          <Stars rating={Number(product.rating)} count={product.review_count} />
+        </div>
 
         <div className="mt-auto grid grid-cols-2 gap-2 pt-2">
           <Button
