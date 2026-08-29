@@ -108,6 +108,10 @@ export type SiteSettings = {
   show_testimonials: boolean;
   hero_height_mobile: number;
   hero_height_desktop: number;
+  hero_bg_style: string;
+  hero_bg_from: string;
+  hero_bg_to: string;
+  hero_max_width: number;
 };
 
 const db = supabase as unknown as {

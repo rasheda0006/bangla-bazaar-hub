@@ -119,8 +119,12 @@ create table if not exists public.site_settings (
   show_all_products boolean not null default true,
   show_suggested boolean not null default true,
   show_testimonials boolean not null default true,
-  hero_height_mobile integer not null default 240,
-  hero_height_desktop integer not null default 380,
+  hero_height_mobile integer not null default 200,
+  hero_height_desktop integer not null default 300,
+  hero_bg_style text not null default 'gradient',
+  hero_bg_from text not null default '#e9f7ef',
+  hero_bg_to text not null default '#ffffff',
+  hero_max_width integer not null default 1200,
   updated_at timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
 );

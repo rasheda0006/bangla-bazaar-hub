@@ -246,8 +246,12 @@ export type Database = {
           font_family: string
           ga_id: string | null
           gtm_id: string | null
+          hero_bg_from: string
+          hero_bg_style: string
+          hero_bg_to: string
           hero_height_desktop: number
           hero_height_mobile: number
+          hero_max_width: number
           id: number
           instagram_url: string | null
           logo_url: string | null
@@ -283,8 +287,12 @@ export type Database = {
           font_family?: string
           ga_id?: string | null
           gtm_id?: string | null
+          hero_bg_from?: string
+          hero_bg_style?: string
+          hero_bg_to?: string
           hero_height_desktop?: number
           hero_height_mobile?: number
+          hero_max_width?: number
           id?: number
           instagram_url?: string | null
           logo_url?: string | null
@@ -320,8 +328,12 @@ export type Database = {
           font_family?: string
           ga_id?: string | null
           gtm_id?: string | null
+          hero_bg_from?: string
+          hero_bg_style?: string
+          hero_bg_to?: string
           hero_height_desktop?: number
           hero_height_mobile?: number
+          hero_max_width?: number
           id?: number
           instagram_url?: string | null
           logo_url?: string | null
