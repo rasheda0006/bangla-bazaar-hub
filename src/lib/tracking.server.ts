@@ -68,7 +68,7 @@ export async function postCapi(args: {
           contents: event.contents?.map((c) => ({
             id: c.id,
             quantity: c.quantity,
-􀀀          })),
+})),
           content_type: "product",
         },
       },
