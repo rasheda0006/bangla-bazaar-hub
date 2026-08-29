@@ -146,19 +146,18 @@ export function HeroSlider({
 
           {total > 1 ? (
             <>
-              <Button onClick={prev} aria-label="আগের স্লাইড" title="আগের স্লাইড" size="icon" className="absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 border border-hero-border bg-hero-surface-raised/90 text-hero-foreground shadow-lift hover:bg-hero-highlight hover:text-hero-surface md:inline-flex">
+              <Button onClick={prev} aria-label="আগের স্লাইড" title="আগের স্লাইড" size="icon" className="absolute left-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 border border-hero-border bg-hero-surface-raised/90 text-hero-foreground shadow-lift hover:bg-hero-highlight hover:text-hero-surface md:left-3 md:h-10 md:w-10">
                 <ChevronLeft />
               </Button>
-              <Button onClick={next} aria-label="পরের স্লাইড" title="পরের স্লাইড" size="icon" className="absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 border border-hero-border bg-hero-surface-raised/90 text-hero-foreground shadow-lift hover:bg-hero-highlight hover:text-hero-surface md:inline-flex">
+              <Button onClick={next} aria-label="পরের স্লাইড" title="পরের স্লাইড" size="icon" className="absolute right-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 border border-hero-border bg-hero-surface-raised/90 text-hero-foreground shadow-lift hover:bg-hero-highlight hover:text-hero-surface md:right-3 md:h-10 md:w-10">
                 <ChevronRight />
               </Button>
               <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-hero-border bg-hero-surface/80 px-3 py-2 backdrop-blur-sm">
-                <Button onClick={prev} aria-label="আগের স্লাইড" size="icon" variant="ghost" className="h-6 w-6 text-hero-foreground hover:bg-hero-surface-raised hover:text-hero-foreground md:hidden"><ChevronLeft /></Button>
                 {slides.map((slide, slideIndex) => (
                   <Button key={slide.id} aria-label={`স্লাইড ${slideIndex + 1}`} onClick={() => setIndex(slideIndex)} size="icon" variant="ghost" className={cn("h-2 w-2 min-w-0 rounded-full p-0 hover:bg-hero-highlight", slideIndex === index ? "bg-hero-highlight" : "bg-hero-muted/45")} />
                 ))}
-                <Button onClick={next} aria-label="পরের স্লাইড" size="icon" variant="ghost" className="h-6 w-6 text-hero-foreground hover:bg-hero-surface-raised hover:text-hero-foreground md:hidden"><ChevronRight /></Button>
               </div>
+
             </>
           ) : null}
         </div>
