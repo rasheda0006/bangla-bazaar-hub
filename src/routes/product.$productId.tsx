@@ -164,12 +164,19 @@ function ProductPage() {
               </p>
             ) : null}
 
-            <p className="text-sm">
-              স্টক:{" "}
-              <span className={product.stock > 0 ? "font-semibold text-success" : "text-destructive"}>
-                {product.stock > 0 ? `${toBn(product.stock)} টি আছে` : "স্টক শেষ"}
-              </span>
-            </p>
+            <div className="space-y-1 rounded-2xl border border-border bg-muted/40 p-4 text-sm">
+              <p>
+                ডেলিভারি:{" "}
+                <span className={product.stock > 0 ? "font-semibold text-success" : "text-destructive"}>
+                  {product.stock > 0
+                    ? "ইনস্ট্যান্ট ডিজিটাল ডেলিভারি — পেমেন্ট ভেরিফাই হলেই ইমেইলে অ্যাক্সেস"
+                    : "আপাতত স্টক শেষ"}
+                </span>
+              </p>
+              <p className="text-muted-foreground">
+                ১০০% ডিজিটাল প্রোডাক্ট — কোনো কুরিয়ার বা হোম ডেলিভারি নেই।
+              </p>
+            </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <Button
