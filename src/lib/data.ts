@@ -208,7 +208,7 @@ export function useProduct(idOrSlug: string) {
         if (fallbackError) throw fallbackError;
 
         const normalizedKey = key.toLowerCase();
-        const match = (products ?? []).find((product) => {
+        const match = ((products ?? []) as Product[]).find((product: Product) => {
           const title = String(product.title ?? "");
           const slug = safeDecode(String(product.slug ?? "")).toLowerCase();
           return (
