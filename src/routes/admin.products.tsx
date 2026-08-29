@@ -30,6 +30,7 @@ export const Route = createFileRoute("/admin/products")({
 type Form = {
   id?: string;
   title: string;
+  slug: string;
   short_description: string;
   description: string;
   price: number;
@@ -44,6 +45,7 @@ type Form = {
 
 const EMPTY: Form = {
   title: "",
+  slug: "",
   short_description: "",
   description: "",
   price: 0,
@@ -71,6 +73,7 @@ function AdminProducts() {
     setForm({
       id: p.id,
       title: p.title,
+      slug: p.slug,
       short_description: p.short_description ?? "",
       description: p.description ?? "",
       price: Number(p.price),
@@ -90,7 +93,7 @@ function AdminProducts() {
     setBusy(true);
     const payload = {
       title: form.title.trim(),
-      slug: slugify(form.title),
+      slug: slugify(form.slug || form.title),
       short_description: form.short_description || null,
       description: form.description || null,
       price: Number(form.price) || 0,
@@ -208,7 +211,20 @@ function AdminProducts() {
               <Input
                 required
                 value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                onChange={(e) => {
+                  const title = e.target.value;
+                  const auto = !form.slug || form.slug === slugify(form.title);
+                  setForm({ ...form, title, slug: auto ? slugify(title) : form.slug });
+                }}
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>স্লাগ (URL) — অটো তৈরি হয়</Label>
+              <Input
+                value={form.slug}
+                placeholder="auto-generated"
+                onChange={(e) => setForm({ ...form, slug: e.target.value })}
               />
             </div>
 
