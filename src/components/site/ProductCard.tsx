@@ -6,7 +6,7 @@ import { Stars } from "./Stars";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCart } from "@/lib/cart";
-import { discountPercent, taka, toBn } from "@/lib/format";
+import { cdnImage, discountPercent, taka, toBn } from "@/lib/format";
 import type { Category, Product } from "@/lib/data";
 
 const FALLBACK = "https://placehold.co/600x600/e9f5ef/0f9d58?text=%E0%A6%9B%E0%A6%AC%E0%A6%BF";
@@ -39,9 +39,12 @@ export function ProductCard({
         className="relative block aspect-square overflow-hidden bg-muted"
       >
         <img
-          src={image}
+          src={cdnImage(image, 500)}
           alt={product.title}
           loading="lazy"
+          decoding="async"
+          width={500}
+          height={500}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {category ? (

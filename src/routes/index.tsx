@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { cdnImage } from "@/lib/format";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { ProductGrid } from "@/components/site/ProductCard";
@@ -87,12 +88,16 @@ function Index() {
                 >
                   <div className="aspect-square overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
                     <img
-                      src={
+                      src={cdnImage(
                         c.image_url ??
-                        "https://placehold.co/300x300/e9f5ef/0f9d58?text=%E0%A6%9B%E0%A6%AC%E0%A6%BF"
-                      }
+                          "https://placehold.co/300x300/e9f5ef/0f9d58?text=%E0%A6%9B%E0%A6%AC%E0%A6%BF",
+                        320,
+                      )}
                       alt={c.name}
                       loading="lazy"
+                      decoding="async"
+                      width={320}
+                      height={320}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
