@@ -83,6 +83,7 @@ function AdminSettings() {
           <TabsTrigger value="design" className="rounded-full">ডিজাইন</TabsTrigger>
           <TabsTrigger value="payment" className="rounded-full">পেমেন্ট</TabsTrigger>
           <TabsTrigger value="seo" className="rounded-full">SEO</TabsTrigger>
+          <TabsTrigger value="tracking" className="rounded-full">ট্র্যাকিং</TabsTrigger>
           <TabsTrigger value="sections" className="rounded-full">সেকশন</TabsTrigger>
         </TabsList>
 
