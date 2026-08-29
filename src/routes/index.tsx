@@ -51,13 +51,14 @@ function Index() {
       {settings?.show_hero !== false ? (
         <HeroSlider
           slides={activeSlides}
+          products={(bestSelling.length ? bestSelling : products).slice(0, 4)}
           loading={slidesLoading}
           heightMobile={settings?.hero_height_mobile ?? 200}
           heightDesktop={settings?.hero_height_desktop ?? 300}
           bgStyle={settings?.hero_bg_style ?? "gradient"}
-          bgFrom={settings?.hero_bg_from ?? "#e9f7ef"}
-          bgTo={settings?.hero_bg_to ?? "#ffffff"}
-          maxWidth={settings?.hero_max_width ?? 1200}
+          bgFrom={settings?.hero_bg_from ?? "#ede9fe"}
+          bgTo={settings?.hero_bg_to ?? "#faf5ff"}
+          maxWidth={settings?.hero_max_width ?? 1120}
         />
       ) : null}
 

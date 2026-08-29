@@ -1,23 +1,25 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, ShieldCheck, Zap } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, ShieldCheck, Zap } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import type { HeroSlide } from "@/lib/data";
+import type { HeroSlide, Product } from "@/lib/data";
 
 export function HeroSlider({
   slides,
+  products = [],
   loading,
   heightMobile = 200,
   heightDesktop = 300,
   bgStyle = "gradient",
-  bgFrom = "#e9f7ef",
-  bgTo = "#ffffff",
-  maxWidth = 1200,
+  bgFrom = "#ede9fe",
+  bgTo = "#faf5ff",
+  maxWidth = 1120,
 }: {
   slides: HeroSlide[];
+  products?: Product[];
   loading?: boolean;
   heightMobile?: number;
   heightDesktop?: number;
@@ -27,6 +29,7 @@ export function HeroSlider({
   maxWidth?: number;
 }) {
   const [index, setIndex] = useState(0);
+  const highlights = products.slice(0, 4);
   const total = slides.length;
 
   const sectionStyle = {
@@ -73,11 +76,11 @@ export function HeroSlider({
               <div
                 key={slide.id}
                 className={cn(
-                  "grid items-center gap-4 transition-opacity duration-700 ease-out md:grid-cols-[1.15fr_0.85fr] md:gap-8",
+                  "grid items-center gap-5 transition-opacity duration-700 ease-out md:grid-cols-2 md:gap-6",
                   i === index ? "opacity-100" : "pointer-events-none absolute inset-0 opacity-0",
                 )}
               >
-                <div className="order-2 md:order-1">
+                <div className="order-2 w-full md:order-1 md:max-w-[460px] md:justify-self-end">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold text-primary">
                     <Zap className="h-3.5 w-3.5" />
                     ইনস্ট্যান্ট ডিজিটাল ডেলিভারি
@@ -103,9 +106,24 @@ export function HeroSlider({
                       নিরাপদ পেমেন্ট — বিকাশ, নগদ, রকেট
                     </span>
                   </div>
+                  {highlights.length ? (
+                    <ul className="mt-3.5 grid gap-1.5 sm:grid-cols-2">
+                      {highlights.map((p) => (
+                        <li key={p.id} className="flex items-start gap-1.5">
+                          <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                          <span className="text-[12px] leading-tight">
+                            <span className="font-semibold">{p.name}</span>
+                            {p.short_description ? (
+                              <span className="text-muted-foreground"> — {p.short_description}</span>
+                            ) : null}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
-                <div className="order-1 md:order-2">
-                  <div className="mx-auto aspect-[16/9] h-[var(--hero-h)] w-auto max-w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-soft md:ml-auto md:mr-0 md:aspect-square md:h-[var(--hero-h-lg)]">
+                <div className="order-1 w-full md:order-2 md:max-w-[460px] md:justify-self-start">
+                  <div className="mx-auto aspect-[16/9] h-[var(--hero-h)] w-auto max-w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-soft md:mx-0 md:aspect-square md:h-[var(--hero-h-lg)]">
                     <img
                       src={slide.image_url}
                       alt={slide.heading ?? "ব্যানার"}
