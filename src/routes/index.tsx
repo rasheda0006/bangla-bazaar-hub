@@ -117,7 +117,6 @@ function Index() {
           <SectionHeading
             title="বেস্ট সেলিং ডিজিটাল প্রোডাক্ট"
             subtitle="সবচেয়ে বেশি বিক্রি হওয়া কোর্স, টুলস ও সাবস্ক্রিপশন"
-            align="left"
             action={
               <Button asChild variant="outline" size="sm" className="rounded-full">
                 <Link to="/shop">সব দেখুন</Link>
@@ -138,7 +137,6 @@ function Index() {
           <SectionHeading
             title="আপনার জন্য সাজেস্টেড"
             subtitle="আপনার পছন্দ হতে পারে এমন ডিজিটাল প্রোডাক্ট"
-            align="left"
           />
           <ProductCarousel products={suggested} categories={categories} loading={prodLoading} />
         </section>
@@ -149,7 +147,6 @@ function Index() {
           <SectionHeading
             title="সব ডিজিটাল প্রোডাক্ট"
             subtitle="কোর্স, টুলস, সাবস্ক্রিপশন, ই-বুক ও টেমপ্লেট"
-            align="left"
             action={
               <Button asChild variant="outline" size="sm" className="rounded-full">
                 <Link to="/shop">শপ পেজে যান</Link>
