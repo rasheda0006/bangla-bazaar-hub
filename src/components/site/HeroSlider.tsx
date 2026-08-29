@@ -35,12 +35,20 @@ export function HeroSlider({
   }, [next, total]);
 
   if (loading) {
-    return <Skeleton className="h-[320px] w-full rounded-none sm:h-[420px] lg:h-[520px]" />;
+    return (
+      <Skeleton
+        style={heightStyle}
+        className="h-[var(--hero-h)] w-full rounded-none sm:h-[var(--hero-h-lg)]"
+      />
+    );
   }
   if (!total) return null;
 
   return (
-    <section className="relative h-[320px] w-full overflow-hidden bg-muted sm:h-[420px] lg:h-[520px]">
+    <section
+      style={heightStyle}
+      className="relative h-[var(--hero-h)] w-full overflow-hidden bg-muted sm:h-[var(--hero-h-lg)]"
+    >
       {slides.map((slide, i) => (
         <div
           key={slide.id}
