@@ -137,7 +137,7 @@ export function HeroSlider({
             <div key={`image-${activeSlide.id}`} className="hero-image-in order-1 flex justify-center md:order-2 md:justify-end">
               <div className="relative aspect-square w-[min(72vw,250px)] overflow-hidden rounded-lg border border-hero-border bg-hero-surface-raised shadow-lift md:w-[min(31vw,320px)]">
                 <img src={activeSlide.image_url} alt={activeSlide.heading ?? "ডিজিটাল প্রোডাক্ট অফার"} className="h-full w-full object-cover" />
-                <div className="absolute bottom-3 left-3 rounded-md bg-hero-surface/90 px-3 py-1.5 text-xs font-semibold text-hero-foreground backdrop-blur-sm">
+                <div className="absolute bottom-3 left-3 hidden rounded-md bg-hero-surface/90 px-3 py-1.5 text-xs font-semibold text-hero-foreground backdrop-blur-sm md:block">
                   ইনস্ট্যান্ট ডেলিভারি
                 </div>
               </div>
