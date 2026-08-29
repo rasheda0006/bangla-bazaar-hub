@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ShoppingCart, Zap } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -43,6 +43,15 @@ function ProductPage() {
   const { add } = useCart();
   const navigate = useNavigate();
   const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (!product) return;
+    track("ViewContent", {
+      value: Number(product.discount_price ?? product.price),
+      contents: [{ id: product.id, quantity: 1 }],
+      contentName: product.title,
+    });
+  }, [product?.id]);
 
   if (isLoading) {
     return (
