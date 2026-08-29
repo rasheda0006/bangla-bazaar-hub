@@ -358,9 +358,9 @@ join public.categories c on c.slug = p.cat_slug
 on conflict (slug) do nothing;
 
 insert into public.hero_slides (image_url, heading, subheading, cta_text, cta_link, sort_order) values
-  ('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80', 'ডিজিটাল প্রোডাক্ট মেগা সেল', 'কোর্স, টুলস ও সাবস্ক্রিপশনে ৫০% পর্যন্ত ছাড়', 'এখনই কিনুন', '/shop', 1),
-  ('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80', 'নতুন কোর্স ও টুলস এসেছে', 'বাংলায় প্রিমিয়াম কোর্স আর প্রফেশনাল সফটওয়্যার একসাথে', 'কালেকশন দেখুন', '/shop', 2),
-  ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80', 'ইনস্ট্যান্ট ডিজিটাল ডেলিভারি', 'পেমেন্ট ভেরিফাই হলেই ইমেইলে অ্যাক্সেস পেয়ে যাবেন', 'অর্ডার করুন', '/shop', 3)
+  ('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&h=900&fit=crop&q=80', 'ডিজিটাল প্রোডাক্ট মেগা সেল', 'কোর্স, টুলস ও সাবস্ক্রিপশনে ৫০% পর্যন্ত ছাড়', 'এখনই কিনুন', '/shop', 1),
+  ('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&h=900&fit=crop&q=80', 'নতুন কোর্স ও টুলস এসেছে', 'বাংলায় প্রিমিয়াম কোর্স আর প্রফেশনাল সফটওয়্যার একসাথে', 'কালেকশন দেখুন', '/shop', 2),
+  ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=900&fit=crop&q=80', 'ইনস্ট্যান্ট ডিজিটাল ডেলিভারি', 'পেমেন্ট ভেরিফাই হলেই ইমেইলে অ্যাক্সেস পেয়ে যাবেন', 'অর্ডার করুন', '/shop', 3)
 on conflict do nothing;
 
 insert into public.testimonials (name, avatar_url, rating, comment, sort_order) values
