@@ -13,7 +13,7 @@ export function SectionHeading({
     <div
       className={
         align === "center"
-          ? "mx-auto mb-6 max-w-2xl text-center"
+          ? "mx-auto mb-6 flex max-w-2xl flex-col items-center text-center"
           : "mb-6 grid gap-3 text-center md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:gap-4 md:text-left"
       }
     >
@@ -28,7 +28,17 @@ export function SectionHeading({
           }
         />
       </div>
-      {action ? <div className="shrink-0 justify-self-center md:justify-self-end">{action}</div> : null}
+      {action ? (
+        <div
+          className={
+            align === "center"
+              ? "mt-4 shrink-0"
+              : "shrink-0 justify-self-center md:justify-self-end"
+          }
+        >
+          {action}
+        </div>
+      ) : null}
     </div>
   );
 }
