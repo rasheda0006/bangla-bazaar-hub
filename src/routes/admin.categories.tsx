@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { AdminCard, AdminPage } from "@/components/admin/AdminPage";
 import { ImageField } from "@/components/admin/ImageField";
 import { Button } from "@/components/ui/button";
@@ -17,8 +18,8 @@ export const Route = createFileRoute("/admin/categories")({
   component: AdminCategories,
 });
 
-type Form = { id?: string; name: string; image_url: string; sort_order: number };
-const EMPTY: Form = { name: "", image_url: "", sort_order: 0 };
+type Form = { id?: string; name: string; slug: string; image_url: string; sort_order: number };
+const EMPTY: Form = { name: "", slug: "", image_url: "", sort_order: 0 };
 
 function AdminCategories() {
   const { data: categories = [] } = useCategories();
@@ -31,6 +32,7 @@ function AdminCategories() {
     setForm({
       id: c.id,
       name: c.name,
+      slug: c.slug,
       image_url: c.image_url ?? "",
       sort_order: c.sort_order,
     });
@@ -42,7 +44,7 @@ function AdminCategories() {
     setBusy(true);
     const payload = {
       name: form.name.trim(),
-      slug: slugify(form.name),
+      slug: slugify(form.slug || form.name),
       image_url: form.image_url || null,
       sort_order: Number(form.sort_order) || 0,
     };
@@ -115,9 +117,7 @@ function AdminCategories() {
                     <Button variant="ghost" size="icon" onClick={() => edit(c)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={() => void remove(c.id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
+                    <ConfirmDelete itemName={c.name} onConfirm={() => void remove(c.id)} />
                   </td>
                 </tr>
               ))}
@@ -142,7 +142,19 @@ function AdminCategories() {
               <Input
                 required
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                onChange={(e) => {
+                  const name = e.target.value;
+                  const auto = !form.slug || form.slug === slugify(form.name);
+                  setForm({ ...form, name, slug: auto ? slugify(name) : form.slug });
+                }}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label>স্লাগ (URL) — অটো তৈরি হয়</Label>
+              <Input
+                value={form.slug}
+                placeholder="auto-generated"
+                onChange={(e) => setForm({ ...form, slug: e.target.value })}
               />
             </div>
             <ImageField

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ShoppingCart, Zap } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useCart } from "@/lib/cart";
+import { track } from "@/lib/tracking";
 import { useCategories, useProduct, useProductReviews, useProducts } from "@/lib/data";
 import { discountPercent, bnDate, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -42,6 +43,15 @@ function ProductPage() {
   const { add } = useCart();
   const navigate = useNavigate();
   const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (!product) return;
+    track("ViewContent", {
+      value: Number(product.discount_price ?? product.price),
+      contents: [{ id: product.id, quantity: 1 }],
+      contentName: product.title,
+    });
+  }, [product?.id]);
 
   if (isLoading) {
     return (
@@ -185,6 +195,11 @@ function ProductPage() {
                 className="gap-2 rounded-full"
                 onClick={() => {
                   add(payload);
+                  track("AddToCart", {
+                    value: payload.price,
+                    contents: [{ id: payload.id, quantity: 1 }],
+                    contentName: payload.title,
+                  });
                   toast.success("কার্টে যোগ হয়েছে");
                 }}
               >
@@ -196,6 +211,11 @@ function ProductPage() {
                 className="gap-2 rounded-full"
                 onClick={() => {
                   add(payload);
+                  track("AddToCart", {
+                    value: payload.price,
+                    contents: [{ id: payload.id, quantity: 1 }],
+                    contentName: payload.title,
+                  });
                   void navigate({ to: "/checkout" });
                 }}
               >

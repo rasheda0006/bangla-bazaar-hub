@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { AdminCard, AdminPage } from "@/components/admin/AdminPage";
 import { ImageField } from "@/components/admin/ImageField";
 import { Button } from "@/components/ui/button";
@@ -145,9 +146,10 @@ function SlidesTab() {
                 />
                 সক্রিয়
               </label>
-              <Button variant="ghost" size="icon" onClick={() => void remove(s.id)}>
-                <Trash2 className="h-4 w-4 text-destructive" />
-              </Button>
+              <ConfirmDelete
+                itemName={s.heading ?? "স্লাইড"}
+                onConfirm={() => void remove(s.id)}
+              />
             </div>
           </AdminCard>
         ))}
@@ -249,9 +251,7 @@ function TestimonialsTab() {
                   <p className="text-xs text-muted-foreground">{toBn(t.rating)} ★</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" onClick={() => void remove(t.id)}>
-                <Trash2 className="h-4 w-4 text-destructive" />
-              </Button>
+              <ConfirmDelete itemName={t.name} onConfirm={() => void remove(t.id)} />
             </div>
             <p className="mt-3 line-clamp-2-safe text-sm text-muted-foreground">{t.comment}</p>
           </AdminCard>

@@ -94,6 +94,14 @@ export type SiteSettings = {
   fb_pixel_id: string | null;
   ga_id: string | null;
   gtm_id: string | null;
+  tracking_enabled: boolean;
+  fb_capi_enabled: boolean;
+  fb_test_event_code: string | null;
+  ga4_id: string | null;
+  google_ads_id: string | null;
+  google_ads_conversion_label: string | null;
+  tiktok_pixel_id: string | null;
+  clarity_id: string | null;
   bkash_number: string | null;
   nagad_number: string | null;
   rocket_number: string | null;

@@ -83,6 +83,7 @@ function AdminSettings() {
           <TabsTrigger value="design" className="rounded-full">ডিজাইন</TabsTrigger>
           <TabsTrigger value="payment" className="rounded-full">পেমেন্ট</TabsTrigger>
           <TabsTrigger value="seo" className="rounded-full">SEO</TabsTrigger>
+          <TabsTrigger value="tracking" className="rounded-full">ট্র্যাকিং</TabsTrigger>
           <TabsTrigger value="sections" className="rounded-full">সেকশন</TabsTrigger>
         </TabsList>
 
@@ -254,9 +255,40 @@ function AdminSettings() {
                   onChange={(e) => set("meta_description", e.target.value)}
                 />
               </div>
-              {text("fb_pixel_id", "ফেসবুক পিক্সেল আইডি")}
-              {text("ga_id", "গুগল অ্যানালিটিকস আইডি")}
-              {text("gtm_id", "গুগল ট্যাগ ম্যানেজার আইডি")}
+            </div>
+          </AdminCard>
+        </TabsContent>
+
+        <TabsContent value="tracking">
+          <AdminCard className="mt-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="sm:col-span-2">
+                {toggle("tracking_enabled", "ট্র্যাকিং চালু (সব পিক্সেল ও অ্যানালিটিকস)")}
+              </div>
+
+              <div className="sm:col-span-2 mt-2 text-sm font-semibold">মেটা (ফেসবুক)</div>
+              {text("fb_pixel_id", "মেটা পিক্সেল আইডি", "1234567890")}
+              {toggle("fb_capi_enabled", "Conversions API (CAPI) চালু")}
+              {text("fb_test_event_code", "CAPI টেস্ট ইভেন্ট কোড (ঐচ্ছিক)", "TEST12345")}
+              <p className="text-xs text-muted-foreground sm:col-span-2">
+                CAPI চালু করতে সার্ভারে <code>FB_CAPI_ACCESS_TOKEN</code> সিক্রেট সেট থাকতে হবে।
+                ব্রাউজার পিক্সেল ও সার্ভার ইভেন্ট একই <code>event_id</code> দিয়ে ডিডুপ্লিকেট হয়।
+              </p>
+
+              <div className="sm:col-span-2 mt-2 text-sm font-semibold">গুগল</div>
+              {text("ga4_id", "GA4 মেজারমেন্ট আইডি", "G-XXXXXXXXXX")}
+              {text("gtm_id", "গুগল ট্যাগ ম্যানেজার আইডি", "GTM-XXXXXXX")}
+              {text("google_ads_id", "গুগল অ্যাডস আইডি", "AW-123456789")}
+              {text("google_ads_conversion_label", "অ্যাডস কনভার্সন লেবেল", "AbC-D_efGh")}
+              {text("ga_id", "পুরনো ইউনিভার্সাল অ্যানালিটিকস আইডি (ঐচ্ছিক)", "UA-XXXXXX-X")}
+
+              <div className="sm:col-span-2 mt-2 text-sm font-semibold">অন্যান্য</div>
+              {text("tiktok_pixel_id", "টিকটক পিক্সেল আইডি")}
+              {text("clarity_id", "মাইক্রোসফট ক্ল্যারিটি আইডি")}
+              <p className="text-xs text-muted-foreground sm:col-span-2">
+                ট্র্যাক হওয়া ইভেন্ট: PageView, ViewContent, AddToCart, InitiateCheckout, Purchase।
+                অ্যাডমিন প্যানেলে কোনো ট্র্যাকিং চলে না।
+              </p>
             </div>
           </AdminCard>
         </TabsContent>

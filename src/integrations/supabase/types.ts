@@ -239,12 +239,18 @@ export type Database = {
           address: string | null
           bkash_enabled: boolean
           bkash_number: string | null
+          clarity_id: string | null
           email: string | null
           facebook_url: string | null
           favicon_url: string | null
+          fb_capi_enabled: boolean
           fb_pixel_id: string | null
+          fb_test_event_code: string | null
           font_family: string
           ga_id: string | null
+          ga4_id: string | null
+          google_ads_conversion_label: string | null
+          google_ads_id: string | null
           gtm_id: string | null
           hero_bg_from: string
           hero_bg_style: string
@@ -273,6 +279,8 @@ export type Database = {
           show_testimonials: boolean
           site_name: string
           site_tagline: string
+          tiktok_pixel_id: string | null
+          tracking_enabled: boolean
           updated_at: string
           whatsapp: string | null
           youtube_url: string | null
@@ -281,12 +289,18 @@ export type Database = {
           address?: string | null
           bkash_enabled?: boolean
           bkash_number?: string | null
+          clarity_id?: string | null
           email?: string | null
           facebook_url?: string | null
           favicon_url?: string | null
+          fb_capi_enabled?: boolean
           fb_pixel_id?: string | null
+          fb_test_event_code?: string | null
           font_family?: string
           ga_id?: string | null
+          ga4_id?: string | null
+          google_ads_conversion_label?: string | null
+          google_ads_id?: string | null
           gtm_id?: string | null
           hero_bg_from?: string
           hero_bg_style?: string
@@ -315,6 +329,8 @@ export type Database = {
           show_testimonials?: boolean
           site_name?: string
           site_tagline?: string
+          tiktok_pixel_id?: string | null
+          tracking_enabled?: boolean
           updated_at?: string
           whatsapp?: string | null
           youtube_url?: string | null
@@ -323,12 +339,18 @@ export type Database = {
           address?: string | null
           bkash_enabled?: boolean
           bkash_number?: string | null
+          clarity_id?: string | null
           email?: string | null
           facebook_url?: string | null
           favicon_url?: string | null
+          fb_capi_enabled?: boolean
           fb_pixel_id?: string | null
+          fb_test_event_code?: string | null
           font_family?: string
           ga_id?: string | null
+          ga4_id?: string | null
+          google_ads_conversion_label?: string | null
+          google_ads_id?: string | null
           gtm_id?: string | null
           hero_bg_from?: string
           hero_bg_style?: string
@@ -357,6 +379,8 @@ export type Database = {
           show_testimonials?: boolean
           site_name?: string
           site_tagline?: string
+          tiktok_pixel_id?: string | null
+          tracking_enabled?: boolean
           updated_at?: string
           whatsapp?: string | null
           youtube_url?: string | null
