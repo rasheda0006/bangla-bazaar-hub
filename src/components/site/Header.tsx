@@ -36,10 +36,14 @@ export function Header() {
               <Store className="h-5 w-5" />
             </span>
           )}
-          <span className="truncate font-display text-lg font-bold">
+          <span className="hidden truncate font-display text-lg font-bold md:inline">
             {settings?.site_name ?? "আমার দোকান"}
           </span>
         </Link>
+
+        <span className="truncate text-center font-display text-lg font-bold md:hidden">
+          {settings?.site_name ?? "আমার দোকান"}
+        </span>
 
         <nav className="hidden items-center justify-center gap-1 md:flex">
           {NAV.map((item) => (
