@@ -165,6 +165,18 @@ export function HeroSlider({
             </>
           ) : null}
         </div>
+
+        <aside className="hidden overflow-hidden rounded-xl border border-hero-border shadow-lift lg:block">
+          <img
+            src={offerImage}
+            alt="বিশেষ অফার"
+            loading="lazy"
+            width={640}
+            height={900}
+            className="h-full min-h-[var(--hero-h-lg)] w-full object-cover"
+          />
+        </aside>
+        </div>
       </div>
     </section>
   );
