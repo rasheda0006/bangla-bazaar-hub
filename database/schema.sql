@@ -122,9 +122,9 @@ create table if not exists public.site_settings (
   hero_height_mobile integer not null default 200,
   hero_height_desktop integer not null default 300,
   hero_bg_style text not null default 'gradient',
-  hero_bg_from text not null default '#e9f7ef',
-  hero_bg_to text not null default '#ffffff',
-  hero_max_width integer not null default 1200,
+  hero_bg_from text not null default '#ede9fe',
+  hero_bg_to text not null default '#faf5ff',
+  hero_max_width integer not null default 1120,
   updated_at timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
 );
