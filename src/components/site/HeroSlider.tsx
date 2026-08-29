@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ChevronLeft, ChevronRight, ShieldCheck, Star } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
+import offerImage from "@/assets/hero-offer.jpg";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
