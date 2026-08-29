@@ -75,27 +75,25 @@ function CheckoutPage() {
       return;
     }
     setSaving(true);
-    const { data, error } = await db
-      .from("orders")
-      .insert({
-        customer_name: form.customer_name.trim(),
-        email: form.email.trim(),
-        phone: form.phone.trim(),
-        payment_method: method,
-        transaction_id: form.transaction_id.trim(),
-        sender_number: form.sender_number.trim(),
-        items: items.map((i) => ({ id: i.id, title: i.title, price: i.price, qty: i.qty })),
-        total: subtotal,
-      })
-      .select("order_no")
-      .single();
-    setSaving(false);
-    if (error) {
+    try {
+      const result = await submitOrder({
+        data: {
+          customer_name: form.customer_name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          payment_method: method as "bkash" | "nagad" | "rocket",
+          transaction_id: form.transaction_id.trim(),
+          sender_number: form.sender_number.trim(),
+          items: items.map((i) => ({ id: i.id, title: i.title, price: i.price, qty: i.qty })),
+        },
+      });
+      clear();
+      setDone(result.order_no);
+    } catch {
       toast.error("অর্ডার সাবমিট করা যায়নি, আবার চেষ্টা করুন");
-      return;
+    } finally {
+      setSaving(false);
     }
-    clear();
-    setDone(Number(data?.order_no ?? 0));
   };
 
   if (done !== null) {
