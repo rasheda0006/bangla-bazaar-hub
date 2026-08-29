@@ -1,14 +1,275 @@
-# Welcome to your Lovable project
+# Bangla Bazaar Hub
+
+নিচের ডিজাইন স্পেসিফিকেশন অনুযায়ী পুরো ওয়েবসাইটের UI বানাও। ডিজাইন হতে হবে 
+
+ সম্পূর্ণ রেসপন্সিভ — এবং সব সেকশন এডমিন প্যানেল থেকে 
+
+কাস্টমাইজযোগ্য।
+
+═══════════════════════════════
+
+১. হোম পেজ
+
+═══════════════════════════════
+
+### হিরো সেকশন (একদম উপরে)
+
+- একটা সুন্দর স্লাইডার (৩-৫টা স্লাইড অটো-রোটেট হবে, ম্যানুয়াল নেক্সট/প্রেভ বাটন 
+
+  ও ডট ইন্ডিকেটর সহ)
+
+- প্রতিটা স্লাইডে: eye-catching ব্যানার ইমেজ, ছোট heading/সাব-টেক্সট, একটা CTA 
+
+  বাটন (যেমন "Shop Now")
+
+- ফুল-উইথ, স্মুথ ফেড/স্লাইড ট্রানজিশন
+
+### ক্যাটাগরি সেকশন (হিরোর ঠিক নিচে)
+
+- সব ক্যাটাগরি একটা হরাইজন্টাল কার্ড/আইকন গ্রিডে দেখাবে (ক্যাটাগরি ইমেজ/আইকন + 
+
+  নাম)
+
+- ক্লিক করলে সেই ক্যাটাগরি অনুযায়ী ফিল্টার হওয়া শপ পেজে যাবে
+
+- ডেস্কটপে ৬-৮টা, মোবাইলে horizontal scroll
+
+### প্রোডাক্ট সেকশন (৩টা আলাদা সেকশন, প্রতিটার নিজস্ব heading)
+
+1. **Best Selling** — বেস্ট সেলিং প্রোডাক্টগুলো
+
+2. **All Products** — সব প্রোডাক্টের গ্রিড
+
+3. **Suggested For You** — এই সেকশনটা ক্যারোসেল/স্লাইডার আকারে হবে (এক লাইনে 
+
+   প্রোডাক্ট কার্ডগুলো হরাইজন্টালি স্লাইড করবে, স্ক্রল/সোয়াইপ বা arrow button দিয়ে)
+
+### প্রোডাক্ট কার্ড ডিজাইন (পুরো সাইটে একই কার্ড ব্যবহার হবে)
+
+- ইমেজ রেশিও 1:1 (স্কয়ার), rounded corners, hover এ সামান্য zoom/shadow ইফেক্ট
+
+- ইমেজের উপরে বাম কোণে ক্যাটাগরি ব্যাজ (ছোট পিল/ট্যাগ)
+
+- ইমেজের নিচে: প্রোডাক্ট টাইটেল (১-২ লাইন, truncate), দাম (discount থাকলে cut 
+
+  price + নতুন price), স্টার রেটিং + রিভিউ সংখ্যা
+
+- কার্ডের নিচে দুইটা বাটন: "Add to Cart" (আউটলাইন স্টাইল) ও "Order Now/Buy Now" 
+
+  (সলিড/প্রাইমারি স্টাইল)
+
+- গ্রিড: ডেস্কটপে প্রতি লাইনে ৪টা কার্ড, ট্যাবলেটে ৩টা, মোবাইলে প্রতি লাইনে ২টা 
+
+  কার্ড
+
+### টেস্টিমোনিয়াল/রিভিউ সেকশন
+
+- কাস্টমার রিভিউ কার্ড (ছবি/এভাটার, নাম, স্টার রেটিং, রিভিউ টেক্সট) — 
+
+  ক্যারোসেল আকারে বা ৩ কলামের গ্রিডে
+
+### ফুটার
+
+- ৩টা কলাম, প্রতিটা কলামের কনটেন্ট সেন্টার-অ্যালাইনড
+
+  - কলাম ১: ব্র্যান্ড লোগো + ছোট বিবরণ + সোশ্যাল আইকন
+
+  - কলাম ২: কুইক লিংক (Home, Shop, Category, Contact, About)
+
+  - কলাম ৩: কন্টাক্ট ইনফো (ফোন, ইমেইল, WhatsApp, ঠিকানা)
+
+- একদম নিচে একটা পাতলা কপিরাইট বার
+
+═══════════════════════════════
+
+২. শপ পেজ (/shop)
+
+═══════════════════════════════
+
+- উপরে সেন্টার-অ্যালাইনড heading ও ছোট বর্ণনা (যেমন "All Products")
+
+- নিচে দুই কলাম লেআউট:
+
+  - **বামে (সাইডবার)**: Price Range slider/filter, Category checkbox লিস্ট, 
+
+    "Clear Filters" বাটন — ডেস্কটপে sticky sidebar, মোবাইলে "Filter" বাটনে 
+
+    ক্লিক করলে drawer/bottom-sheet এ খুলবে
+
+  - **ডানে**: প্রোডাক্ট গ্রিড (একই প্রোডাক্ট কার্ড ডিজাইন), উপরে sort option 
+
+    (Price: Low to High, Newest ইত্যাদি), নিচে pagination বা "Load More"
+
+═══════════════════════════════
+
+৩. ক্যাটাগরি পেজ (/categories)
+
+═══════════════════════════════
+
+- সব ক্যাটাগরি একটা সুন্দর গ্রিড কার্ডে (ক্যাটাগরি ইমেজ, নাম, কয়টা প্রোডাক্ট 
+
+  আছে সেই কাউন্ট)
+
+- কোনো ক্যাটাগরিতে ক্লিক করলে শপ পেজে যাবে, সেই ক্যাটাগরি অটো-ফিল্টার করা অবস্থায়
+
+═══════════════════════════════
+
+৪. প্রোডাক্ট ডিটেইল পেজ (/product/:id)
+
+═══════════════════════════════
+
+- বাম পাশে: প্রোডাক্ট ইমেজ গ্যালারি (মেইন ইমেজ + নিচে থাম্বনেইল, ক্লিক করলে 
+
+  মেইন ইমেজ বদলাবে)
+
+- ডান পাশে: টাইটেল, রেটিং+রিভিউ কাউন্ট, দাম, ছোট বর্ণনা, ক্যাটাগরি ব্যাজ, 
+
+  "Add to Cart" ও "Buy Now" বাটন (বড়, প্রমিনেন্ট)
+
+- নিচে ট্যাব সেকশন: "Description" (ফুল ডিটেইল), "Reviews" (কাস্টমার রিভিউ 
+
+  লিস্ট + রেটিং ব্রেকডাউন)
+
+- একদম নিচে "Related Products" সেকশন (একই ক্যাটাগরির অন্য প্রোডাক্ট, কার্ড 
+
+  গ্রিডে)
+
+═══════════════════════════════
+
+৫. কার্ট পেজ (/cart)
+
+═══════════════════════════════
+
+- প্রতিটা আইটেম একটা রো তে: থাম্বনেইল ইমেজ, নাম, দাম, quantity adjuster (+/-), 
+
+  remove বাটন
+
+- ডান পাশে/নিচে একটা সামারি বক্স: Subtotal, Total, "Proceed to Checkout" বাটন
+
+- কার্ট খালি থাকলে একটা friendly empty-state (ইলাস্ট্রেশন + "Continue 
+
+  Shopping" বাটন)
+
+═══════════════════════════════
+
+৬. চেকআউট পেজ (/checkout)
+
+═══════════════════════════════
+
+- বাম পাশে ফর্ম: নাম, ইমেইল, ফোন নম্বর, পেমেন্ট মেথড সিলেক্ট (বিকাশ/নগদ/রকেট — 
+
+  আইকন সহ radio card স্টাইলে), Transaction ID ইনপুট, যে নম্বর থেকে টাকা পাঠানো 
+
+  হয়েছে সেই নম্বর ইনপুট
+
+- ডান পাশে অর্ডার সামারি (প্রোডাক্ট লিস্ট, টোটাল দাম) — sticky কার্ড
+
+- পেমেন্ট নম্বর (যেটাতে টাকা পাঠাতে হবে) স্পষ্টভাবে highlighted বক্সে দেখাবে
+
+- সাবমিট করার পর একটা সুন্দর success পেজ/মডাল: "অর্ডার সম্পন্ন, ভেরিফাই হওয়ার 
+
+  পর ইমেইলে ডাউনলোড লিংক পাবেন"
+
+═══════════════════════════════
+
+৭. এডমিন ড্যাশবোর্ড (/admin)
+
+═══════════════════════════════
+
+বাম পাশে sidebar নেভিগেশন (Dashboard, Products, Orders, Categories, Settings), 
+
+প্রতিটা পেজের ডিজাইন consistent রাখতে হবে।
+
+### Dashboard (ওভারভিউ)
+
+- উপরে stat কার্ড (Total Sales, Total Orders, Pending Orders, Total Products) 
+
+  — আইকন সহ
+
+- নিচে একটা সিম্পল সেলস চার্ট/গ্রাফ ও সাম্প্রতিক অর্ডারের লিস্ট
+
+### Products, Orders, Categories — সব জায়গায় একই টেবিল প্যাটার্ন
+
+- উপরে সার্চ বার + "Add New" বাটন
+
+- ক্লিন টেবিল: থাম্বনেইল/আইকন, নাম, স্ট্যাটাস ব্যাজ (রঙিন pill), Edit/Delete 
+
+  আইকন বাটন প্রতিটা রো তে
+
+- Add/Edit করার সময় একটা মডাল বা সাইড-প্যানেল ফর্ম খুলবে (আলাদা পেজে না)
+
+- প্রতিটাই পূর্ণ CRUD (Create, Read, Update, Delete) সাপোর্ট করবে
+
+### ইমেজ আপলোড ফিল্ড (যেখানেই ছবি লাগবে — প্রোডাক্ট, ক্যাটাগরি, লোগো, স্লাইডার)
+
+প্রতিটা ইমেজ ফিল্ডে দুইটা অপশন থাকবে (ট্যাব বা টগল দিয়ে সুইচ করা যাবে):
+
+- **Upload**: drag & drop এরিয়া (ক্লিক করেও ফাইল বাছাই করা যাবে), আপলোড হলে 
+
+  প্রিভিউ দেখাবে
+
+- **URL**: একটা ইনপুট বক্সে সরাসরি ইমেজ লিংক পেস্ট করা যাবে
+
+দুই ক্ষেত্রেই ছবির প্রিভিউ থাম্বনেইল দেখাবে, রিমুভ করার অপশন থাকবে।
+
+### Settings পেজ (কয়েকটা ট্যাবে ভাগ করা)
+
+- **General**: সাইট নাম, লোগো (upload/URL), ফেভিকন (upload/URL), কন্টাক্ট 
+
+  ইনফো (ফোন, ইমেইল, WhatsApp, ঠিকানা), সোশ্যাল মিডিয়া লিংক
+
+- **Theme**: প্রাইমারি কালার পিকার, সেকেন্ডারি কালার পিকার, ফন্ট সিলেক্ট 
+
+  (লাইভ প্রিভিউ সহ)
+
+- **SEO & Pixel**: মেটা টাইটেল, মেটা ডেসক্রিপশন, Facebook Pixel ID, Google 
+
+  Analytics ID, Google Tag Manager ID — ইনপুট ফিল্ড
+
+- **Payment**: বিকাশ/নগদ/রকেট নম্বর, কোন মেথড এনাবল/ডিসেবল টগল
+
+- **Homepage Sections**: হিরো স্লাইডার ম্যানেজ (Add/Edit/Delete/Reorder স্লাইড), 
+
+  কোন কোন হোমপেজ সেকশন (Best Selling, Suggested For You, Testimonials ইত্যাদি) 
+
+  show/hide করা যাবে — টগল সুইচ দিয়ে
+
+═══════════════════════════════
+
+৮. ওভারঅল ডিজাইন গাইডলাইন
+
+═══════════════════════════════
+
+- মডার্ন, কালার প্যালেট — soft shadows, rounded corners (কার্ড, বাটন, 
+
+  ইনপুট সব জায়গায় consistent radius)
+
+- স্মুথ hover/transition animation সব ইন্টারেক্টিভ এলিমেন্টে
+
+- টাইপোগ্রাফি clean ও readable, heading গুলোতে ভালো visual hierarchy
+
+- সব পেজ সম্পূর্ণ মোবাইল রেসপন্সিভ (mobile-first অ্যাপ্রোচে ডিজাইন করো)
+
+- লোডিং স্টেট (skeleton loader) ও empty স্টেট সব লিস্ট/গ্রিডে থাকবে
+
+
+এই সাইটের সম্পূর্ণ ব্যাকএন্ড Supabase দিয়ে সেটআপ করো। এটা একটা টেমপ্লেট কোডবেস — পরে আমি এই একই কোড অন্য Supabase প্রজেক্টের সাথে কানেক্ট করে আলাদা কাস্টমারের জন্য ডিপ্লয় করবো, তাই কোনো কিছু হার্ডকোড করা যাবে না, সব environment variable থেকে আসবে।
+
+## Environment Variables কোডে কোথাও Supabase URL/key হার্ডকোড করবে না — সব .env থেকে আসবে: - SUPABASE_URL / VITE_SUPABASE_URL - SUPABASE_PUBLISHABLE_KEY / VITE_SUPABASE_PUBLISHABLE_KEY - SUPABASE_PROJECT_ID / VITE_SUPABASE_PROJECT_ID
+
+ ## এক্সপোর্ট পুরো স্কিমা (সব টেবিল, RLS পলিসি, ফাংশন, ট্রিগার, storage bucket সেটআপ, ডিফল্ট demo ডাটা যদি থাকে) একটা .sql ফাইলে এক্সপোর্ট করে দাও (একবারে রান করার মতো একটা সম্পূর্ণ migration script), যাতে আমি এটা অন্য Supabase প্রজেক্টে হুবহু রেপ্লিকেট করতে পারি।
+
+website sompurno bangla hobe a to z sob bangla hobe and bangladeshi der jonno hobe
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/dfc6f1e1-3123-42dd-93cf-cbc9d4680929).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +281,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
