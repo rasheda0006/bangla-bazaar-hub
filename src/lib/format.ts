@@ -23,7 +23,7 @@ export function slugify(input: string): string {
   const base = input
     .trim()
     .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/[^\p{L}\p{N}\p{M}]+/gu, "-")
     .replace(/^-+|-+$/g, "");
   return base || `item-${Date.now()}`;
 }
