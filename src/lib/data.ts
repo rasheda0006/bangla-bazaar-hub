@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { slugify } from "@/lib/format";
 
 export type Category = {
   id: string;
@@ -169,11 +170,27 @@ export function useProducts() {
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+function safeDecode(value: string): string {
+  try {
+    return decodeURIComponent(value).normalize("NFC");
+  } catch {
+    return value.normalize("NFC");
+  }
+}
+
+function legacySlugify(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export function useProduct(idOrSlug: string) {
   return useQuery({
     queryKey: ["product", idOrSlug],
     queryFn: async (): Promise<Product | null> => {
-      const key = decodeURIComponent(idOrSlug ?? "");
+      const key = safeDecode(idOrSlug ?? "");
       const column = UUID_RE.test(key) ? "id" : "slug";
       const { data, error } = await db
         .from("products")
@@ -181,7 +198,29 @@ export function useProduct(idOrSlug: string) {
         .eq(column, key)
         .maybeSingle();
       if (error) throw error;
-      return data as Product | null;
+      if (data) return data as Product;
+
+      if (column === "slug") {
+        const { data: products, error: fallbackError } = await db
+          .from("products")
+          .select("*")
+          .eq("status", "active");
+        if (fallbackError) throw fallbackError;
+
+        const normalizedKey = key.toLowerCase();
+        const match = ((products ?? []) as Product[]).find((product: Product) => {
+          const title = String(product.title ?? "");
+          const slug = safeDecode(String(product.slug ?? "")).toLowerCase();
+          return (
+            slug === normalizedKey ||
+            slugify(title).normalize("NFC") === normalizedKey ||
+            legacySlugify(title).normalize("NFC") === normalizedKey
+          );
+        });
+        return (match as Product | undefined) ?? null;
+      }
+
+      return null;
     },
     enabled: Boolean(idOrSlug),
   });

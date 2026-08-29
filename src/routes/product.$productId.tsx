@@ -45,6 +45,15 @@ function ProductPage() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    if (!product?.slug || product.slug === productId) return;
+    void navigate({
+      to: "/product/$productId",
+      params: { productId: product.slug },
+      replace: true,
+    });
+  }, [navigate, product?.slug, productId]);
+
+  useEffect(() => {
     if (!product) return;
     track("ViewContent", {
       value: Number(product.discount_price ?? product.price),
