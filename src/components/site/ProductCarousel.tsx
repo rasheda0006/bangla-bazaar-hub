@@ -34,7 +34,7 @@ export function ProductCarousel({
   if (!products.length) {
     return (
       <div className="rounded-2xl border border-dashed border-border bg-muted/40 py-14 text-center text-sm text-muted-foreground">
-        এখনো কোনো সাজেস্টেড পণ্য নেই
+        এখনো কোনো সাজেস্টেড প্রোডাক্ট নেই
       </div>
     );
   }

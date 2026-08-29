@@ -126,8 +126,8 @@ function AdminProducts() {
 
   return (
     <AdminPage
-      title="পণ্য"
-      description="পণ্য যোগ, সম্পাদনা ও মুছুন"
+      title="ডিজিটাল প্রোডাক্ট"
+      description="কোর্স, টুলস, সাবস্ক্রিপশন ও ই-বুক যোগ, সম্পাদনা ও মুছুন"
       action={
         <Button
           className="gap-2 rounded-full"
@@ -137,7 +137,7 @@ function AdminProducts() {
           }}
         >
           <Plus className="h-4 w-4" />
-          নতুন পণ্য
+          নতুন প্রোডাক্ট
         </Button>
       }
     >
@@ -145,7 +145,7 @@ function AdminProducts() {
         <Input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="পণ্যের নাম খুঁজুন"
+          placeholder="প্রোডাক্টের নাম খুঁজুন"
           className="max-w-sm"
         />
         <div className="mt-5 overflow-x-auto">
@@ -156,7 +156,7 @@ function AdminProducts() {
                 <th className="pb-2 font-medium">নাম</th>
                 <th className="pb-2 font-medium">ক্যাটাগরি</th>
                 <th className="pb-2 font-medium">দাম</th>
-                <th className="pb-2 font-medium">স্টক</th>
+                <th className="pb-2 font-medium">লাইসেন্স স্টক</th>
                 <th className="pb-2" />
               </tr>
             </thead>
@@ -191,7 +191,7 @@ function AdminProducts() {
             </tbody>
           </table>
           {list.length === 0 ? (
-            <p className="py-12 text-center text-sm text-muted-foreground">কোনো পণ্য নেই</p>
+            <p className="py-12 text-center text-sm text-muted-foreground">কোনো ডিজিটাল প্রোডাক্ট নেই</p>
           ) : null}
         </div>
       </AdminCard>
@@ -200,12 +200,12 @@ function AdminProducts() {
         <DialogContent className="max-h-[88vh] max-w-2xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="font-display">
-              {form.id ? "পণ্য সম্পাদনা" : "নতুন পণ্য"}
+              {form.id ? "প্রোডাক্ট সম্পাদনা" : "নতুন প্রোডাক্ট"}
             </DialogTitle>
           </DialogHeader>
           <form onSubmit={save} className="space-y-4">
             <div className="space-y-1.5">
-              <Label>পণ্যের নাম</Label>
+              <Label>প্রোডাক্টের নাম</Label>
               <Input
                 required
                 value={form.title}
@@ -249,7 +249,7 @@ function AdminProducts() {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label>স্টক</Label>
+                <Label>লাইসেন্স স্টক (আনলিমিটেড হলে বড় সংখ্যা)</Label>
                 <Input
                   type="number"
                   value={form.stock}

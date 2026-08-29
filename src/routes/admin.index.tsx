@@ -20,7 +20,7 @@ function Dashboard() {
     .reduce((s, o) => s + Number(o.total), 0);
 
   const stats = [
-    { label: "মোট পণ্য", value: toBn(products.length), icon: Package },
+    { label: "মোট প্রোডাক্ট", value: toBn(products.length), icon: Package },
     { label: "মোট অর্ডার", value: toBn(orders.length), icon: ShoppingBag },
     { label: "মোট বিক্রি", value: taka(revenue), icon: Wallet },
     { label: "ক্যাটাগরি", value: toBn(categories.length), icon: FolderTree },

@@ -54,7 +54,7 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-1">
           <Button asChild variant="ghost" size="icon" className="hidden sm:inline-flex">
-            <Link to="/shop" aria-label="পণ্য খুঁজুন">
+            <Link to="/shop" aria-label="ডিজিটাল প্রোডাক্ট খুঁজুন">
               <Search className="h-5 w-5" />
             </Link>
           </Button>
