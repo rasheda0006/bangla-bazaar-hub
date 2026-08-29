@@ -53,8 +53,8 @@ function Index() {
           slides={activeSlides}
           products={(bestSelling.length ? bestSelling : products).slice(0, 4)}
           loading={slidesLoading}
-          heightMobile={settings?.hero_height_mobile ?? 200}
-          heightDesktop={settings?.hero_height_desktop ?? 300}
+          heightMobile={settings?.hero_height_mobile ?? 170}
+          heightDesktop={settings?.hero_height_desktop ?? 250}
           bgStyle={settings?.hero_bg_style ?? "gradient"}
           bgFrom={settings?.hero_bg_from ?? "#4c1d95"}
           bgTo={settings?.hero_bg_to ?? "#7c3aed"}
