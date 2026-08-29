@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useCart } from "@/lib/cart";
+import { track } from "@/lib/tracking";
 import { useCategories, useProduct, useProductReviews, useProducts } from "@/lib/data";
 import { discountPercent, bnDate, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -185,6 +186,11 @@ function ProductPage() {
                 className="gap-2 rounded-full"
                 onClick={() => {
                   add(payload);
+                  track("AddToCart", {
+                    value: payload.price,
+                    contents: [{ id: payload.id, quantity: 1 }],
+                    contentName: payload.title,
+                  });
                   toast.success("কার্টে যোগ হয়েছে");
                 }}
               >
@@ -196,6 +202,11 @@ function ProductPage() {
                 className="gap-2 rounded-full"
                 onClick={() => {
                   add(payload);
+                  track("AddToCart", {
+                    value: payload.price,
+                    contents: [{ id: payload.id, quantity: 1 }],
+                    contentName: payload.title,
+                  });
                   void navigate({ to: "/checkout" });
                 }}
               >
