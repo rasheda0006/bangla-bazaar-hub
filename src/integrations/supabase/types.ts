@@ -451,6 +451,18 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      place_order: {
+        Args: {
+          p_customer_name: string
+          p_email: string
+          p_items: Json
+          p_payment_method: string
+          p_phone: string
+          p_sender_number: string
+          p_transaction_id: string
+        }
+        Returns: number
+      }
     }
     Enums: {
       app_role: "admin" | "user"
