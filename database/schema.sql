@@ -573,11 +573,22 @@ join public.categories c on c.slug = p.cat_slug
 on conflict (slug) do nothing;
 
 insert into public.hero_slides (image_url, heading, subheading, cta_text, cta_link, sort_order) values
+  ('https://i.ibb.co.com/kgWq1km3/image1.png', '', '', 'এখনই কিনুন', '/shop', 0),
   ('https://i.ibb.co.com/DH7qcZc4/image2.png', '', '', 'এখনই কিনুন', '/shop', 0),
-  ('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&h=900&fit=crop&q=80', 'ডিজিটাল প্রোডাক্ট মেগা সেল', 'কোর্স, টুলস ও সাবস্ক্রিপশনে ৫০% পর্যন্ত ছাড়', 'এখনই কিনুন', '/shop', 1),
-  ('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&h=900&fit=crop&q=80', 'নতুন কোর্স ও টুলস এসেছে', 'বাংলায় প্রিমিয়াম কোর্স আর প্রফেশনাল সফটওয়্যার একসাথে', 'কালেকশন দেখুন', '/shop', 2),
-  ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=900&fit=crop&q=80', 'ইনস্ট্যান্ট ডিজিটাল ডেলিভারি', 'পেমেন্ট ভেরিফাই হলেই ইমেইলে অ্যাক্সেস পেয়ে যাবেন', 'অর্ডার করুন', '/shop', 3)
+  ('https://i.ibb.co.com/pjysq46q/image.png', '', '', 'এখনই কিনুন', '/shop', 0)
 on conflict do nothing;
+
+-- বর্তমান লাইভ সাইটের থিম/হিরো সেটিংস
+update public.site_settings set
+  site_name = 'DigitalHaat BD',
+  hero_bg_style = 'gradient',
+  hero_bg_from = '#8e82a1',
+  hero_bg_to = '#d6c65c',
+  hero_max_width = 980,
+  hero_height_mobile = 170,
+  hero_height_desktop = 250,
+  hero_offer_image_url = 'https://i.ibb.co.com/Zppg62ft/Chat-GPT-Image-Aug-29-2026-05-43-13-PM.png'
+where id = 1;
 
 insert into public.testimonials (name, avatar_url, rating, comment, sort_order) values
   ('রাফিয়া ইসলাম', 'https://i.pravatar.cc/150?img=47', 5, 'পেমেন্টের কিছুক্ষণের মধ্যেই কোর্সের অ্যাক্সেস ইমেইলে পেয়ে গেছি। কনটেন্ট অসাধারণ।', 1),
