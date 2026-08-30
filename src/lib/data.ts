@@ -92,16 +92,20 @@ export type SiteSettings = {
   font_family: string;
   meta_title: string | null;
   meta_description: string | null;
+  og_image_url: string | null;
+  og_description: string | null;
   fb_pixel_id: string | null;
   ga_id: string | null;
   gtm_id: string | null;
   tracking_enabled: boolean;
   fb_capi_enabled: boolean;
+  fb_capi_access_token: string | null;
   fb_test_event_code: string | null;
   ga4_id: string | null;
   google_ads_id: string | null;
   google_ads_conversion_label: string | null;
   tiktok_pixel_id: string | null;
+  tiktok_url: string | null;
   clarity_id: string | null;
   bkash_number: string | null;
   nagad_number: string | null;
@@ -109,12 +113,14 @@ export type SiteSettings = {
   bkash_enabled: boolean;
   nagad_enabled: boolean;
   rocket_enabled: boolean;
+  payment_instructions: string | null;
   show_hero: boolean;
   show_categories: boolean;
   show_best_selling: boolean;
   show_all_products: boolean;
   show_suggested: boolean;
   show_testimonials: boolean;
+  show_proofs: boolean;
   hero_height_mobile: number;
   hero_height_desktop: number;
   hero_bg_style: string;
@@ -122,7 +128,42 @@ export type SiteSettings = {
   hero_bg_to: string;
   hero_max_width: number;
   hero_offer_image_url: string;
+  hero_badge_text: string;
+  hero_secondary_cta_text: string;
+  hero_secondary_cta_link: string;
+  hero_trust_text: string;
+  hero_customers_text: string;
+  hero_delivery_badge_text: string;
+  header_bg_color: string;
+  header_text_color: string;
+  header_show_search: boolean;
+  footer_bg_color: string;
+  footer_text_color: string;
+  footer_about: string | null;
+  footer_links_title: string;
+  footer_contact_title: string;
+  footer_copyright: string | null;
+  sec_categories_title: string;
+  sec_categories_subtitle: string;
+  sec_best_title: string;
+  sec_best_subtitle: string;
+  sec_suggested_title: string;
+  sec_suggested_subtitle: string;
+  sec_all_title: string;
+  sec_all_subtitle: string;
+  sec_testimonials_title: string;
+  sec_testimonials_subtitle: string;
+  sec_proof_title: string;
+  sec_proof_subtitle: string;
 };
+
+export type ProofImage = {
+  id: string;
+  image_url: string;
+  caption: string | null;
+  sort_order: number;
+};
+
 
 const db = supabase as unknown as {
   from: (table: string) => any;
