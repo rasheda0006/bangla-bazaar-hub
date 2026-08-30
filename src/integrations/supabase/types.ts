@@ -196,6 +196,30 @@ export type Database = {
           },
         ]
       }
+      proof_images: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          image_url: string
+          sort_order: number
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          sort_order?: number
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           avatar_url: string | null
@@ -243,22 +267,38 @@ export type Database = {
           email: string | null
           facebook_url: string | null
           favicon_url: string | null
+          fb_capi_access_token: string | null
           fb_capi_enabled: boolean
           fb_pixel_id: string | null
           fb_test_event_code: string | null
           font_family: string
+          footer_about: string | null
+          footer_bg_color: string
+          footer_contact_title: string
+          footer_copyright: string | null
+          footer_links_title: string
+          footer_text_color: string
           ga_id: string | null
           ga4_id: string | null
           google_ads_conversion_label: string | null
           google_ads_id: string | null
           gtm_id: string | null
+          header_bg_color: string
+          header_show_search: boolean
+          header_text_color: string
+          hero_badge_text: string
           hero_bg_from: string
           hero_bg_style: string
           hero_bg_to: string
+          hero_customers_text: string
+          hero_delivery_badge_text: string
           hero_height_desktop: number
           hero_height_mobile: number
           hero_max_width: number
           hero_offer_image_url: string
+          hero_secondary_cta_link: string
+          hero_secondary_cta_text: string
+          hero_trust_text: string
           id: number
           instagram_url: string | null
           logo_url: string | null
@@ -266,20 +306,37 @@ export type Database = {
           meta_title: string | null
           nagad_enabled: boolean
           nagad_number: string | null
+          og_description: string | null
+          og_image_url: string | null
+          payment_instructions: string | null
           phone: string | null
           primary_color: string
           rocket_enabled: boolean
           rocket_number: string | null
+          sec_all_subtitle: string
+          sec_all_title: string
+          sec_best_subtitle: string
+          sec_best_title: string
+          sec_categories_subtitle: string
+          sec_categories_title: string
+          sec_proof_subtitle: string
+          sec_proof_title: string
+          sec_suggested_subtitle: string
+          sec_suggested_title: string
+          sec_testimonials_subtitle: string
+          sec_testimonials_title: string
           secondary_color: string
           show_all_products: boolean
           show_best_selling: boolean
           show_categories: boolean
           show_hero: boolean
+          show_proofs: boolean
           show_suggested: boolean
           show_testimonials: boolean
           site_name: string
           site_tagline: string
           tiktok_pixel_id: string | null
+          tiktok_url: string | null
           tracking_enabled: boolean
           updated_at: string
           whatsapp: string | null
@@ -293,22 +350,38 @@ export type Database = {
           email?: string | null
           facebook_url?: string | null
           favicon_url?: string | null
+          fb_capi_access_token?: string | null
           fb_capi_enabled?: boolean
           fb_pixel_id?: string | null
           fb_test_event_code?: string | null
           font_family?: string
+          footer_about?: string | null
+          footer_bg_color?: string
+          footer_contact_title?: string
+          footer_copyright?: string | null
+          footer_links_title?: string
+          footer_text_color?: string
           ga_id?: string | null
           ga4_id?: string | null
           google_ads_conversion_label?: string | null
           google_ads_id?: string | null
           gtm_id?: string | null
+          header_bg_color?: string
+          header_show_search?: boolean
+          header_text_color?: string
+          hero_badge_text?: string
           hero_bg_from?: string
           hero_bg_style?: string
           hero_bg_to?: string
+          hero_customers_text?: string
+          hero_delivery_badge_text?: string
           hero_height_desktop?: number
           hero_height_mobile?: number
           hero_max_width?: number
           hero_offer_image_url?: string
+          hero_secondary_cta_link?: string
+          hero_secondary_cta_text?: string
+          hero_trust_text?: string
           id?: number
           instagram_url?: string | null
           logo_url?: string | null
@@ -316,20 +389,37 @@ export type Database = {
           meta_title?: string | null
           nagad_enabled?: boolean
           nagad_number?: string | null
+          og_description?: string | null
+          og_image_url?: string | null
+          payment_instructions?: string | null
           phone?: string | null
           primary_color?: string
           rocket_enabled?: boolean
           rocket_number?: string | null
+          sec_all_subtitle?: string
+          sec_all_title?: string
+          sec_best_subtitle?: string
+          sec_best_title?: string
+          sec_categories_subtitle?: string
+          sec_categories_title?: string
+          sec_proof_subtitle?: string
+          sec_proof_title?: string
+          sec_suggested_subtitle?: string
+          sec_suggested_title?: string
+          sec_testimonials_subtitle?: string
+          sec_testimonials_title?: string
           secondary_color?: string
           show_all_products?: boolean
           show_best_selling?: boolean
           show_categories?: boolean
           show_hero?: boolean
+          show_proofs?: boolean
           show_suggested?: boolean
           show_testimonials?: boolean
           site_name?: string
           site_tagline?: string
           tiktok_pixel_id?: string | null
+          tiktok_url?: string | null
           tracking_enabled?: boolean
           updated_at?: string
           whatsapp?: string | null
@@ -343,22 +433,38 @@ export type Database = {
           email?: string | null
           facebook_url?: string | null
           favicon_url?: string | null
+          fb_capi_access_token?: string | null
           fb_capi_enabled?: boolean
           fb_pixel_id?: string | null
           fb_test_event_code?: string | null
           font_family?: string
+          footer_about?: string | null
+          footer_bg_color?: string
+          footer_contact_title?: string
+          footer_copyright?: string | null
+          footer_links_title?: string
+          footer_text_color?: string
           ga_id?: string | null
           ga4_id?: string | null
           google_ads_conversion_label?: string | null
           google_ads_id?: string | null
           gtm_id?: string | null
+          header_bg_color?: string
+          header_show_search?: boolean
+          header_text_color?: string
+          hero_badge_text?: string
           hero_bg_from?: string
           hero_bg_style?: string
           hero_bg_to?: string
+          hero_customers_text?: string
+          hero_delivery_badge_text?: string
           hero_height_desktop?: number
           hero_height_mobile?: number
           hero_max_width?: number
           hero_offer_image_url?: string
+          hero_secondary_cta_link?: string
+          hero_secondary_cta_text?: string
+          hero_trust_text?: string
           id?: number
           instagram_url?: string | null
           logo_url?: string | null
@@ -366,20 +472,37 @@ export type Database = {
           meta_title?: string | null
           nagad_enabled?: boolean
           nagad_number?: string | null
+          og_description?: string | null
+          og_image_url?: string | null
+          payment_instructions?: string | null
           phone?: string | null
           primary_color?: string
           rocket_enabled?: boolean
           rocket_number?: string | null
+          sec_all_subtitle?: string
+          sec_all_title?: string
+          sec_best_subtitle?: string
+          sec_best_title?: string
+          sec_categories_subtitle?: string
+          sec_categories_title?: string
+          sec_proof_subtitle?: string
+          sec_proof_title?: string
+          sec_suggested_subtitle?: string
+          sec_suggested_title?: string
+          sec_testimonials_subtitle?: string
+          sec_testimonials_title?: string
           secondary_color?: string
           show_all_products?: boolean
           show_best_selling?: boolean
           show_categories?: boolean
           show_hero?: boolean
+          show_proofs?: boolean
           show_suggested?: boolean
           show_testimonials?: boolean
           site_name?: string
           site_tagline?: string
           tiktok_pixel_id?: string | null
+          tiktok_url?: string | null
           tracking_enabled?: boolean
           updated_at?: string
           whatsapp?: string | null
