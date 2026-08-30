@@ -21,39 +21,40 @@ const orderSchema = z.object({
 export const placeOrder = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => orderSchema.parse(data))
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { createClient } = await import("@supabase/supabase-js");
+    const url = process.env["SUPABASE_URL"] ?? process.env["VITE_SUPABASE_URL"];
+    const key =
+      process.env["SUPABASE_PUBLISHABLE_KEY"] ??
+      process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] ??
+      process.env["SUPABASE_ANON_KEY"];
+    if (!url || !key) throw new Error("Supabase configuration missing");
 
-    // Prices come from the database, never from the client.
-    const ids = [...new Set(data.items.map((i) => i.id))];
-    const { data: products, error: pErr } = await supabaseAdmin
-      .from("products")
-      .select("id,title,price,discount_price")
-      .in("id", ids);
-    if (pErr) throw new Error(pErr.message);
-
-    const items = data.items.map((i) => {
-      const p = products?.find((x) => x.id === i.id);
-      if (!p) throw new Error("প্রোডাক্ট পাওয়া যায়নি");
-      const price = Number(p.discount_price ?? p.price);
-      return { id: p.id, title: p.title, price, qty: i.qty };
+    const supabase = createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        fetch: (input: RequestInfo | URL, init?: RequestInit) => {
+          const h = new Headers(init?.headers);
+          if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) {
+            h.delete("Authorization");
+          }
+          h.set("apikey", key);
+          return fetch(input, { ...init, headers: h });
+        },
+      },
     });
-    const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-    const { data: order, error } = await supabaseAdmin
-      .from("orders")
-      .insert({
-        customer_name: data.customer_name,
-        email: data.email,
-        phone: data.phone,
-        payment_method: data.payment_method,
-        transaction_id: data.transaction_id,
-        sender_number: data.sender_number,
-        items,
-        total,
-      })
-      .select("order_no")
-      .single();
+    // Prices are recomputed inside the database function, never trusted from the client.
+    const { data: orderNo, error } = await supabase.rpc("place_order", {
+      p_customer_name: data.customer_name,
+      p_email: data.email,
+      p_phone: data.phone,
+      p_payment_method: data.payment_method,
+      p_transaction_id: data.transaction_id,
+      p_sender_number: data.sender_number,
+      p_items: data.items.map((i) => ({ id: i.id, qty: i.qty })),
+    });
     if (error) throw new Error(error.message);
 
-    return { order_no: Number(order.order_no) };
+    return { order_no: Number(orderNo) };
   });
+
