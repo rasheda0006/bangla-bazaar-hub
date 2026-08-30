@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { useCart } from "@/lib/cart";
 import { track } from "@/lib/tracking";
 import { useSettings } from "@/lib/data";
-import { placeOrder as submitOrder } from "@/lib/orders.functions";
+import { placeOrder as submitOrder } from "@/lib/orders";
 import { PAYMENT_METHODS, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
@@ -88,28 +88,27 @@ function CheckoutPage() {
     }
     setSaving(true);
     try {
-      const result = await submitOrder({
-        data: {
-          customer_name: form.customer_name.trim(),
-          email: form.email.trim(),
-          phone: form.phone.trim(),
-          payment_method: method as "bkash" | "nagad" | "rocket",
-          transaction_id: form.transaction_id.trim(),
-          sender_number: form.sender_number.trim(),
-          items: items.map((i) => ({ id: i.id, title: i.title, price: i.price, qty: i.qty })),
-        },
+      const orderNo = await submitOrder({
+        customer_name: form.customer_name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        payment_method: method as "bkash" | "nagad" | "rocket",
+        transaction_id: form.transaction_id.trim(),
+        sender_number: form.sender_number.trim(),
+        items: items.map((i) => ({ id: i.id, qty: i.qty })),
       });
       track("Purchase", {
         value: subtotal,
         contents: items.map((i) => ({ id: i.id, quantity: i.qty })),
         email: form.email.trim(),
         phone: form.phone.trim(),
-        extra: { transaction_id: String(result.order_no) },
+        extra: { transaction_id: String(orderNo) },
       });
       clear();
-      setDone(result.order_no);
-    } catch {
-      toast.error("অর্ডার সাবমিট করা যায়নি, আবার চেষ্টা করুন");
+      setDone(orderNo);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
+      toast.error(msg ? `অর্ডার সাবমিট হয়নি: ${msg}` : "অর্ডার সাবমিট করা যায়নি, আবার চেষ্টা করুন");
     } finally {
       setSaving(false);
     }
