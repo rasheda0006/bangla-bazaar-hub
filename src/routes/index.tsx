@@ -13,6 +13,7 @@ import {
   useCategories,
   useHeroSlides,
   useProducts,
+  useProofImages,
   useSettings,
   useTestimonials,
 } from "@/lib/data";
@@ -42,6 +43,7 @@ function Index() {
   const { data: categories = [], isLoading: catLoading } = useCategories();
   const { data: products = [], isLoading: prodLoading } = useProducts();
   const { data: testimonials = [], isLoading: testiLoading } = useTestimonials();
+  const { data: proofs = [] } = useProofImages();
 
   const activeSlides = slides.filter((s) => s.is_active);
   const bestSelling = products.filter((p) => p.is_best_selling);
@@ -61,12 +63,20 @@ function Index() {
           bgTo={settings?.hero_bg_to ?? "#7c3aed"}
           maxWidth={settings?.hero_max_width ?? 1180}
           offerImageUrl={settings?.hero_offer_image_url ?? null}
+          badgeText={settings?.hero_badge_text ?? "নতুন ডিজিটাল কালেকশন লাইভ"}
+          secondaryCtaText={settings?.hero_secondary_cta_text ?? "সব প্রোডাক্ট"}
+          trustText={settings?.hero_trust_text ?? "নিরাপদ পেমেন্ট"}
+          customersText={settings?.hero_customers_text ?? "১০,০০০+ গ্রাহক"}
+          deliveryBadgeText={settings?.hero_delivery_badge_text ?? "ইনস্ট্যান্ট ডেলিভারি"}
         />
       ) : null}
 
       {settings?.show_categories !== false ? (
         <section className="container-page py-10 sm:py-14">
-          <SectionHeading title="ক্যাটাগরি" subtitle="আপনার পছন্দের ক্যাটাগরি বেছে নিন" />
+          <SectionHeading
+            title={settings?.sec_categories_title ?? "ক্যাটাগরি"}
+            subtitle={settings?.sec_categories_subtitle ?? "আপনার পছন্দের ক্যাটাগরি বেছে নিন"}
+          />
           {catLoading ? (
             <div className="no-scrollbar flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-6">
               {Array.from({ length: 6 }).map((_, i) => (
@@ -120,8 +130,8 @@ function Index() {
       {settings?.show_best_selling !== false ? (
         <section className="container-page py-6 sm:py-10">
           <SectionHeading
-            title="বেস্ট সেলিং ডিজিটাল প্রোডাক্ট"
-            subtitle="সবচেয়ে বেশি বিক্রি হওয়া কোর্স, টুলস ও সাবস্ক্রিপশন"
+            title={settings?.sec_best_title ?? "বেস্ট সেলিং ডিজিটাল প্রোডাক্ট"}
+            subtitle={settings?.sec_best_subtitle ?? "সবচেয়ে বেশি বিক্রি হওয়া কোর্স, টুলস ও সাবস্ক্রিপশন"}
             action={
               <Button asChild variant="outline" size="sm" className="rounded-full">
                 <Link to="/shop">সব দেখুন</Link>
@@ -140,8 +150,8 @@ function Index() {
       {settings?.show_suggested !== false ? (
         <section className="container-page py-6 sm:py-10">
           <SectionHeading
-            title="আপনার জন্য সাজেস্টেড"
-            subtitle="আপনার পছন্দ হতে পারে এমন ডিজিটাল প্রোডাক্ট"
+            title={settings?.sec_suggested_title ?? "আপনার জন্য সাজেস্টেড"}
+            subtitle={settings?.sec_suggested_subtitle ?? "আপনার পছন্দ হতে পারে এমন ডিজিটাল প্রোডাক্ট"}
           />
           <ProductCarousel products={suggested} categories={categories} loading={prodLoading} />
         </section>
@@ -150,8 +160,8 @@ function Index() {
       {settings?.show_all_products !== false ? (
         <section className="container-page py-6 sm:py-10">
           <SectionHeading
-            title="সব ডিজিটাল প্রোডাক্ট"
-            subtitle="কোর্স, টুলস, সাবস্ক্রিপশন, ই-বুক ও টেমপ্লেট"
+            title={settings?.sec_all_title ?? "সব ডিজিটাল প্রোডাক্ট"}
+            subtitle={settings?.sec_all_subtitle ?? "কোর্স, টুলস, সাবস্ক্রিপশন, ই-বুক ও টেমপ্লেট"}
             action={
               <Button asChild variant="outline" size="sm" className="rounded-full">
                 <Link to="/shop">শপ পেজে যান</Link>
@@ -169,7 +179,10 @@ function Index() {
       {settings?.show_testimonials !== false ? (
         <section className="bg-secondary/40 py-12 sm:py-16">
           <div className="container-page">
-            <SectionHeading title="কাস্টমার রিভিউ" subtitle="আমাদের ক্রেতারা যা বলছেন" />
+            <SectionHeading
+              title={settings?.sec_testimonials_title ?? "কাস্টমার রিভিউ"}
+              subtitle={settings?.sec_testimonials_subtitle ?? "আমাদের ক্রেতারা যা বলছেন"}
+            />
             {testiLoading ? (
               <div className="grid gap-4 md:grid-cols-3">
                 {Array.from({ length: 3 }).map((_, i) => (
@@ -204,6 +217,37 @@ function Index() {
             ) : (
               <p className="text-center text-sm text-muted-foreground">এখনো কোনো রিভিউ নেই</p>
             )}
+          </div>
+        </section>
+      ) : null}
+      {settings?.show_proofs !== false && proofs.length ? (
+        <section className="container-page py-10 sm:py-14">
+          <SectionHeading
+            title={settings?.sec_proof_title ?? "অর্ডার প্রুফ"}
+            subtitle={settings?.sec_proof_subtitle ?? "আমাদের কাছ থেকে যারা অর্ডার করেছেন"}
+          />
+          <div className="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-2">
+            {proofs.map((p) => (
+              <figure
+                key={p.id}
+                className="w-[70%] shrink-0 snap-start overflow-hidden rounded-2xl border border-border bg-card shadow-soft sm:w-[45%] lg:w-[24%]"
+              >
+                <img
+                  src={cdnImage(p.image_url, 600)}
+                  alt={p.caption ?? "অর্ডার প্রুফ"}
+                  loading="lazy"
+                  decoding="async"
+                  width={600}
+                  height={600}
+                  className="aspect-square w-full object-cover"
+                />
+                {p.caption ? (
+                  <figcaption className="p-3 text-center text-xs text-muted-foreground">
+                    {p.caption}
+                  </figcaption>
+                ) : null}
+              </figure>
+            ))}
           </div>
         </section>
       ) : null}
