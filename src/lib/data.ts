@@ -311,6 +311,21 @@ export function useTestimonials() {
   });
 }
 
+export function useProofImages() {
+  return useQuery({
+    queryKey: ["proof_images"],
+    queryFn: async (): Promise<ProofImage[]> => {
+      const { data, error } = await db
+        .from("proof_images")
+        .select("*")
+        .order("sort_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as ProofImage[];
+    },
+  });
+}
+
+
 export function useOrders() {
   return useQuery({
     queryKey: ["orders"],
