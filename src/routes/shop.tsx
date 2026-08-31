@@ -19,11 +19,12 @@ import {
 import { useCategories, useProducts } from "@/lib/data";
 import { taka, toBn } from "@/lib/format";
 
-type ShopSearch = { category?: string | undefined };
+type ShopSearch = { category?: string | undefined; q?: string | undefined };
 
 export const Route = createFileRoute("/shop")({
   validateSearch: (search: Record<string, unknown>): ShopSearch => ({
     category: typeof search['category'] === "string" ? search['category'] : undefined,
+    q: typeof search['q'] === "string" ? search['q'] : undefined,
   }),
   head: () => ({
     meta: [
@@ -43,7 +44,7 @@ const PAGE_SIZE = 12;
 const MAX_PRICE = 10000;
 
 function ShopPage() {
-  const { category } = Route.useSearch();
+  const { category, q } = Route.useSearch();
   const navigate = useNavigate({ from: "/shop" });
   const { data: categories = [] } = useCategories();
   const { data: products = [], isLoading } = useProducts();
@@ -63,11 +64,17 @@ function ShopPage() {
 
   const filtered = useMemo(() => {
     const catIds = categories.filter((c) => selected.includes(c.slug)).map((c) => c.id);
+    const term = (q ?? "").trim().toLowerCase();
     const list = products.filter((p) => {
       const effective = Number(p.discount_price ?? p.price);
       const inPrice = effective >= (price[0] ?? 0) && effective <= (price[1] ?? MAX_PRICE);
       const inCat = catIds.length === 0 || (p.category_id && catIds.includes(p.category_id));
-      return inPrice && inCat;
+      const inTerm =
+        !term ||
+        String(p.title ?? "").toLowerCase().includes(term) ||
+        String(p.short_description ?? "").toLowerCase().includes(term) ||
+        String(p.description ?? "").toLowerCase().includes(term);
+      return inPrice && inCat && inTerm;
     });
     const sorted = [...list];
     if (sort === "price_asc")
@@ -80,7 +87,8 @@ function ShopPage() {
       );
     if (sort === "rating") sorted.sort((a, b) => Number(b.rating) - Number(a.rating));
     return sorted;
-  }, [products, categories, selected, price, sort]);
+  }, [products, categories, selected, price, sort, q]);
+
 
   const filters = (
     <div className="space-y-8">

@@ -20,6 +20,11 @@ export function HeroSlider({
   bgTo = "#7c3aed",
   maxWidth = 980,
   offerImageUrl,
+  badgeText = "নতুন ডিজিটাল কালেকশন লাইভ",
+  secondaryCtaText = "সব প্রোডাক্ট",
+  trustText = "নিরাপদ পেমেন্ট",
+  customersText = "১০,০০০+ গ্রাহক",
+  deliveryBadgeText = "ইনস্ট্যান্ট ডেলিভারি",
 }: {
   slides: HeroSlide[];
   products?: Product[];
@@ -31,6 +36,11 @@ export function HeroSlider({
   bgTo?: string;
   maxWidth?: number;
   offerImageUrl?: string | null;
+  badgeText?: string;
+  secondaryCtaText?: string;
+  trustText?: string;
+  customersText?: string;
+  deliveryBadgeText?: string;
 }) {
   const offerSrc = offerImageUrl?.trim() ? offerImageUrl : offerImage;
   const [index, setIndex] = useState(0);
@@ -95,7 +105,7 @@ export function HeroSlider({
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-hero-highlight opacity-70" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-hero-highlight" />
                 </span>
-                নতুন ডিজিটাল কালেকশন লাইভ
+                {badgeText}
               </div>
               {activeSlide.heading ? (
                 <h1 className="font-display text-2xl font-extrabold leading-[1.16] text-hero-foreground sm:text-4xl lg:text-5xl">
@@ -129,15 +139,15 @@ export function HeroSlider({
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="hidden h-11 border-hero-border bg-hero-surface-raised/55 px-6 text-hero-foreground hover:bg-hero-surface-raised hover:text-hero-foreground md:inline-flex">
-                  <Link to="/shop">সব প্রোডাক্ট</Link>
+                  <Link to="/shop">{secondaryCtaText}</Link>
                 </Button>
               </div>
 
               <div className="mt-4 hidden flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] text-hero-muted md:flex md:justify-start">
-                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-hero-highlight" />নিরাপদ পেমেন্ট</span>
+                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-hero-highlight" />{trustText}</span>
                 <span className="flex items-center gap-1">
                   {[0, 1, 2, 3, 4].map((n) => <Star key={n} className="h-3 w-3 fill-current text-hero-accent" />)}
-                  <strong className="ml-1 text-hero-foreground">১০,০০০+</strong> গ্রাহক
+                  <strong className="ml-1 text-hero-foreground">{customersText}</strong>
                 </span>
               </div>
 
@@ -147,7 +157,7 @@ export function HeroSlider({
               <div className="relative aspect-square w-[min(72vw,250px)] overflow-hidden rounded-lg border border-hero-border bg-hero-surface-raised shadow-lift md:w-[min(31vw,320px)]">
                 <img src={cdnImage(activeSlide.image_url, 700)} alt={activeSlide.heading ?? "ডিজিটাল প্রোডাক্ট অফার"} width={700} height={700} loading="eager" fetchPriority="high" decoding="async" className="h-full w-full object-cover" />
                 <div className="absolute bottom-3 left-3 hidden rounded-md bg-hero-surface/90 px-3 py-1.5 text-xs font-semibold text-hero-foreground backdrop-blur-sm md:block">
-                  ইনস্ট্যান্ট ডেলিভারি
+                  {deliveryBadgeText}
                 </div>
               </div>
             </div>

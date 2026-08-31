@@ -192,6 +192,11 @@ function CheckoutPage() {
 
               <section className="min-w-0 overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
                 <h2 className="font-display text-lg font-bold">পেমেন্ট মাধ্যম</h2>
+                {settings?.payment_instructions ? (
+                  <p className="mt-2 whitespace-pre-line rounded-xl bg-secondary/60 p-3 text-sm leading-relaxed text-muted-foreground">
+                    {settings.payment_instructions}
+                  </p>
+                ) : null}
                 <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
                   {enabled.map((m) => (
                     <button
