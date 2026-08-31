@@ -64,11 +64,17 @@ function ShopPage() {
 
   const filtered = useMemo(() => {
     const catIds = categories.filter((c) => selected.includes(c.slug)).map((c) => c.id);
+    const term = (q ?? "").trim().toLowerCase();
     const list = products.filter((p) => {
       const effective = Number(p.discount_price ?? p.price);
       const inPrice = effective >= (price[0] ?? 0) && effective <= (price[1] ?? MAX_PRICE);
       const inCat = catIds.length === 0 || (p.category_id && catIds.includes(p.category_id));
-      return inPrice && inCat;
+      const inTerm =
+        !term ||
+        String(p.title ?? "").toLowerCase().includes(term) ||
+        String(p.short_description ?? "").toLowerCase().includes(term) ||
+        String(p.description ?? "").toLowerCase().includes(term);
+      return inPrice && inCat && inTerm;
     });
     const sorted = [...list];
     if (sort === "price_asc")
@@ -81,7 +87,8 @@ function ShopPage() {
       );
     if (sort === "rating") sorted.sort((a, b) => Number(b.rating) - Number(a.rating));
     return sorted;
-  }, [products, categories, selected, price, sort]);
+  }, [products, categories, selected, price, sort, q]);
+
 
   const filters = (
     <div className="space-y-8">
