@@ -19,11 +19,12 @@ import {
 import { useCategories, useProducts } from "@/lib/data";
 import { taka, toBn } from "@/lib/format";
 
-type ShopSearch = { category?: string | undefined };
+type ShopSearch = { category?: string | undefined; q?: string | undefined };
 
 export const Route = createFileRoute("/shop")({
   validateSearch: (search: Record<string, unknown>): ShopSearch => ({
     category: typeof search['category'] === "string" ? search['category'] : undefined,
+    q: typeof search['q'] === "string" ? search['q'] : undefined,
   }),
   head: () => ({
     meta: [
@@ -43,7 +44,7 @@ const PAGE_SIZE = 12;
 const MAX_PRICE = 10000;
 
 function ShopPage() {
-  const { category } = Route.useSearch();
+  const { category, q } = Route.useSearch();
   const navigate = useNavigate({ from: "/shop" });
   const { data: categories = [] } = useCategories();
   const { data: products = [], isLoading } = useProducts();
