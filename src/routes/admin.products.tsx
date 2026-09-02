@@ -66,8 +66,22 @@ function AdminProducts() {
   const [form, setForm] = useState<Form>(EMPTY);
   const [busy, setBusy] = useState(false);
   const [q, setQ] = useState("");
+  const [sort, setSort] = useState("newest");
 
-  const list = products.filter((p) => p.title.toLowerCase().includes(q.toLowerCase()));
+  const list = products
+    .filter((p) => p.title.toLowerCase().includes(q.toLowerCase()))
+    .slice()
+    .sort((a, b) => {
+      const pa = Number(a.discount_price ?? a.price);
+      const pb = Number(b.discount_price ?? b.price);
+      if (sort === "price_asc") return pa - pb;
+      if (sort === "price_desc") return pb - pa;
+      if (sort === "title_asc") return a.title.localeCompare(b.title, "bn");
+      if (sort === "stock_asc") return a.stock - b.stock;
+      if (sort === "oldest")
+        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
 
   const edit = (p: Product) => {
     setForm({
@@ -146,12 +160,26 @@ function AdminProducts() {
       }
     >
       <AdminCard>
-        <Input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="প্রোডাক্টের নাম খুঁজুন"
-          className="max-w-sm"
-        />
+        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="প্রোডাক্টের নাম খুঁজুন"
+          />
+          <Select value={sort} onValueChange={setSort}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="newest">নতুন আগে</SelectItem>
+              <SelectItem value="oldest">পুরনো আগে</SelectItem>
+              <SelectItem value="price_asc">দাম: কম থেকে বেশি</SelectItem>
+              <SelectItem value="price_desc">দাম: বেশি থেকে কম</SelectItem>
+              <SelectItem value="title_asc">নাম (ক-হ)</SelectItem>
+              <SelectItem value="stock_asc">স্টক কম আগে</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[700px] text-sm">
             <thead>

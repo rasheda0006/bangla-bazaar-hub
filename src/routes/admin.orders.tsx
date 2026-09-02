@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { AdminCard, AdminPage } from "@/components/admin/AdminPage";
+import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -133,6 +134,10 @@ function AdminOrders() {
                     <Button variant="ghost" size="sm" onClick={() => setDetail(o)}>
                       বিস্তারিত
                     </Button>
+                    <ConfirmDelete
+                      itemName={`অর্ডার #${toBn(o.order_no)}`}
+                      onConfirm={() => void removeOrder(o.id)}
+                    />
                   </td>
                 </tr>
               ))}
