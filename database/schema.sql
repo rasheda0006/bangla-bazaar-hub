@@ -302,6 +302,26 @@ drop policy if exists "অ্যাডমিন টেস্টিমোনি�
 create policy "অ্যাডমিন টেস্টিমোনিয়াল ম্যানেজ করবে" on public.testimonials
   for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
+-- ============================================================== proof_images
+create table if not exists public.proof_images (
+  id uuid primary key default gen_random_uuid(),
+  image_url text not null,
+  caption text,
+  sort_order int not null default 0,
+  created_at timestamptz not null default now()
+);
+
+grant select on public.proof_images to anon, authenticated;
+grant insert, update, delete on public.proof_images to authenticated;
+grant all on public.proof_images to service_role;
+alter table public.proof_images enable row level security;
+
+drop policy if exists "প্রুফ ইমেজ সবাই দেখতে পারবে" on public.proof_images;
+create policy "প্রুফ ইমেজ সবাই দেখতে পারবে" on public.proof_images for select using (true);
+drop policy if exists "অ্যাডমিন প্রুফ ইমেজ ম্যানেজ করবে" on public.proof_images;
+create policy "অ্যাডমিন প্রুফ ইমেজ ম্যানেজ করবে" on public.proof_images
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
 -- =================================================================== reviews
 create table if not exists public.reviews (
   id uuid primary key default gen_random_uuid(),
