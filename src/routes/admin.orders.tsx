@@ -55,6 +55,16 @@ function AdminOrders() {
     }
   };
 
+  const removeOrder = async (id: string) => {
+    const { error } = await db.from("orders").delete().eq("id", id);
+    if (error) toast.error("অর্ডার মুছে ফেলা যায়নি");
+    else {
+      toast.success("অর্ডার মুছে ফেলা হয়েছে");
+      refresh(["orders"]);
+    }
+  };
+
+
   return (
     <AdminPage title="অর্ডার" description="সব অর্ডার দেখুন ও পেমেন্ট যাচাই করুন">
       <AdminCard>
