@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { CheckCircle2, Copy } from "lucide-react";
+import { CheckCircle2, Clock, Copy, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -43,6 +43,7 @@ function CheckoutPage() {
     transaction_id: "",
   });
   const [saving, setSaving] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(null);
   const [done, setDone] = useState<number | null>(null);
   const checkoutTracked = useRef(false);
 
@@ -87,6 +88,11 @@ function CheckoutPage() {
       return;
     }
     setSaving(true);
+    setCountdown(5);
+    const timer = window.setInterval(() => {
+      setCountdown((c) => (c === null ? null : Math.max(0, c - 1)));
+    }, 1000);
+    const wait = new Promise<void>((resolve) => window.setTimeout(resolve, 5000));
     try {
       const orderNo = await submitOrder({
         customer_name: form.customer_name.trim(),
@@ -104,12 +110,15 @@ function CheckoutPage() {
         phone: form.phone.trim(),
         extra: { transaction_id: String(orderNo) },
       });
+      await wait;
       clear();
       setDone(orderNo);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
       toast.error(msg ? `অর্ডার সাবমিট হয়নি: ${msg}` : "অর্ডার সাবমিট করা যায়নি, আবার চেষ্টা করুন");
     } finally {
+      window.clearInterval(timer);
+      setCountdown(null);
       setSaving(false);
     }
   };
@@ -121,9 +130,14 @@ function CheckoutPage() {
           <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-6 text-center shadow-lift sm:p-8">
             <CheckCircle2 className="mx-auto h-16 w-16 text-success" />
             <h1 className="mt-4 font-display text-2xl font-bold">অর্ডার সফল হয়েছে!</h1>
-            <p className="mt-2 text-sm text-muted-foreground">
-              আপনার অর্ডার নম্বর <span className="font-bold text-primary">#{toBn(done)}</span>। আমরা
-              পেমেন্ট যাচাই করে আপনার ইমেইলে ডিজিটাল প্রোডাক্টের অ্যাক্সেস/ডাউনলোড লিংক পাঠিয়ে দেবো।
+            <div className="mt-4 flex items-center justify-center gap-2 rounded-full bg-warning/10 px-4 py-2 text-sm font-bold text-warning-foreground">
+              <Clock className="h-4 w-4" />
+              পেমেন্ট ভেরিফিকেশন পেন্ডিং
+            </div>
+            <p className="mt-3 text-sm text-muted-foreground">
+              আপনার অর্ডার নম্বর <span className="font-bold text-primary">#{toBn(done)}</span>। আপনার
+              ট্রানজেকশন আইডি ও সেন্ডার নম্বর ম্যানুয়ালি যাচাই করা হচ্ছে। যাচাই সম্পন্ন হলে ইমেইলে
+              ডিজিটাল প্রোডাক্টের অ্যাক্সেস/ডাউনলোড লিংক পাঠিয়ে দেওয়া হবে।
             </p>
             <Button
               className="mt-6 rounded-full px-8"
@@ -139,6 +153,21 @@ function CheckoutPage() {
 
   return (
     <SiteLayout>
+      {countdown !== null ? (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/85 backdrop-blur-sm px-4">
+          <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 text-center shadow-lift">
+            <Loader2 className="mx-auto h-10 w-10 animate-spin text-primary" />
+            <h2 className="mt-4 font-display text-lg font-bold">পেমেন্ট যাচাই করা হচ্ছে…</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              আপনার ট্রানজেকশন আইডি ও সেন্ডার নম্বর মিলিয়ে দেখা হচ্ছে
+            </p>
+            <p className="mt-4 font-display text-4xl font-extrabold text-primary">
+              {toBn(countdown)}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">সেকেন্ড অপেক্ষা করুন</p>
+          </div>
+        </div>
+      ) : null}
       <div className="container-page py-6 sm:py-10">
         <h1 className="mb-6 text-center font-display text-2xl font-bold sm:mb-8 sm:text-4xl">চেকআউট</h1>
 
@@ -288,7 +317,7 @@ function CheckoutPage() {
                   disabled={saving}
                   className="mt-6 w-full rounded-full"
                 >
-                  {saving ? "অপেক্ষা করুন..." : "অর্ডার নিশ্চিত করুন"}
+                  {saving ? "যাচাই করা হচ্ছে..." : "অর্ডার নিশ্চিত করুন"}
                 </Button>
               </div>
             </aside>

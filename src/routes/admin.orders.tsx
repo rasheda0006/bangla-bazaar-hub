@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { AdminCard, AdminPage } from "@/components/admin/AdminPage";
+import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -54,6 +55,16 @@ function AdminOrders() {
       refresh(["orders"]);
     }
   };
+
+  const removeOrder = async (id: string) => {
+    const { error } = await db.from("orders").delete().eq("id", id);
+    if (error) toast.error("অর্ডার মুছে ফেলা যায়নি");
+    else {
+      toast.success("অর্ডার মুছে ফেলা হয়েছে");
+      refresh(["orders"]);
+    }
+  };
+
 
   return (
     <AdminPage title="অর্ডার" description="সব অর্ডার দেখুন ও পেমেন্ট যাচাই করুন">
@@ -123,6 +134,10 @@ function AdminOrders() {
                     <Button variant="ghost" size="sm" onClick={() => setDetail(o)}>
                       বিস্তারিত
                     </Button>
+                    <ConfirmDelete
+                      itemName={`অর্ডার #${toBn(o.order_no)}`}
+                      onConfirm={() => void removeOrder(o.id)}
+                    />
                   </td>
                 </tr>
               ))}
