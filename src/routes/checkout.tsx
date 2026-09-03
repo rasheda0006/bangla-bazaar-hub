@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/lib/cart";
 import { track } from "@/lib/tracking";
-import { useSettings } from "@/lib/data";
+import { useSettings, usePaymentMethods } from "@/lib/data";
 import { placeOrder as submitOrder } from "@/lib/orders";
 import { PAYMENT_METHODS, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -32,6 +32,7 @@ export const Route = createFileRoute("/checkout")({
 function CheckoutPage() {
   const { items, subtotal, clear } = useCart();
   const { data: settings } = useSettings();
+  const { data: payMethods = [] } = usePaymentMethods();
   const navigate = useNavigate();
 
   const [method, setMethod] = useState<string>("bkash");
@@ -56,19 +57,31 @@ function CheckoutPage() {
     });
   }, [items, subtotal]);
 
-  const enabled = PAYMENT_METHODS.filter((m) => {
-    if (!settings) return true;
-    if (m.value === "bkash") return settings.bkash_enabled;
-    if (m.value === "nagad") return settings.nagad_enabled;
-    return settings.rocket_enabled;
-  });
+  const enabled = (
+    payMethods.length
+      ? payMethods.filter((m) => m.is_active).map((m) => ({ value: m.code, label: m.label }))
+      : PAYMENT_METHODS.map((m) => ({ value: m.value, label: m.label }))
+  ) as { value: string; label: string }[];
 
+  useEffect(() => {
+    if (enabled.length && !enabled.some((m) => m.value === method)) {
+      setMethod(enabled[0]!.value);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [payMethods.length]);
+
+  const active = payMethods.find((m) => m.code === method);
   const payNumber =
-    method === "bkash"
+    active?.number ??
+    (method === "bkash"
       ? settings?.bkash_number
       : method === "nagad"
         ? settings?.nagad_number
-        : settings?.rocket_number;
+        : method === "rocket"
+          ? settings?.rocket_number
+          : null);
+  const instructions = active?.instructions || settings?.payment_instructions || "";
+
 
   const set = (key: keyof typeof form, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
