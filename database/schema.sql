@@ -322,6 +322,42 @@ drop policy if exists "অ্যাডমিন প্রুফ ইমেজ ম
 create policy "অ্যাডমিন প্রুফ ইমেজ ম্যানেজ করবে" on public.proof_images
   for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
+-- =========================================================== payment_methods
+create table if not exists public.payment_methods (
+  id uuid primary key default gen_random_uuid(),
+  code text not null unique,
+  label text not null,
+  number text,
+  instructions text,
+  color text not null default '#0f9d58',
+  sort_order int not null default 0,
+  is_active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+grant select on public.payment_methods to anon, authenticated;
+grant insert, update, delete on public.payment_methods to authenticated;
+grant all on public.payment_methods to service_role;
+alter table public.payment_methods enable row level security;
+
+drop policy if exists "পেমেন্ট মাধ্যম সবাই দেখতে পারবে" on public.payment_methods;
+create policy "পেমেন্ট মাধ্যম সবাই দেখতে পারবে" on public.payment_methods for select using (true);
+drop policy if exists "অ্যাডমিন পেমেন্ট মাধ্যম ম্যানেজ করবে" on public.payment_methods;
+create policy "অ্যাডমিন পেমেন্ট মাধ্যম ম্যানেজ করবে" on public.payment_methods
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+drop trigger if exists payment_methods_set_updated_at on public.payment_methods;
+create trigger payment_methods_set_updated_at before update on public.payment_methods
+  for each row execute function public.set_updated_at();
+
+insert into public.payment_methods (code, label, number, instructions, color, sort_order, is_active) values
+  ('bkash', 'বিকাশ', '01700000000', 'বিকাশ অ্যাপ থেকে সেন্ড মানি করুন, তারপর ট্রানজেকশন আইডি ও সেন্ডার নম্বর নিচে লিখুন।', '#e2136e', 1, true),
+  ('nagad', 'নগদ', '01700000000', 'নগদ অ্যাপ থেকে সেন্ড মানি করুন, তারপর ট্রানজেকশন আইডি ও সেন্ডার নম্বর নিচে লিখুন।', '#f6921e', 2, true),
+  ('rocket', 'রকেট', '01700000000', 'রকেট থেকে সেন্ড মানি করুন, তারপর ট্রানজেকশন আইডি ও সেন্ডার নম্বর নিচে লিখুন।', '#8c3494', 3, true)
+on conflict (code) do nothing;
+
+
 -- =================================================================== reviews
 create table if not exists public.reviews (
   id uuid primary key default gen_random_uuid(),
