@@ -164,6 +164,33 @@ export type ProofImage = {
   sort_order: number;
 };
 
+export type PaymentMethod = {
+  id: string;
+  code: string;
+  label: string;
+  number: string | null;
+  instructions: string | null;
+  color: string;
+  sort_order: number;
+  is_active: boolean;
+};
+
+export function usePaymentMethods() {
+  return useQuery({
+    queryKey: ["payment_methods"],
+    queryFn: async (): Promise<PaymentMethod[]> => {
+      const { data, error } = await db
+        .from("payment_methods")
+        .select("*")
+        .order("sort_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as PaymentMethod[];
+    },
+  });
+}
+
+
+
 
 const db = supabase as unknown as {
   from: (table: string) => any;
