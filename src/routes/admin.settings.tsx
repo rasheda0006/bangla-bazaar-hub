@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { AdminCard, AdminPage } from "@/components/admin/AdminPage";
 import { ImageField } from "@/components/admin/ImageField";
+import { PaymentMethodsTable } from "@/components/admin/PaymentMethodsTable";
 import {
   AreaField,
   ColorField,
@@ -122,23 +123,21 @@ function AdminSettings() {
 
         <TabsContent value="payment">
           <AdminCard className="mt-4">
+            <PaymentMethodsTable />
+          </AdminCard>
+          <AdminCard className="mt-4">
             <div className="grid gap-4 sm:grid-cols-2">
-              <TextField form={form} set={set} field="bkash_number" label="বিকাশ নম্বর" />
-              <ToggleField form={form} set={set} field="bkash_enabled" label="বিকাশ চালু" />
-              <TextField form={form} set={set} field="nagad_number" label="নগদ নম্বর" />
-              <ToggleField form={form} set={set} field="nagad_enabled" label="নগদ চালু" />
-              <TextField form={form} set={set} field="rocket_number" label="রকেট নম্বর" />
-              <ToggleField form={form} set={set} field="rocket_enabled" label="রকেট চালু" />
               <AreaField
                 form={form}
                 set={set}
                 field="payment_instructions"
-                label="পেমেন্ট নির্দেশনা (চেকআউট পেজে দেখাবে)"
+                label="সাধারণ পেমেন্ট নির্দেশনা (যে মাধ্যমে আলাদা নির্দেশনা নেই)"
                 rows={4}
               />
             </div>
           </AdminCard>
         </TabsContent>
+
 
         <TabsContent value="seo">
           <AdminCard className="mt-4">
