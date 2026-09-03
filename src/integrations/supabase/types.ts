@@ -128,6 +128,45 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_methods: {
+        Row: {
+          code: string
+          color: string
+          created_at: string
+          id: string
+          instructions: string | null
+          is_active: boolean
+          label: string
+          number: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          color?: string
+          created_at?: string
+          id?: string
+          instructions?: string | null
+          is_active?: boolean
+          label: string
+          number?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          color?: string
+          created_at?: string
+          id?: string
+          instructions?: string | null
+          is_active?: boolean
+          label?: string
+          number?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           category_id: string | null
