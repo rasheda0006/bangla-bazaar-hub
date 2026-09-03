@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRefresh } from "@/lib/admin";
-import { db, useOrders, type Order } from "@/lib/data";
+import { db, useOrders, usePaymentMethods, type Order } from "@/lib/data";
 import { ORDER_STATUS, PAYMENT_METHODS, bnDate, taka, toBn } from "@/lib/format";
 
 export const Route = createFileRoute("/admin/orders")({
@@ -31,6 +31,11 @@ const STATUSES = ["pending", "verified", "completed", "cancelled"] as const;
 
 function AdminOrders() {
   const { data: orders = [], isLoading } = useOrders();
+  const { data: payMethods = [] } = usePaymentMethods();
+  const methodLabel = (code: string) =>
+    payMethods.find((m) => m.code === code)?.label ??
+    PAYMENT_METHODS.find((p) => p.value === code)?.label ??
+    code;
   const refresh = useRefresh();
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState("all");
@@ -111,8 +116,7 @@ function AdminOrders() {
                   <td className="py-3">{o.customer_name}</td>
                   <td className="py-3">{toBn(o.phone)}</td>
                   <td className="py-3">
-                    {PAYMENT_METHODS.find((p) => p.value === o.payment_method)?.label ??
-                      o.payment_method}
+{methodLabel(o.payment_method)}
                   </td>
                   <td className="py-3 font-semibold">{taka(o.total)}</td>
                   <td className="py-3 text-muted-foreground">{bnDate(o.created_at)}</td>
@@ -163,10 +167,7 @@ function AdminOrders() {
               <Row label="ফোন" value={toBn(detail.phone)} />
               <Row
                 label="পেমেন্ট মাধ্যম"
-                value={
-                  PAYMENT_METHODS.find((p) => p.value === detail.payment_method)?.label ??
-                  detail.payment_method
-                }
+value={methodLabel(detail.payment_method)}
               />
               <Row label="সেন্ডার নম্বর" value={toBn(detail.sender_number)} />
               <Row label="ট্রানজেকশন আইডি" value={detail.transaction_id} />
