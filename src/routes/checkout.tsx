@@ -111,7 +111,7 @@ function CheckoutPage() {
         customer_name: form.customer_name.trim(),
         email: form.email.trim(),
         phone: form.phone.trim(),
-        payment_method: method as "bkash" | "nagad" | "rocket",
+        payment_method: method,
         transaction_id: form.transaction_id.trim(),
         sender_number: form.sender_number.trim(),
         items: items.map((i) => ({ id: i.id, qty: i.qty })),

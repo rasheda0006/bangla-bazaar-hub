@@ -4,7 +4,7 @@ export type OrderInput = {
   customer_name: string;
   email: string;
   phone: string;
-  payment_method: "bkash" | "nagad" | "rocket";
+  payment_method: string;
   transaction_id: string;
   sender_number: string;
   items: { id: string; qty: number }[];
