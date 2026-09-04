@@ -71,6 +71,8 @@ function CheckoutPage() {
   }, [payMethods.length]);
 
   const active = payMethods.find((m) => m.code === method);
+  const instructions = active?.instructions || settings?.payment_instructions || "";
+
 
   const set = (key: keyof typeof form, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
