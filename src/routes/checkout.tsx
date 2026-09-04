@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { CheckCircle2, Clock, Copy, Loader2 } from "lucide-react";
+import { CheckCircle2, Clock, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -71,15 +71,6 @@ function CheckoutPage() {
   }, [payMethods.length]);
 
   const active = payMethods.find((m) => m.code === method);
-  const payNumber =
-    active?.number ??
-    (method === "bkash"
-      ? settings?.bkash_number
-      : method === "nagad"
-        ? settings?.nagad_number
-        : method === "rocket"
-          ? settings?.rocket_number
-          : null);
   const instructions = active?.instructions || settings?.payment_instructions || "";
 
 
@@ -258,33 +249,7 @@ function CheckoutPage() {
                 ) : null}
 
 
-                <div className="mt-5 min-w-0 rounded-xl bg-secondary/60 p-3 text-sm sm:p-4">
-                  <p className="font-semibold">
-                    নিচের নম্বরে <span className="text-primary">{taka(subtotal)}</span> সেন্ড মানি
-                    করুন
-                  </p>
-                  <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-                    <span className="min-w-0 truncate font-display text-lg font-extrabold tracking-wide sm:text-xl">
-                      {toBn(payNumber ?? "—")}
-                    </span>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="shrink-0 gap-2 rounded-full"
-                      onClick={() => {
-                        void navigator.clipboard.writeText(payNumber ?? "");
-                        toast.success("নম্বর কপি হয়েছে");
-                      }}
-                    >
-                      <Copy className="h-3.5 w-3.5" />
-                      কপি
-                    </Button>
-                  </div>
-                  <p className="mt-2 break-words text-xs text-muted-foreground">
-                    সেন্ড মানি করার পর ট্রানজেকশন আইডি ও যে নম্বর থেকে পাঠিয়েছেন তা নিচে লিখুন।
-                  </p>
-                </div>
+
 
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <Field label="যে নম্বর থেকে পাঠিয়েছেন" required>
