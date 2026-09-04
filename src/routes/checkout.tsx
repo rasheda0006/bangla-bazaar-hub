@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { CheckCircle2, Clock, Copy, Loader2 } from "lucide-react";
+import { CheckCircle2, Clock, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -71,17 +71,6 @@ function CheckoutPage() {
   }, [payMethods.length]);
 
   const active = payMethods.find((m) => m.code === method);
-  const payNumber =
-    active?.number ??
-    (method === "bkash"
-      ? settings?.bkash_number
-      : method === "nagad"
-        ? settings?.nagad_number
-        : method === "rocket"
-          ? settings?.rocket_number
-          : null);
-  const instructions = active?.instructions || settings?.payment_instructions || "";
-
 
   const set = (key: keyof typeof form, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
