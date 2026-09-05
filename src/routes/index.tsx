@@ -5,6 +5,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { ProductGrid } from "@/components/site/ProductCard";
 import { ProductCarousel } from "@/components/site/ProductCarousel";
+import { CategoryCarousel } from "@/components/site/CategoryCarousel";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Stars } from "@/components/site/Stars";
 import { Button } from "@/components/ui/button";
