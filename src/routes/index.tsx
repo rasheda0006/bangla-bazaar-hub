@@ -88,13 +88,13 @@ function Index() {
             </div>
           ) : categories.length ? (
             <>
-            <div className="grid grid-cols-4 gap-3 md:grid-cols-6 md:gap-4">
-              {categories.map((c, i) => (
+            <div className="grid grid-cols-4 gap-3 md:hidden">
+              {categories.slice(0, 4).map((c) => (
                 <Link
                   key={c.id}
                   to="/shop"
                   search={{ category: c.slug }}
-                  className={`group text-center ${i > 3 ? "hidden md:block" : ""}`}
+                  className="group text-center"
                 >
                   <div className="aspect-square overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
                     <img
@@ -114,6 +114,9 @@ function Index() {
                   <p className="mt-2 truncate text-sm font-semibold">{c.name}</p>
                 </Link>
               ))}
+            </div>
+            <div className="hidden md:block">
+              <CategoryCarousel categories={categories} />
             </div>
             <div className="mt-5 flex justify-center md:hidden">
               <Button asChild variant="outline" className="rounded-full px-8">
