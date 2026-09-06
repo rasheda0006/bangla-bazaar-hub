@@ -14,7 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { useCart } from "@/lib/cart";
 import { track } from "@/lib/tracking";
 import { useCategories, useProduct, useProductReviews, useProducts } from "@/lib/data";
-import { discountPercent, bnDate, taka, toBn } from "@/lib/format";
+import { cdnImage, discountPercent, bnDate, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/product/$productId")({
@@ -119,8 +119,13 @@ function ProductPage() {
           <div>
             <div className="overflow-hidden rounded-2xl border border-border bg-muted shadow-soft">
               <img
-                src={images[active] ?? FALLBACK}
+                src={cdnImage(images[active] ?? FALLBACK, 800)}
                 alt={product.title}
+                width={800}
+                height={800}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="aspect-square w-full object-cover"
               />
             </div>
@@ -135,7 +140,7 @@ function ProductPage() {
                       i === active ? "border-primary" : "border-border opacity-70",
                     )}
                   >
-                    <img src={img} alt="" className="h-full w-full object-cover" />
+                    <img src={cdnImage(img, 160)} alt="" width={160} height={160} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -283,7 +288,9 @@ function ProductPage() {
                     >
                       <div className="flex min-w-0 items-center gap-3">
                         <img
-                          src={r.avatar_url ?? "https://i.pravatar.cc/150"}
+                          src={cdnImage(r.avatar_url ?? "https://i.pravatar.cc/150", 96)}
+                          loading="lazy"
+                          decoding="async"
                           alt={r.name}
                           className="h-10 w-10 shrink-0 rounded-full object-cover"
                         />

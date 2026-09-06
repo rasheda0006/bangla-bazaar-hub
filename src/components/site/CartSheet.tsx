@@ -5,7 +5,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useCart } from "@/lib/cart";
-import { taka, toBn } from "@/lib/format";
+import { cdnImage, taka, toBn } from "@/lib/format";
 
 type CartSheetValue = { open: boolean; setOpen: (v: boolean) => void; toggle: () => void };
 const CartSheetContext = createContext<CartSheetValue | null>(null);
@@ -61,7 +61,11 @@ function CartSheet() {
                   className="flex gap-3 rounded-xl border border-border bg-card p-2.5"
                 >
                   <img
-                    src={item.image ?? ""}
+                    src={cdnImage(item.image ?? "", 128)}
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                    decoding="async"
                     alt={item.title}
                     className="h-16 w-16 shrink-0 rounded-lg object-cover"
                   />

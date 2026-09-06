@@ -65,8 +65,15 @@ export function cdnImage(url: string | null | undefined, width = 600): string {
       u.searchParams.set("resize", "cover");
       return u.toString();
     }
+    if (u.protocol === "https:" && !u.hostname.endsWith("wsrv.nl")) {
+      // অন্য যেকোনো হোস্টের ইমেজ ফ্রি ইমেজ-CDN দিয়ে রিসাইজ + WebP করে দ্রুত সার্ভ করা হয়
+      return `https://wsrv.nl/?url=${encodeURIComponent(
+        `${u.host}${u.pathname}${u.search}`,
+      )}&w=${width}&q=72&output=webp&we&il`;
+    }
     return url;
   } catch {
     return url;
   }
 }
+

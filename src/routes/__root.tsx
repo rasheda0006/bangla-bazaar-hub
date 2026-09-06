@@ -88,6 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://wsrv.nl", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://i.ibb.co.com", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://images.unsplash.com", crossOrigin: "anonymous" },
       { rel: "dns-prefetch", href: "https://i.ibb.co.com" },
@@ -95,7 +96,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Baloo+Da+2:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Tiro+Bangla&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Baloo+Da+2:wght@600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],

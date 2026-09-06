@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Mail, MapPin, MessageCircle, Music2, Phone, Store, Youtube } from "lucide-react";
 
 import { useSettings } from "@/lib/data";
-import { toBn } from "@/lib/format";
+import { cdnImage, toBn } from "@/lib/format";
 
 const LINKS = [
   { to: "/", label: "হোম" },
@@ -33,7 +33,7 @@ export function Footer() {
       <div className="container-page grid gap-10 py-12 text-center md:grid-cols-3">
         <div className="flex flex-col items-center gap-3">
           {s?.logo_url ? (
-            <img src={s.logo_url} alt={s.site_name} className="h-14 w-14 rounded-2xl object-cover" />
+            <img src={cdnImage(s.logo_url, 112)} width={56} height={56} loading="lazy" decoding="async" alt={s.site_name} className="h-14 w-14 rounded-2xl object-cover" />
           ) : (
             <span className="grid h-14 w-14 place-items-center rounded-2xl bg-primary text-primary-foreground">
               <Store className="h-7 w-7" />
