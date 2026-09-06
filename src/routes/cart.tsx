@@ -50,7 +50,11 @@ function CartPage() {
                   className="grid grid-cols-[64px_minmax(0,1fr)_auto] items-center gap-4 rounded-2xl border border-border bg-card p-3 shadow-soft sm:grid-cols-[80px_minmax(0,1fr)_auto_auto]"
                 >
                   <img
-                    src={item.image ?? ""}
+                    src={cdnImage(item.image ?? "", 160)}
+                    width={80}
+                    height={80}
+                    loading="lazy"
+                    decoding="async"
                     alt={item.title}
                     className="h-16 w-16 shrink-0 rounded-xl object-cover sm:h-20 sm:w-20"
                   />

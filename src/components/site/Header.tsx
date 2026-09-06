@@ -45,7 +45,11 @@ export function Header() {
         <Link to="/" className="flex min-w-0 items-center gap-2">
           {settings?.logo_url ? (
             <img
-              src={settings.logo_url}
+              src={cdnImage(settings.logo_url, 96)}
+              width={36}
+              height={36}
+              loading="eager"
+              decoding="async"
               alt={settings.site_name}
               className="h-9 w-9 shrink-0 rounded-xl object-cover"
             />
