@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Mail, MapPin, MessageCircle, Music2, Phone, Store, Youtube } from "lucide-react";
 
 import { useSettings } from "@/lib/data";
-import { toBn } from "@/lib/format";
+import { cdnImage, toBn } from "@/lib/format";
 
 const LINKS = [
   { to: "/", label: "হোম" },

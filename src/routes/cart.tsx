@@ -4,7 +4,7 @@ import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart";
-import { taka, toBn } from "@/lib/format";
+import { cdnImage, taka, toBn } from "@/lib/format";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({

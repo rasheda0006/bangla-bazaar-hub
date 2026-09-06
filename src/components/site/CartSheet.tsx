@@ -5,7 +5,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useCart } from "@/lib/cart";
-import { taka, toBn } from "@/lib/format";
+import { cdnImage, taka, toBn } from "@/lib/format";
 
 type CartSheetValue = { open: boolean; setOpen: (v: boolean) => void; toggle: () => void };
 const CartSheetContext = createContext<CartSheetValue | null>(null);

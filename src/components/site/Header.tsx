@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCartSheet } from "./CartSheet";
 import { useCart } from "@/lib/cart";
-import { toBn } from "@/lib/format";
+import { cdnImage, toBn } from "@/lib/format";
 import { useSettings } from "@/lib/data";
 
 const NAV = [
