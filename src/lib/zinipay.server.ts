@@ -43,17 +43,24 @@ export async function verifyAndSyncOrder(valId: string): Promise<VerifyResult> {
   const status: VerifyResult["status"] =
     raw === "COMPLETED" ? "COMPLETED" : raw === "FAILED" ? "FAILED" : "PENDING";
 
-  const update: Record<string, unknown> = {
+  const update: {
+    payment_status: string;
+    invoice_id: string;
+    transaction_id?: string;
+    payment_method?: string;
+    status?: string;
+    paid_at?: string;
+  } = {
     payment_status: status.toLowerCase(),
     invoice_id: payload.invoice_id ?? valId,
   };
-  if (payload.transaction_id) update["transaction_id"] = payload.transaction_id;
-  if (payload.payment_method) update["payment_method"] = payload.payment_method;
+  if (payload.transaction_id) update.transaction_id = payload.transaction_id;
+  if (payload.payment_method) update.payment_method = payload.payment_method;
   if (status === "COMPLETED") {
-    update["status"] = "paid";
-    update["paid_at"] = new Date().toISOString();
+    update.status = "paid";
+    update.paid_at = new Date().toISOString();
   } else if (status === "FAILED") {
-    update["status"] = "cancelled";
+    update.status = "cancelled";
   }
 
   await supabaseAdmin.from("orders").update(update).eq("id", order.id);
