@@ -85,46 +85,64 @@ export type Database = {
           created_at: string
           customer_name: string
           email: string
+          gateway: string | null
           id: string
+          invoice_id: string | null
           items: Json
           order_no: number
+          paid_at: string | null
           payment_method: string
+          payment_status: string
+          payment_url: string | null
           phone: string
           sender_number: string
           status: string
           total: number
           transaction_id: string
           updated_at: string
+          val_id: string | null
         }
         Insert: {
           created_at?: string
           customer_name: string
           email: string
+          gateway?: string | null
           id?: string
+          invoice_id?: string | null
           items?: Json
           order_no?: number
+          paid_at?: string | null
           payment_method: string
+          payment_status?: string
+          payment_url?: string | null
           phone: string
-          sender_number: string
+          sender_number?: string
           status?: string
           total?: number
-          transaction_id: string
+          transaction_id?: string
           updated_at?: string
+          val_id?: string | null
         }
         Update: {
           created_at?: string
           customer_name?: string
           email?: string
+          gateway?: string | null
           id?: string
+          invoice_id?: string | null
           items?: Json
           order_no?: number
+          paid_at?: string | null
           payment_method?: string
+          payment_status?: string
+          payment_url?: string | null
           phone?: string
           sender_number?: string
           status?: string
           total?: number
           transaction_id?: string
           updated_at?: string
+          val_id?: string | null
         }
         Relationships: []
       }
