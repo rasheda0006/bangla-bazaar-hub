@@ -21,7 +21,10 @@ import { Route as AdminContentRouteImport } from './routes/admin.content'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as PaymentCancelRouteImport } from './routes/payment.cancel'
+import { Route as PaymentSuccessRouteImport } from './routes/payment.success'
 import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
+import { Route as ApiPublicZinipayWebhookRouteImport } from './routes/api.public.zinipay.webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -83,9 +86,24 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
+const PaymentCancelRoute = PaymentCancelRouteImport.update({
+  id: '/payment/cancel',
+  path: '/payment/cancel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentSuccessRoute = PaymentSuccessRouteImport.update({
+  id: '/payment/success',
+  path: '/payment/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductProductIdRoute = ProductProductIdRouteImport.update({
   id: '/product/$productId',
   path: '/product/$productId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicZinipayWebhookRoute = ApiPublicZinipayWebhookRouteImport.update({
+  id: '/api/public/zinipay/webhook',
+  path: '/api/public/zinipay/webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -101,8 +119,11 @@ export interface FileRoutesByFullPath {
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/payment/cancel': typeof PaymentCancelRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/product/$productId': typeof ProductProductIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/zinipay/webhook': typeof ApiPublicZinipayWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -115,8 +136,11 @@ export interface FileRoutesByTo {
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/payment/cancel': typeof PaymentCancelRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/product/$productId': typeof ProductProductIdRoute
   '/admin': typeof AdminIndexRoute
+  '/api/public/zinipay/webhook': typeof ApiPublicZinipayWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,8 +155,11 @@ export interface FileRoutesById {
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/payment/cancel': typeof PaymentCancelRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/product/$productId': typeof ProductProductIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/zinipay/webhook': typeof ApiPublicZinipayWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -148,8 +175,11 @@ export interface FileRouteTypes {
     | '/admin/orders'
     | '/admin/products'
     | '/admin/settings'
+    | '/payment/cancel'
+    | '/payment/success'
     | '/product/$productId'
     | '/admin/'
+    | '/api/public/zinipay/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -162,8 +192,11 @@ export interface FileRouteTypes {
     | '/admin/orders'
     | '/admin/products'
     | '/admin/settings'
+    | '/payment/cancel'
+    | '/payment/success'
     | '/product/$productId'
     | '/admin'
+    | '/api/public/zinipay/webhook'
   id:
     | '__root__'
     | '/'
@@ -177,8 +210,11 @@ export interface FileRouteTypes {
     | '/admin/orders'
     | '/admin/products'
     | '/admin/settings'
+    | '/payment/cancel'
+    | '/payment/success'
     | '/product/$productId'
     | '/admin/'
+    | '/api/public/zinipay/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -188,7 +224,10 @@ export interface RootRouteChildren {
   CategoriesRoute: typeof CategoriesRoute
   CheckoutRoute: typeof CheckoutRoute
   ShopRoute: typeof ShopRoute
+  PaymentCancelRoute: typeof PaymentCancelRoute
+  PaymentSuccessRoute: typeof PaymentSuccessRoute
   ProductProductIdRoute: typeof ProductProductIdRoute
+  ApiPublicZinipayWebhookRoute: typeof ApiPublicZinipayWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -277,11 +316,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/payment/cancel': {
+      id: '/payment/cancel'
+      path: '/payment/cancel'
+      fullPath: '/payment/cancel'
+      preLoaderRoute: typeof PaymentCancelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment/success': {
+      id: '/payment/success'
+      path: '/payment/success'
+      fullPath: '/payment/success'
+      preLoaderRoute: typeof PaymentSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product/$productId': {
       id: '/product/$productId'
       path: '/product/$productId'
       fullPath: '/product/$productId'
       preLoaderRoute: typeof ProductProductIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/zinipay/webhook': {
+      id: '/api/public/zinipay/webhook'
+      path: '/api/public/zinipay/webhook'
+      fullPath: '/api/public/zinipay/webhook'
+      preLoaderRoute: typeof ApiPublicZinipayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -314,7 +374,10 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesRoute: CategoriesRoute,
   CheckoutRoute: CheckoutRoute,
   ShopRoute: ShopRoute,
+  PaymentCancelRoute: PaymentCancelRoute,
+  PaymentSuccessRoute: PaymentSuccessRoute,
   ProductProductIdRoute: ProductProductIdRoute,
+  ApiPublicZinipayWebhookRoute: ApiPublicZinipayWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { CheckCircle2, Clock, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -13,6 +14,7 @@ import { useSettings, usePaymentMethods } from "@/lib/data";
 import { placeOrder as submitOrder } from "@/lib/orders";
 import { PAYMENT_METHODS, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { createZiniPayInvoice } from "@/lib/zinipay.functions";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -34,6 +36,7 @@ function CheckoutPage() {
   const { data: settings } = useSettings();
   const { data: payMethods = [] } = usePaymentMethods();
   const navigate = useNavigate();
+  const startOnlinePayment = useServerFn(createZiniPayInvoice);
 
   const [method, setMethod] = useState<string>("bkash");
   const [form, setForm] = useState({
@@ -71,7 +74,8 @@ function CheckoutPage() {
   }, [payMethods.length]);
 
   const active = payMethods.find((m) => m.code === method);
-  const instructions = active?.instructions || settings?.payment_instructions || "";
+  const isOnline = method === "zinipay";
+  const instructions = active?.instructions || (isOnline ? "" : settings?.payment_instructions || "");
 
 
   const set = (key: keyof typeof form, value: string) =>
@@ -85,6 +89,30 @@ function CheckoutPage() {
     }
     if (!/^01[3-9]\d{8}$/.test(form.phone.trim())) {
       toast.error("সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন");
+      return;
+    }
+    if (isOnline) {
+      setSaving(true);
+      try {
+        track("InitiateCheckout", {
+          value: subtotal,
+          contents: items.map((i) => ({ id: i.id, quantity: i.qty })),
+        });
+        const res = await startOnlinePayment({
+          data: {
+            customer_name: form.customer_name.trim(),
+            email: form.email.trim(),
+            phone: form.phone.trim(),
+            items: items.map((i) => ({ id: i.id, qty: i.qty })),
+            origin: window.location.origin,
+          },
+        });
+        window.location.href = res.payment_url;
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "";
+        toast.error(msg || "পেমেন্ট শুরু করা যায়নি, আবার চেষ্টা করুন");
+        setSaving(false);
+      }
       return;
     }
     if (form.transaction_id.trim().length < 4) {
@@ -251,6 +279,12 @@ function CheckoutPage() {
 
 
 
+                {isOnline ? (
+                  <p className="mt-4 rounded-xl bg-secondary/60 p-3 text-sm leading-relaxed text-muted-foreground">
+                    "পেমেন্ট করুন" চাপলে নিরাপদ ZiniPay পেজে যাবেন। বিকাশ, নগদ, রকেট বা কার্ড দিয়ে
+                    পেমেন্ট করলে অর্ডার স্বয়ংক্রিয়ভাবে নিশ্চিত হয়ে যাবে।
+                  </p>
+                ) : (
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <Field label="যে নম্বর থেকে পাঠিয়েছেন" required>
                     <Input
@@ -270,6 +304,7 @@ function CheckoutPage() {
                     />
                   </Field>
                 </div>
+                )
               </section>
             </div>
 
@@ -296,7 +331,13 @@ function CheckoutPage() {
                   disabled={saving}
                   className="mt-6 w-full rounded-full"
                 >
-                  {saving ? "যাচাই করা হচ্ছে..." : "অর্ডার নিশ্চিত করুন"}
+                  {saving
+                    ? isOnline
+                      ? "পেমেন্ট পেজে নেওয়া হচ্ছে..."
+                      : "যাচাই করা হচ্ছে..."
+                    : isOnline
+                      ? "পেমেন্ট করুন"
+                      : "অর্ডার নিশ্চিত করুন"}
                 </Button>
               </div>
             </aside>
