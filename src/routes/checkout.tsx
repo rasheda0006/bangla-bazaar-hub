@@ -71,7 +71,8 @@ function CheckoutPage() {
   }, [payMethods.length]);
 
   const active = payMethods.find((m) => m.code === method);
-  const instructions = active?.instructions || settings?.payment_instructions || "";
+  const isOnline = method === "zinipay";
+  const instructions = active?.instructions || (isOnline ? "" : settings?.payment_instructions || "");
 
 
   const set = (key: keyof typeof form, value: string) =>
@@ -85,6 +86,30 @@ function CheckoutPage() {
     }
     if (!/^01[3-9]\d{8}$/.test(form.phone.trim())) {
       toast.error("সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন");
+      return;
+    }
+    if (isOnline) {
+      setSaving(true);
+      try {
+        track("InitiateCheckout", {
+          value: subtotal,
+          contents: items.map((i) => ({ id: i.id, quantity: i.qty })),
+        });
+        const res = await startOnlinePayment({
+          data: {
+            customer_name: form.customer_name.trim(),
+            email: form.email.trim(),
+            phone: form.phone.trim(),
+            items: items.map((i) => ({ id: i.id, qty: i.qty })),
+            origin: window.location.origin,
+          },
+        });
+        window.location.href = res.payment_url;
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "";
+        toast.error(msg || "পেমেন্ট শুরু করা যায়নি, আবার চেষ্টা করুন");
+        setSaving(false);
+      }
       return;
     }
     if (form.transaction_id.trim().length < 4) {
