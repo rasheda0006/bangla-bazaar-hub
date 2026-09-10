@@ -304,7 +304,7 @@ function CheckoutPage() {
                     />
                   </Field>
                 </div>
-                )
+                )}
               </section>
             </div>
 
