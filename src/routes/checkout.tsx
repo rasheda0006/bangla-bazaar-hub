@@ -1,6 +1,15 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowLeft, CheckCircle2, Clock, Copy, Loader2, X } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Copy,
+  Loader2,
+  ShieldCheck,
+  X,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -298,131 +307,148 @@ function CheckoutPage() {
       </div>
 
       <Dialog open={open} onOpenChange={(v) => !saving && setOpen(v)}>
-        <DialogContent
-          className="max-w-md gap-0 overflow-hidden rounded-2xl border-none bg-secondary/40 p-0 [&>button]:hidden"
-        >
-          <div className="flex items-center justify-between rounded-b-2xl bg-card px-4 py-3 shadow-soft">
+        <DialogContent className="max-w-[26rem] gap-0 overflow-hidden rounded-3xl border border-border/60 bg-card p-0 shadow-lift [&>button]:hidden">
+          <div className="relative flex items-center justify-between border-b border-border/60 bg-gradient-to-b from-secondary/60 to-card px-4 py-3">
             <button
               type="button"
               aria-label="পেছনে"
               onClick={() => (method ? setMethod(null) : setOpen(false))}
-              className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-secondary"
+              className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
-              <ArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-4.5 w-4.5" />
             </button>
-            <span className="font-display text-sm font-bold">পেমেন্ট</span>
+            <div className="text-center">
+              <p className="font-display text-sm font-bold leading-tight">
+                {method ? active?.label || "পেমেন্ট" : "পেমেন্ট মাধ্যম"}
+              </p>
+              <p className="text-[11px] leading-tight text-muted-foreground">
+                {settings?.site_name || "নিরাপদ পেমেন্ট"}
+              </p>
+            </div>
             <button
               type="button"
               aria-label="বন্ধ"
               onClick={() => setOpen(false)}
-              className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-secondary"
+              className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4.5 w-4.5" />
             </button>
           </div>
 
+          <div className="flex items-center justify-between border-b border-border/60 bg-primary/5 px-5 py-3">
+            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              পরিশোধযোগ্য
+            </span>
+            <span className="font-display text-xl font-extrabold text-primary">{taka(subtotal)}</span>
+          </div>
+
           {!method ? (
-            <div className="px-4 pb-5 pt-4">
-              <div className="text-center">
-                <p className="font-display text-lg font-bold">{settings?.site_name || "পেমেন্ট"}</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  পেমেন্ট মাধ্যম বেছে নিন
-                </p>
-              </div>
-              <div className="mt-4 rounded-xl bg-primary px-4 py-3 text-center font-bold text-primary-foreground">
-                মোবাইল ব্যাংকিং ও অনলাইন
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="px-5 pb-6 pt-4">
+              <p className="text-xs text-muted-foreground">
+                আপনার পছন্দের মাধ্যম বেছে নিন
+              </p>
+              <div className="mt-3 space-y-2">
                 {enabled.map((m) => (
                   <button
                     key={m.value}
                     type="button"
                     disabled={saving}
                     onClick={() => selectMethod(m.value)}
-                    className="flex h-20 items-center justify-center rounded-xl border border-border bg-card px-3 text-center text-sm font-bold shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift disabled:opacity-60"
-                    style={m.color ? { color: m.color } : undefined}
+                    className="group flex w-full items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-left transition-all hover:border-primary/50 hover:bg-secondary/40 disabled:opacity-60"
                   >
+                    <span
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-extrabold text-primary-foreground"
+                      style={{ backgroundColor: m.color || "hsl(var(--primary))" }}
+                    >
+                      {m.label.trim().charAt(0)}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-bold">{m.label}</span>
+                      <span className="block truncate text-[11px] text-muted-foreground">
+                        {m.value === "zinipay" ? "অনলাইন পেমেন্ট · তাৎক্ষণিক" : "মোবাইল ব্যাংকিং · ম্যানুয়াল যাচাই"}
+                      </span>
+                    </span>
                     {m.value === "zinipay" && saving ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <Loader2 className="h-4 w-4 animate-spin text-primary" />
                     ) : (
-                      m.label
+                      <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                     )}
                   </button>
                 ))}
               </div>
-              <div className="mt-4 rounded-xl bg-primary/10 py-3 text-center font-display text-lg font-extrabold text-primary">
-                পরিশোধ {taka(subtotal)}
-              </div>
+              <p className="mt-4 flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
+                <ShieldCheck className="h-3.5 w-3.5 text-success" /> আপনার তথ্য সুরক্ষিত
+              </p>
             </div>
           ) : isOnline ? (
-            <div className="px-6 py-10 text-center">
+            <div className="px-6 py-12 text-center">
               <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
               <p className="mt-3 text-sm text-muted-foreground">
                 নিরাপদ ZiniPay পেমেন্ট পেজে নেওয়া হচ্ছে…
               </p>
             </div>
           ) : (
-            <div className="px-4 pb-5 pt-4">
-              <div className="flex items-center justify-between rounded-xl bg-card px-4 py-3 shadow-soft">
-                <span className="font-display text-base font-bold" style={{ color: accent }}>
-                  {active?.label || method}
-                </span>
-                <span className="font-display text-lg font-extrabold">{taka(subtotal)}</span>
-              </div>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                নোটঃ টাকা পাঠানোর ৫-১০ সেকেন্ড পর ভেরিফাই করবেন।
-              </p>
+            <div className="px-5 pb-6 pt-4">
+              {active?.number ? (
+                <div
+                  className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-primary-foreground"
+                  style={{ backgroundColor: accent }}
+                >
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-semibold uppercase opacity-85">এই নম্বরে সেন্ড মানি করুন</p>
+                    <p className="truncate font-display text-lg font-extrabold">{active.number}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void navigator.clipboard.writeText(active.number || "");
+                      toast.success("নম্বর কপি হয়েছে");
+                    }}
+                    className="flex shrink-0 items-center gap-1 rounded-lg bg-white/20 px-2.5 py-1.5 text-xs font-bold backdrop-blur"
+                  >
+                    <Copy className="h-3.5 w-3.5" /> কপি
+                  </button>
+                </div>
+              ) : null}
 
-              <div
-                className="mt-3 rounded-2xl p-4 text-primary-foreground"
-                style={{ backgroundColor: accent }}
-              >
-                <p className="text-center font-display text-sm font-bold">
-                  ট্রানজেকশন আইডি দিন
-                </p>
+              {instructions ? (
+                <div className="mt-3 whitespace-pre-line rounded-2xl border border-border bg-secondary/40 p-3 text-xs leading-relaxed text-muted-foreground">
+                  {instructions}
+                </div>
+              ) : null}
+
+              <div className="mt-4 space-y-2.5">
+                <Label className="text-xs font-semibold text-muted-foreground">
+                  ট্রানজেকশন আইডি
+                </Label>
                 <Input
                   value={form.transaction_id}
                   onChange={(e) => set("transaction_id", e.target.value)}
-                  placeholder="ট্রানজেকশন আইডি দিন"
-                  className="mt-3 border-none bg-card text-center text-foreground"
+                  placeholder="যেমন: 9F2KD8A1"
+                  className="rounded-xl"
                 />
+                <Label className="text-xs font-semibold text-muted-foreground">
+                  যে নম্বর থেকে পাঠিয়েছেন
+                </Label>
                 <Input
                   inputMode="numeric"
                   value={form.sender_number}
                   onChange={(e) => set("sender_number", e.target.value)}
-                  placeholder="যে নম্বর থেকে পাঠিয়েছেন"
-                  className="mt-2 border-none bg-card text-center text-foreground"
+                  placeholder="01XXXXXXXXX"
+                  className="rounded-xl"
                 />
-
-                {active?.number ? (
-                  <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-white/15 px-3 py-2 text-sm">
-                    <span className="font-bold">{active.number}</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        void navigator.clipboard.writeText(active.number || "");
-                        toast.success("নম্বর কপি হয়েছে");
-                      }}
-                      className="flex items-center gap-1 rounded-md bg-foreground/20 px-2 py-1 text-xs font-bold"
-                    >
-                      <Copy className="h-3.5 w-3.5" /> কপি
-                    </button>
-                  </div>
-                ) : null}
-
-                {instructions ? (
-                  <div className="mt-3 whitespace-pre-line border-t border-white/25 pt-3 text-xs leading-relaxed opacity-95">
-                    {instructions}
-                  </div>
-                ) : null}
               </div>
+
+              <p className="mt-3 text-center text-[11px] text-muted-foreground">
+                টাকা পাঠানোর ৫-১০ সেকেন্ড পর ভেরিফাই করুন
+              </p>
 
               <Button
                 type="button"
                 size="lg"
                 disabled={saving}
                 onClick={() => void verifyManual()}
-                className={cn("mt-4 w-full rounded-xl font-bold")}
+                className={cn("mt-3 w-full rounded-xl font-bold text-primary-foreground")}
                 style={{ backgroundColor: accent }}
               >
                 {saving ? "যাচাই করা হচ্ছে…" : "ভেরিফাই ট্রানজেকশন"}
