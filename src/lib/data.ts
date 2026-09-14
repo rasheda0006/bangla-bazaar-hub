@@ -184,7 +184,7 @@ export function usePaymentMethods() {
         .select("*")
         .order("sort_order", { ascending: true });
       if (error) throw error;
-      return (data ?? []) as PaymentMethod[];
+      return ((data ?? []) as PaymentMethod[]).filter((m) => m.code !== "zinipay");
     },
   });
 }

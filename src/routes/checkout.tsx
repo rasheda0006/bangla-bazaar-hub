@@ -1,5 +1,4 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowLeft,
   CheckCircle2,
@@ -22,9 +21,8 @@ import { useCart } from "@/lib/cart";
 import { track } from "@/lib/tracking";
 import { useSettings, usePaymentMethods } from "@/lib/data";
 import { placeOrder as submitOrder } from "@/lib/orders";
-import { PAYMENT_METHODS, taka, toBn } from "@/lib/format";
+import { PAYMENT_METHODS, cdnImage, taka, toBn } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { createZiniPayInvoice } from "@/lib/zinipay.functions";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -48,7 +46,6 @@ function CheckoutPage() {
   const { data: settings } = useSettings();
   const { data: payMethods = [] } = usePaymentMethods();
   const navigate = useNavigate();
-  const startOnlinePayment = useServerFn(createZiniPayInvoice);
 
   const [form, setForm] = useState({
     customer_name: "",
@@ -75,13 +72,12 @@ function CheckoutPage() {
 
   const enabled: MethodOption[] = payMethods.length
     ? payMethods
-        .filter((m) => m.is_active)
+        .filter((m) => m.is_active && m.code !== "zinipay")
         .map((m) => ({ value: m.code, label: m.label, color: m.color }))
     : PAYMENT_METHODS.map((m) => ({ value: m.value, label: m.label }));
 
   const active = payMethods.find((m) => m.code === method);
-  const isOnline = method === "zinipay";
-  const instructions = active?.instructions || (isOnline ? "" : settings?.payment_instructions || "");
+  const instructions = active?.instructions || settings?.payment_instructions || "";
   const accent = active?.color || "hsl(var(--primary))";
 
   const set = (key: keyof typeof form, value: string) =>
@@ -108,33 +104,8 @@ function CheckoutPage() {
     setOpen(true);
   };
 
-  const runOnlinePayment = async () => {
-    setSaving(true);
-    try {
-      track("InitiateCheckout", {
-        value: subtotal,
-        contents: items.map((i) => ({ id: i.id, quantity: i.qty })),
-      });
-      const res = await startOnlinePayment({
-        data: {
-          customer_name: form.customer_name.trim(),
-          email: form.email.trim(),
-          phone: form.phone.trim(),
-          items: items.map((i) => ({ id: i.id, qty: i.qty })),
-          origin: window.location.origin,
-        },
-      });
-      window.location.href = res.payment_url;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "";
-      toast.error(msg || "পেমেন্ট শুরু করা যায়নি, আবার চেষ্টা করুন");
-      setSaving(false);
-    }
-  };
-
   const selectMethod = (code: string) => {
     setMethod(code);
-    if (code === "zinipay") void runOnlinePayment();
   };
 
   const verifyManual = async () => {
@@ -242,8 +213,8 @@ function CheckoutPage() {
             </Button>
           </div>
         ) : (
-          <div className="mx-auto min-w-0 max-w-2xl">
-            <section className="min-w-0 overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start">
+            <section className="order-2 min-w-0 overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6 lg:order-1">
               <h2 className="font-display text-lg font-bold">আপনার তথ্য</h2>
               <p className="mt-1 break-words text-xs text-muted-foreground">
                 সব প্রোডাক্ট ডিজিটাল — কোনো ঠিকানা লাগবে না, অ্যাক্সেস ইমেইলে পাঠানো হবে।
@@ -273,35 +244,84 @@ function CheckoutPage() {
                   />
                 </Field>
               </div>
-
-              <div className="mt-6 border-t border-border pt-5">
-                <h3 className="font-display text-base font-bold">অর্ডার সামারি</h3>
-                <ul className="mt-3 space-y-2">
-                  {items.map((i) => (
-                    <li key={i.id} className="flex gap-3 text-sm">
-                      <span className="min-w-0 flex-1 truncate">
-                        {i.title} × {toBn(i.qty)}
-                      </span>
-                      <span className="shrink-0 font-semibold">{taka(i.price * i.qty)}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-3 flex justify-between border-t border-border pt-3">
-                  <span className="font-bold">সর্বমোট</span>
-                  <span className="font-display font-extrabold text-primary">{taka(subtotal)}</span>
-                </div>
-              </div>
-
               <Button
                 type="button"
                 size="lg"
                 disabled={saving}
                 onClick={openPayment}
-                className="mt-6 w-full rounded-full"
+                className="mt-6 hidden w-full rounded-full lg:inline-flex"
               >
                 পেমেন্ট করুন · {taka(subtotal)}
               </Button>
             </section>
+
+            <aside className="order-1 lg:sticky lg:top-24 lg:order-2">
+              <section className="overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6">
+                <h2 className="font-display text-lg font-bold">অর্ডার সামারি</h2>
+                <ul className="mt-4 space-y-3">
+                  {items.map((item) => (
+                    <li
+                      key={item.id}
+                      className="flex gap-3 rounded-xl border border-border bg-muted/30 p-2.5"
+                    >
+                      <Link
+                        to="/product/$productId"
+                        params={{ productId: item.id }}
+                        className="shrink-0"
+                      >
+                        <img
+                          src={cdnImage(item.image ?? "", 160)}
+                          width={72}
+                          height={72}
+                          loading="lazy"
+                          decoding="async"
+                          alt={item.title}
+                          className="h-16 w-16 rounded-lg object-cover sm:h-[72px] sm:w-[72px]"
+                        />
+                      </Link>
+                      <div className="min-w-0 flex-1">
+                        <Link
+                          to="/product/$productId"
+                          params={{ productId: item.id }}
+                          className="line-clamp-2-safe text-sm font-semibold hover:text-primary"
+                        >
+                          {item.title}
+                        </Link>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {taka(item.price)} × {toBn(item.qty)}
+                        </p>
+                        <p className="mt-1 text-sm font-bold text-primary">
+                          {taka(item.price * item.qty)}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <dl className="mt-4 space-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">সাবটোটাল</dt>
+                    <dd className="font-semibold">{taka(subtotal)}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">ডিজিটাল ডেলিভারি</dt>
+                    <dd className="font-semibold text-success">ইনস্ট্যান্ট • ফ্রি</dd>
+                  </div>
+                  <div className="flex justify-between border-t border-border pt-3 text-base">
+                    <dt className="font-bold">সর্বমোট</dt>
+                    <dd className="font-display font-extrabold text-primary">{taka(subtotal)}</dd>
+                  </div>
+                </dl>
+                <Button
+                  type="button"
+                  size="lg"
+                  disabled={saving}
+                  onClick={openPayment}
+                  className="mt-6 w-full rounded-full lg:hidden"
+                >
+                  পেমেন্ট করুন · {taka(subtotal)}
+                </Button>
+              </section>
+            </aside>
           </div>
         )}
       </div>
@@ -365,26 +385,15 @@ function CheckoutPage() {
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-bold">{m.label}</span>
                       <span className="block truncate text-[11px] text-muted-foreground">
-                        {m.value === "zinipay" ? "অনলাইন পেমেন্ট · তাৎক্ষণিক" : "মোবাইল ব্যাংকিং · ম্যানুয়াল যাচাই"}
+                        মোবাইল ব্যাংকিং · ম্যানুয়াল যাচাই
                       </span>
                     </span>
-                    {m.value === "zinipay" && saving ? (
-                      <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-                    )}
+                    <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                   </button>
                 ))}
               </div>
               <p className="mt-4 flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
                 <ShieldCheck className="h-3.5 w-3.5 text-success" /> আপনার তথ্য সুরক্ষিত
-              </p>
-            </div>
-          ) : isOnline ? (
-            <div className="px-6 py-12 text-center">
-              <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
-              <p className="mt-3 text-sm text-muted-foreground">
-                নিরাপদ ZiniPay পেমেন্ট পেজে নেওয়া হচ্ছে…
               </p>
             </div>
           ) : (
