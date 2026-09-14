@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ChevronLeft, ChevronRight, ShieldCheck, Star } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
-import offerImage from "@/assets/hero-offer.jpg";
 import { cdnImage } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,8 +17,6 @@ export function HeroSlider({
   bgStyle = "gradient",
   bgFrom = "#4c1d95",
   bgTo = "#7c3aed",
-  maxWidth = 980,
-  offerImageUrl,
   badgeText = "নতুন ডিজিটাল কালেকশন লাইভ",
   secondaryCtaText = "সব প্রোডাক্ট",
   trustText = "নিরাপদ পেমেন্ট",
@@ -34,15 +31,12 @@ export function HeroSlider({
   bgStyle?: string;
   bgFrom?: string;
   bgTo?: string;
-  maxWidth?: number;
-  offerImageUrl?: string | null;
   badgeText?: string;
   secondaryCtaText?: string;
   trustText?: string;
   customersText?: string;
   deliveryBadgeText?: string;
 }) {
-  const offerSrc = offerImageUrl?.trim() ? offerImageUrl : offerImage;
   const [index, setIndex] = useState(0);
   const total = slides.length;
   const highlights = products.slice(0, 2);
@@ -51,7 +45,6 @@ export function HeroSlider({
   const sectionStyle = {
     "--hero-h": `${heightMobile}px`,
     "--hero-h-lg": `${heightDesktop}px`,
-    "--hero-w": `${maxWidth}px`,
     "--hero-from": bgFrom,
     "--hero-to": bgTo,
   } as React.CSSProperties;
@@ -69,7 +62,7 @@ export function HeroSlider({
     return (
       <section style={sectionStyle} className="bg-hero-surface py-4 sm:py-6">
         <div className="container-page">
-          <div className="mx-auto grid min-h-[var(--hero-h)] w-full max-w-[var(--hero-w)] items-center gap-6 md:min-h-[var(--hero-h-lg)] md:grid-cols-2">
+          <div className="grid min-h-[var(--hero-h)] w-full items-center gap-6 md:min-h-[var(--hero-h-lg)] md:grid-cols-2">
             <div className="space-y-3">
               <Skeleton className="h-8 w-4/5 bg-hero-border" />
               <Skeleton className="h-4 w-full bg-hero-border" />
@@ -86,10 +79,6 @@ export function HeroSlider({
   return (
     <section className="bg-hero-surface py-3 sm:py-5">
       <div className="container-page">
-        <div
-          style={sectionStyle}
-          className="grid w-full gap-4 lg:grid-cols-[minmax(0,1fr)_clamp(220px,26%,340px)]"
-        >
         <div
           style={sectionStyle}
           className={cn(
@@ -179,19 +168,6 @@ export function HeroSlider({
 
             </>
           ) : null}
-        </div>
-
-        <aside className="hidden overflow-hidden rounded-xl border border-hero-border shadow-lift lg:block">
-          <img
-            src={cdnImage(offerSrc, 700)}
-            alt="বিশেষ অফার"
-            loading="eager"
-            decoding="async"
-            width={640}
-            height={900}
-            className="h-full min-h-[var(--hero-h-lg)] w-full object-cover"
-          />
-        </aside>
         </div>
       </div>
     </section>

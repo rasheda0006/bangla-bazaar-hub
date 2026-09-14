@@ -62,8 +62,6 @@ function Index() {
           bgStyle={settings?.hero_bg_style ?? "gradient"}
           bgFrom={settings?.hero_bg_from ?? "#4c1d95"}
           bgTo={settings?.hero_bg_to ?? "#7c3aed"}
-          maxWidth={settings?.hero_max_width ?? 1180}
-          offerImageUrl={settings?.hero_offer_image_url ?? null}
           badgeText={settings?.hero_badge_text ?? "নতুন ডিজিটাল কালেকশন লাইভ"}
           secondaryCtaText={settings?.hero_secondary_cta_text ?? "সব প্রোডাক্ট"}
           trustText={settings?.hero_trust_text ?? "নিরাপদ পেমেন্ট"}

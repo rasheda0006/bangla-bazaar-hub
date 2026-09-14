@@ -362,7 +362,6 @@ function DesignTab() {
           </div>
           <ColorField form={form} set={set} field="hero_bg_from" label="ব্যাকগ্রাউন্ড কালার ১" fallback="#e9f7ef" />
           <ColorField form={form} set={set} field="hero_bg_to" label="ব্যাকগ্রাউন্ড কালার ২ (গ্রেডিয়েন্ট)" />
-          <TextField form={form} set={set} field="hero_offer_image_url" label="পাশের অফার ইমেজ (URL)" placeholder="https://..." />
         </FieldGroup>
 
         <FieldGroup title="হিরো টেক্সট">
